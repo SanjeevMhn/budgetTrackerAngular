@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'tailwindcss';
+
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+
+.wrapper{
+  display: grid;
+  grid-template-columns: 1fr min(90%,40rem) 1fr;
+  > * {
+    grid-column: 2;
+  }
+}
