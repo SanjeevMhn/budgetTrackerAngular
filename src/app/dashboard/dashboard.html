@@ -1,37 +1,131 @@
-<section class="dashboard-container h-full flex flex-col gap-[2rem]">
-  <div class="wrapper isolate p-[1.5rem_0] flex flex-col gap-[1.5rem] relative after:content-[''] after:w-full after:h-[65%] after:absolute after:rounded-b-[4rem] after:bg-amber-300 after:z-[-1]">
-    <div class="top-section flex items-center z-[2]">
+<section class="dashboard-container h-full flex flex-col gap-[2.5rem]">
+  <div
+    class="wrapper isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[65%] after:absolute after:rounded-b-[4rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
+  >
+    <div class="top-section flex items-center z-[2] p-[2rem] pb-[1.5rem]">
       <div class="user-profile flex items-center gap-[1rem]">
-        <span class="img-container w-[3.5rem] h-[3.5rem] rounded-full bg-red-300"></span>
+        <span
+          class="img-container w-[3.5rem] h-[3.5rem] rounded-full bg-red-300"
+        ></span>
         <span class="user-fill text-[2rem] text-white font-bold">John Doe</span>
       </div>
-      <div class="utils ml-auto flex items-center gap-[1rem] z-[3]">
-        <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
-          <lucide-icon [img]="searchIcon" class="w-full h-full text-white"></lucide-icon>
+      <div class="utils ml-auto flex items-center gap-[1.5rem] z-[3]">
+        <button
+          type="button"
+          class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+        >
+          <lucide-icon
+            [img]="searchIcon"
+            class="w-full h-full text-white"
+          ></lucide-icon>
         </button>
-        <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
-          <lucide-icon [img]="bellIcon" class="w-full h-full text-white"></lucide-icon>
+        <button
+          type="button"
+          class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+        >
+          <lucide-icon
+            [img]="bellIcon"
+            class="w-full h-full text-white"
+          ></lucide-icon>
         </button>
-        <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
-          <lucide-icon [img]="dotsIcon" class="w-full h-full text-white"></lucide-icon>
+        <button
+          type="button"
+          class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+        >
+          <lucide-icon
+            [img]="dotsIcon"
+            class="w-full h-full text-white"
+          ></lucide-icon>
         </button>
       </div>
     </div>
-    <div class="card-section p-[1.5rem] bg-white rounded-lg flex items-center justify-center min-h-[15rem]">
-      <h2 class="text-[2.2rem]">Card Data</h2>
+    <div
+      class="card-section p-[2rem] bg-[#2F7E79] text-white rounded-2xl grid grid-cols-2 gap-[2.5rem] shadow-2xl"
+    >
+      <div class="balance flex gap-[1rem] row-1 col-1">
+        <span
+          class="icon-container w-[2.5rem] h-[2.5rem] flex items-center justify-center col-1 row-1"
+        >
+          <lucide-angular
+            [img]="walletIcon"
+            class="w-full h-full"
+          ></lucide-angular>
+        </span>
+        <span class="balance-data flex flex-col gap-[0.5rem]">
+          <span
+            class="total-balance col-2 row-1 leading-[1] font-semibold text-[2.2rem]"
+            >Rs. 2500</span
+          >
+          <span class="label-text col-2 row-2 leading-[1] text-[1.4rem]"
+            >Balance</span
+          >
+        </span>
+      </div>
+
+      <button
+        class="icon-container row-1 col-2 w-[2.8rem] h-[2.8rem] flex justify-self-end items-center justify-center"
+      >
+        <lucide-angular
+          [img]="refreshIcon"
+          class="w-full h-full"
+        ></lucide-angular>
+      </button>
+
+      <div
+        class="total-income col-1 row-2 grid grid-cols-[1.5rem_1fr] gap-[0.5rem]"
+      >
+        <span
+          class="icon-container flex justify-center items-center my-auto w-[1.5rem] h-[1.5rem] col-1 row-1"
+        >
+          <lucide-angular
+            [img]="circleArrowDownIcon"
+            class="w-full h-full"
+          ></lucide-angular>
+        </span>
+        <span class="label-text text-[1.4rem] row-1 col-2">Income</span>
+        <h2
+          class="income text-[2rem] font-semibold col-[1/span_2] row-2 leading-[1.1]"
+        >
+          Rs 3200
+        </h2>
+      </div>
+      <div
+        class="total-expenses col-2 row-2 grid grid-cols-[1.5rem_1fr] gap-[0.5rem] justify-self-end"
+      >
+        <span
+          class="icon-container flex justify-center items-center my-auto w-[1.5rem] h-[1.5rem] col-1 row-1"
+        >
+          <lucide-angular
+            [img]="circleArrowUpIcon"
+            class="w-full h-full"
+          ></lucide-angular>
+        </span>
+        <span class="label-text text-[1.4rem] row-1 col-2">Expenses</span>
+        <h2
+          class="income text-[2rem] font-semibold col-[1/span_2] row-2 leading-[1.1] justify-self-end"
+        >
+          Rs 250
+        </h2>
+      </div>
     </div>
   </div>
 
   <div class="wrapper">
-
     <div class="card-section bg-white rounded-lg min-h-[15rem]">
-      <div class="header flex items-center justify-between p-[1.2rem] ">
-      <h2 class="header-text text-[1.8rem] text-amber-400 font-semibold">Categories</h2>
-      <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
-        <lucide-icon [img]="addIcon" class="w-full h-full text-amber-400"></lucide-icon>
-      </button>
+      <div class="header flex items-center justify-between p-[1.2rem]">
+        <h2 class="header-text text-[1.8rem] text-amber-400 font-semibold">
+          Categories
+        </h2>
+        <button
+          type="button"
+          class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+        >
+          <lucide-icon
+            [img]="addIcon"
+            class="w-full h-full text-amber-400"
+          ></lucide-icon>
+        </button>
       </div>
     </div>
   </div>
-
 </section>
