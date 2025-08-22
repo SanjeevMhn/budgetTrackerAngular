@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LucideAngularModule,  House, Banknote, NotebookPen, User } from 'lucide-angular';
+import { BottomNav } from "../../bottom-nav/bottom-nav";
 
 @Component({
   selector: 'app-base-layout',
-  imports: [RouterOutlet, LucideAngularModule ],
+  imports: [RouterOutlet, BottomNav],
   templateUrl: './base-layout.html',
   styleUrl: './base-layout.scss'
 })
 export class BaseLayout {
-
-  homeIcon = House
-  moneyIcon = Banknote
-  notesIcon = NotebookPen
-  userIcon = User
 }
