@@ -18,12 +18,14 @@ body {
 }
 
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  .fab-left {
-    box-shadow: 0 -55px 0 0 #e5e5e5;
-  }
-  .fab-right {
-    box-shadow: 0 -55px 0 0 #e5e5e5;
+  .link-btn {
+    &.active {
+      lucide-icon {
+        svg {
+          stroke: #438883 !important;
+          stroke-width: 2.5px;
+        }
+      }
+    }
   }
 }

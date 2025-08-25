@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Dashboard } from './dashboard/dashboard';
 import { BaseLayout } from './layouts/base-layout/base-layout';
+import { Statistics } from './statistics/statistics';
 
 export const routes: Routes = [
   {
@@ -8,6 +9,7 @@ export const routes: Routes = [
     component: BaseLayout,
     children: [
       { path: 'home', component: Dashboard },
+      { path: 'statistics', component: Statistics },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }

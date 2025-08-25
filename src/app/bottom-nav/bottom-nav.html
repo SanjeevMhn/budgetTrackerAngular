@@ -1,27 +1,33 @@
-<nav class="w-full wrapper bottom-nav bg-white">
-  <div class="inner grid grid-cols-[1fr_8rem_1fr]">
-    <div
+<nav class="w-full wrapper bottom-nav bg-white shadow-2xl">
+  <!-- <div class="inner grid grid-cols-[1fr_8rem_1fr] w-"> -->
+  <div class="inner-list py-[1.5rem] flex items-center justify-between">
+    <!-- <div
       class="fab-left h-[8rem] flex items-center justify-between p-[0_3rem_0_2rem] bg-white rounded-tr-[4rem]"
+    > -->
+    <a
+      class="link-btn w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+      routerLink="/home"
+      routerLinkActive="active"
     >
-      <button
-        type="button"
-        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
-      >
-        <lucide-icon [img]="homeIcon" class="w-full h-full"></lucide-icon>
-      </button>
-      <button
-        type="button"
-        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
-      >
-        <lucide-icon [img]="moneyIcon" class="w-full h-full"></lucide-icon>
-      </button>
-    </div>
+      <lucide-icon [img]="homeIcon" class="w-full h-full"></lucide-icon>
+    </a>
+    <a
+      routerLink="/statistics"
+      class="link-btn w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+      routerLinkActive="active"
+    >
+      <lucide-icon [img]="barIcon" class="w-full h-full"></lucide-icon>
+    </a>
+    <!-- </div> -->
     <div
-      class="fab-center relative h-[65%] w-[9.5rem] bg-neutral-200 rounded-b-[5rem] justify-self-center"
+      class="fab-center relative bg-neutral-200 rounded-b-[5rem] justify-self-center h-full"
+      [class]="this.currentRoute.url !== '/home' ? 'invisible pointer-events-none' : ''"
     >
       <button
         type="button"
-        class="w-[8rem] h-[8rem] rounded-full bg-[#438883] shadow-2xl shadow-[#1F615C] absolute left-[50%] translate-x-[-50%] nav-button flex items-center justify-center bottom-[calc(100%-calc(8rem/2))]"
+        [class]="showMenu() ? 'menu' : ''"
+        class="nav-btn w-[8rem] h-[8rem] rounded-full bg-[#438883] shadow-2xl shadow-[#1F615C] absolute left-[50%] translate-x-[-50%] nav-button flex items-center justify-center top-[calc(-100%-calc(8rem/2))] cursor-pointer"
+        (click)="toggleShowMenu()"
       >
         <svg
           class="w-1/2 h-1/2 fill-white"
@@ -33,22 +39,37 @@
           />
         </svg>
       </button>
+      <ul
+        class="menu-list text-white top-[-18rem] absolute left-[50%] translate-x-[-50%] min-w-[15rem] shadow-lg isolate"
+        [class]="showMenu() ? 'show' : 'hidden'"
+      >
+        <li
+          class="item bg-[#438883] text-[1.7rem] p-[8px_10px] text-center border-b border-green-200 cursor-pointer"
+        >
+          Add Expense
+        </li>
+        <li
+          class="item bg-[#438883] text-[1.7rem] p-[8px_10px] text-center cursor-pointer"
+        >
+          Add Incone
+        </li>
+      </ul>
     </div>
-    <div
+    <!-- <div
       class="fab-right h-[8rem] flex items-center justify-between p-[0_2rem_0_3rem] bg-white rounded-tl-[4rem]"
+    > -->
+    <a
+      routerLink="/"
+      class="link-btn w-[2.5rem] h-[2.5rem] flex items-center justify-center"
     >
-      <button
-        type="button"
-        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
-      >
-        <lucide-icon [img]="notesIcon" class="w-full h-full"></lucide-icon>
-      </button>
-      <button
-        type="button"
-        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
-      >
-        <lucide-icon [img]="userIcon" class="w-full h-full"></lucide-icon>
-      </button>
-    </div>
+      <lucide-icon [img]="walletIcon" class="w-full h-full"></lucide-icon>
+    </a>
+    <a
+      routerLink="/"
+      class="link-btn w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+    >
+      <lucide-icon [img]="userIcon" class="w-full h-full"></lucide-icon>
+    </a>
+    <!-- </div> -->
   </div>
 </nav>

@@ -1,0 +1,42 @@
+<section class="statistic-container h-full">
+  <div class="wrapper pt-[3.5rem] flex flex-col gap-[2rem]">
+    <div class="top-section flex items-center justify-between">
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"
+      >
+        <lucide-angular
+          [img]="backButtonIcon"
+          class="w-full h-full"
+        ></lucide-angular>
+      </button>
+      <h2 class="title-text text-[2rem]">Statistics</h2>
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+      >
+        <lucide-angular [img]="downloadIcon"></lucide-angular>
+      </button>
+    </div>
+    <ul class="tab-list flex items-center justify-between gap-[1rem] flex-wrap">
+      @for(tab of tabList(); track tab.id){
+      <li class="tab">
+        <button
+          class="flex items-center justify-center rounded-xl p-[5px_10px] min-w-[9rem] cursor-pointer"
+          [class]="tab.active ? 'bg-[#438883] text-white' : 'text-neutral-700'"
+          type="button"
+          (click)="toggleActiveTab(tab.id)"
+        >
+          {{tab.name}}
+        </button>
+      </li>
+      }
+    </ul>
+
+    <div class="chart-container p-[1.5rem] rounded-xl bg-white shadow-md">
+        <canvas class="w-full" #chart>
+
+        </canvas>
+    </div>
+  </div>
+</section>
