@@ -1,6 +1,6 @@
 <section class="dashboard-container h-full flex flex-col gap-[2.5rem]">
   <div
-    class="wrapper isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[28%] after:absolute after:rounded-b-[4rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
+    class="wrapper isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[20rem] after:absolute after:rounded-b-[4rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
   >
     <div class="top-section flex items-center z-[2] p-[2rem] pb-[1.5rem]">
       <div class="user-profile flex items-center gap-[1rem]">
@@ -110,20 +110,20 @@
     </div>
 
     <div
-      class="card-section p-[1.5rem] bg-white rounded-2xl min-h-[15rem] flex flex-col gap-[2rem]"
+      class="card-section p-[2rem] bg-white rounded-2xl min-h-[15rem] flex flex-col gap-[2rem]"
     >
       <div class="header flex items-center justify-between">
-        <h2 class="header-text text-[2rem] font-semibold">
+        <h2 class="header-text text-[1.7rem] font-medium">
           Transactions History
         </h2>
-        <span class="see-all text-[1.6rem] text-neutral-500">See All</span>
+        <span class="see-all text-[1.4rem] text-neutral-500">See All</span>
       </div>
       <ul class="transactions flex flex-col gap-[0.5rem]">
         @for(transaction of transactions; track transaction.id){
         <li
           class="tran-item grid grid-cols-2 gap-[0.8rem] p-[1.5rem] rounded-xl"
         >
-          <h2 class="name text-[1.8rem] font-medium row-1 col-1 leading-[1.1]">
+          <h2 class="name text-[1.6rem] font-medium row-1 col-1 leading-[1.1]">
             {{transaction.name}}
           </h2>
           <span
@@ -131,7 +131,7 @@
             >{{transaction.date}}</span
           >
           <p
-            class="amount text-[2.2rem] col-2 row-[1/span_2] leading-[1.1] flex items-center justify-end"
+            class="amount text-[1.8rem] col-2 row-[1/span_2] leading-[1.1] flex items-center justify-end"
             [class]="transaction.type == 'expense' ? 'text-red-600' : 'text-green-600'"
           >
             {{transaction.type == 'expense' ? '-' : '+'}} Rs.

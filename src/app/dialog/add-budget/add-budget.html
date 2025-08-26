@@ -13,14 +13,7 @@
           class="w-full h-full"
         ></lucide-angular>
       </button>
-      <h2 class="title-text text-[2rem]">
-        Add 
-        @if(data.type == 'expense'){
-            Expense
-        }@else{
-            Income
-        }
-      </h2>
+      <h2 class="title-text text-[2rem]">Add Budget</h2>
       <button
         type="button"
         class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
@@ -30,14 +23,13 @@
     </div>
     <form class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl">
       <div class="form-group">
-        <label for="name" class="form-label">Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          class="form-control"
-          placeholder="Name"
-        />
+        <label for="name" class="form-label">Budget Duration</label>
+        <select name="name" id="name" class="form-control" placeholder="Name">
+          <option value="">Select Duration</option>
+          <option value="">Day</option>
+          <option value="">Week</option>
+          <option value="">Month</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="amount" class="form-label">Amount</label>
@@ -50,7 +42,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="date" class="form-label">Date</label>
+        <label for="date" class="form-label">Start Date</label>
         <input type="date" name="date" id="date" class="form-control" />
       </div>
       <div class="form-actions">

@@ -9,8 +9,9 @@ import {
   User,
   Wallet,
 } from 'lucide-angular';
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog';
 import { AddTransaction } from '../dialog/add-transaction/add-transaction';
+import { AddBudget } from '../dialog/add-budget/add-budget';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -23,30 +24,36 @@ export class BottomNav {
   moneyIcon = Banknote;
   notesIcon = NotebookPen;
   userIcon = User;
-  barIcon = ChartColumn
-  walletIcon = Wallet
+  barIcon = ChartColumn;
+  walletIcon = Wallet;
 
-  showMenu = signal<boolean>(false)
+  showMenu = signal<boolean>(false);
 
-  currentRoute = inject(Router)
-  dialog = inject(MatDialog)
+  currentRoute = inject(Router);
+  dialog = inject(MatDialog);
 
-  
-
-  toggleShowMenu(){
-    this.showMenu.set(!this.showMenu())
+  toggleShowMenu() {
+    this.showMenu.set(!this.showMenu());
   }
 
-  openDialog(type: 'expense' | 'income'){
-    this.toggleShowMenu()
-    this.dialog.open(AddTransaction,{
+  openDialog(type: 'expense' | 'income') {
+    this.toggleShowMenu();
+    this.dialog.open(AddTransaction, {
       height: '100vh',
       width: '100vw',
       panelClass: 'transaction-dialog',
-      data:{
-        type: type
-      }
-    })
+      data: {
+        type: type,
+      },
+    });
   }
 
+  openBudgetDialog() {
+    this.toggleShowMenu();
+    this.dialog.open(AddBudget, {
+      height: '100vh',
+      width: '100vw',
+      panelClass: 'transaction-dialog',
+    });
+  }
 }

@@ -47,20 +47,20 @@
       <canvas class="w-full" #chart></canvas>
     </div>
     <div
-      class="card-section p-[1.5rem] bg-white rounded-2xl min-h-[15rem] flex flex-col gap-[2rem] shadow-md"
+      class="card-section p-[2rem] bg-white rounded-2xl min-h-[15rem] flex flex-col gap-[2rem] shadow-md"
     >
       <div class="header flex items-center justify-between">
-        <h2 class="header-text text-[2rem] font-semibold">
+        <h2 class="header-text text-[1.7rem] font-medium">
           Top Spendings / Income
         </h2>
-        <span class="see-all text-[1.6rem] text-neutral-500">See All</span>
+        <span class="see-all text-[1.4rem] text-neutral-500">See All</span>
       </div>
       <ul class="transactions flex flex-col gap-[0.5rem]">
         @for(transaction of transactions; track transaction.id){
         <li
           class="tran-item grid grid-cols-2 gap-[0.8rem] p-[1.5rem] rounded-xl"
         >
-          <h2 class="name text-[1.8rem] font-medium row-1 col-1 leading-[1.1]">
+          <h2 class="name text-[1.6rem] font-medium row-1 col-1 leading-[1.1]">
             {{transaction.name}}
           </h2>
           <span
@@ -68,7 +68,7 @@
             >{{transaction.date}}</span
           >
           <p
-            class="amount text-[2rem] col-2 row-[1/span_2] leading-[1.1] flex items-center justify-end"
+            class="amount text-[1.8rem] col-2 row-[1/span_2] leading-[1.1] flex items-center justify-end"
             [class]="transaction.type == 'expense' ? 'text-red-600' : 'text-green-600'"
           >
             {{transaction.type == 'expense' ? '-' : '+'}} Rs.
