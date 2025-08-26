@@ -21,7 +21,7 @@
     <!-- </div> -->
     <div
       class="fab-center relative bg-neutral-200 rounded-b-[5rem] justify-self-center h-full"
-      [class]="this.currentRoute.url !== '/home' ? 'invisible pointer-events-none' : ''"
+      [class]="this.currentRoute.url !== '/home' ? 'hidden pointer-events-none' : ''"
     >
       <button
         type="button"
@@ -44,12 +44,14 @@
         [class]="showMenu() ? 'show' : 'hidden'"
       >
         <li
-          class="item bg-[#438883] text-[1.7rem] p-[8px_10px] text-center border-b border-green-200 cursor-pointer"
+          class="item bg-[#438883] text-[1.7rem] p-[1rem] text-center border-b border-green-200 cursor-pointer" 
+          (click)="openDialog('expense')"
         >
           Add Expense
         </li>
         <li
-          class="item bg-[#438883] text-[1.7rem] p-[8px_10px] text-center cursor-pointer"
+          class="item bg-[#438883] text-[1.7rem] p-[1rem] text-center cursor-pointer"
+          (click)="openDialog('income')"
         >
           Add Incone
         </li>

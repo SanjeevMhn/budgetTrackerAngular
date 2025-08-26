@@ -1,0 +1,61 @@
+<section class="statistic-container h-full">
+  <div
+    class="wrapper pt-[3.5rem] flex flex-col gap-[5.5rem] isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[40%] after:absolute after:rounded-b-[5rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
+  >
+    <div class="top-section flex items-center justify-between text-white">
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"
+        (click)="closeDialog()"
+      >
+        <lucide-angular
+          [img]="backButtonIcon"
+          class="w-full h-full"
+        ></lucide-angular>
+      </button>
+      <h2 class="title-text text-[2rem]">
+        Add 
+        @if(data.type == 'expense'){
+            Expense
+        }@else{
+            Income
+        }
+      </h2>
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+      >
+        <lucide-angular [img]="ellipsesHorIcon"></lucide-angular>
+      </button>
+    </div>
+    <form class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl">
+      <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="Name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          type="number"
+          name="amount"
+          id="amount"
+          class="form-control"
+          placeholder="Amount"
+        />
+      </div>
+      <div class="form-group">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" name="date" id="date" class="form-control" />
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn">Add</button>
+      </div>
+    </form>
+  </div>
+</section>

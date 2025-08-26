@@ -1,13 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use "@angular/material" as mat;
 @use "tailwindcss";
 
 :root {
-  font-size: 62.5%;
+  font-size: 62.5% !important;
+}
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
 }
 
 body {
-  font-size: 1.6rem;
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  font-size: 1.6rem !important;
 }
+/* You can add global styles to this file, and also import other style files */
 
 .wrapper {
   display: grid;
@@ -27,5 +60,60 @@ body {
         }
       }
     }
+  }
+}
+
+div:has(.transaction-dialog) {
+  justify-content: center !important;
+}
+
+.transaction-dialog {
+  max-width: unset !important;
+  .mat-mdc-dialog-container {
+    .mat-mdc-dialog-inner-container {
+      .mat-mdc-dialog-surface {
+        border-radius: 0 !important;
+      }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    @apply text-neutral-500;
+    @apply font-medium;
+  }
+  .form-control {
+    padding: 1.5rem 2rem;
+    font-size: 1.6rem;
+    border: 1px solid;
+    @apply border-neutral-400;
+    @apply rounded-xl;
+  }
+  .form-actions{
+    display: flex;
+    justify-content: center;
+    .btn{
+      background-color: #438883;
+      color: #fff;
+      padding: 1.5rem 2rem;
+      @apply rounded-md;
+      min-width: 9rem;
+      font-size: 1.7rem;
+    }
+  }
+}
+
+
+input[type="number"]{
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button{
+    display: none;
   }
 }

@@ -22,7 +22,7 @@
       @for(tab of tabList(); track tab.id){
       <li class="tab">
         <button
-          class="flex items-center justify-center rounded-xl p-[5px_10px] min-w-[9rem] cursor-pointer"
+          class="flex items-center justify-center rounded-xl p-[1rem] min-w-[9rem] cursor-pointer"
           [class]="tab.active ? 'bg-[#438883] text-white' : 'text-neutral-700'"
           type="button"
           (click)="toggleActiveTab(tab.id)"
@@ -32,11 +32,51 @@
       </li>
       }
     </ul>
-
+    <div class="dropdown-container flex items-center justify-end">
+      <select
+        name=""
+        id=""
+        class="p-[0.5rem_1.2rem] border border-neutral-500 rounded-xl text-neutral-500 text-[1.8rem]"
+      >
+        <option value="">Select Type</option>
+        <option value="exp" selected>Expense</option>
+        <option value="inc">Income</option>
+      </select>
+    </div>
     <div class="chart-container p-[1.5rem] rounded-xl bg-white shadow-md">
-        <canvas class="w-full" #chart>
-
-        </canvas>
+      <canvas class="w-full" #chart></canvas>
+    </div>
+    <div
+      class="card-section p-[1.5rem] bg-white rounded-2xl min-h-[15rem] flex flex-col gap-[2rem] shadow-md"
+    >
+      <div class="header flex items-center justify-between">
+        <h2 class="header-text text-[2rem] font-semibold">
+          Top Spendings / Income
+        </h2>
+        <span class="see-all text-[1.6rem] text-neutral-500">See All</span>
+      </div>
+      <ul class="transactions flex flex-col gap-[0.5rem]">
+        @for(transaction of transactions; track transaction.id){
+        <li
+          class="tran-item grid grid-cols-2 gap-[0.8rem] p-[1.5rem] rounded-xl"
+        >
+          <h2 class="name text-[1.8rem] font-medium row-1 col-1 leading-[1.1]">
+            {{transaction.name}}
+          </h2>
+          <span
+            class="date text-neutral-600 text-[1.4rem] row-2 col-1 leading-[1.1]"
+            >{{transaction.date}}</span
+          >
+          <p
+            class="amount text-[2rem] col-2 row-[1/span_2] leading-[1.1] flex items-center justify-end"
+            [class]="transaction.type == 'expense' ? 'text-red-600' : 'text-green-600'"
+          >
+            {{transaction.type == 'expense' ? '-' : '+'}} Rs.
+            {{transaction.amount}}
+          </p>
+        </li>
+        }
+      </ul>
     </div>
   </div>
 </section>

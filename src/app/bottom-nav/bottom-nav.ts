@@ -9,6 +9,8 @@ import {
   User,
   Wallet,
 } from 'lucide-angular';
+import { MatDialog } from '@angular/material/dialog'
+import { AddTransaction } from '../dialog/add-transaction/add-transaction';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -27,9 +29,24 @@ export class BottomNav {
   showMenu = signal<boolean>(false)
 
   currentRoute = inject(Router)
+  dialog = inject(MatDialog)
+
+  
 
   toggleShowMenu(){
     this.showMenu.set(!this.showMenu())
+  }
+
+  openDialog(type: 'expense' | 'income'){
+    this.toggleShowMenu()
+    this.dialog.open(AddTransaction,{
+      height: '100vh',
+      width: '100vw',
+      panelClass: 'transaction-dialog',
+      data:{
+        type: type
+      }
+    })
   }
 
 }
