@@ -1,8 +1,39 @@
-import { AfterViewInit, Component, ElementRef, signal, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ChevronLeft, Download, LucideAngularModule } from 'lucide-angular';
-import { CategoryScale, Chart, LinearScale, LineElement, Point, PointElement } from 'chart.js'
+import {
+  ArcElement,
+  CategoryScale,
+  Chart,
+  Legend,
+  LinearScale,
+  LineElement,
+  PieController,
+  Point,
+  PointElement,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+} from 'chart.js';
 import { LineController } from 'chart.js';
-Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement)
+Chart.register(
+  LineController,
+  LineElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  PointElement,
+  Legend,
+  PieController,
+  ArcElement,
+  Tooltip,
+  RadialLinearScale,
+);
 
 @Component({
   selector: 'app-statistics',
@@ -11,12 +42,12 @@ Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineEle
   styleUrl: './statistics.scss',
 })
 export class Statistics implements AfterViewInit {
-  
   backButtonIcon = ChevronLeft;
   downloadIcon = Download;
 
-  @ViewChild('chart',{static: false}) chartRef!:ElementRef<HTMLCanvasElement>
-  chart!:Chart
+  @ViewChild('chart', { static: false })
+  chartRef!: ElementRef<HTMLCanvasElement>;
+  chart!: Chart;
 
   tabList = signal([
     {
@@ -41,38 +72,50 @@ export class Statistics implements AfterViewInit {
     },
   ]);
 
-  private chartData: Point[] = [{x: 1, y: 5}, {x: 2, y: 10}, {x: 3, y: 6}, {x: 4, y: 2}, {x: 4.1, y: 6}];
+  private chartData: Point[] = [
+    { x: 1, y: 5 },
+    { x: 2, y: 10 },
+    { x: 3, y: 6 },
+    { x: 4, y: 2 },
+    { x: 4.1, y: 6 },
+    { x: 1, y: 6 },
+    { x: 2.2, y: 8 },
+  ];
 
   ngAfterViewInit(): void {
-    this.chart = new Chart(this.chartRef.nativeElement,{
+    this.chart = new Chart(this.chartRef.nativeElement, {
       type: 'line',
-      data:{
-        datasets:[{
-          label: "Spendings per day",
-          data: this.chartData,
-          fill: false
-        }]
+      data: {
+        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+        datasets: [
+          {
+            label: 'Spendings per day',
+            data: this.chartData,
+            fill: true,
+            borderColor: '#438883',
+            tension: 0.3,
+          },
+        ],
       },
-       options: {
+      options: {
         responsive: true,
-       }
-    })
-
+      },
+    });
   }
 
-  toggleActiveTab(tabId:number){
-    const updatedTab = this.tabList().map(tab => {
-      if(tab.id == tabId){
+  toggleActiveTab(tabId: number) {
+    const updatedTab = this.tabList().map((tab) => {
+      if (tab.id == tabId) {
         return {
           ...tab,
-          active:true
-        }
+          active: true,
+        };
       }
       return {
         ...tab,
-        active:false
-      }
-    })
-    this.tabList.set(updatedTab)
+        active: false,
+      };
+    });
+    this.tabList.set(updatedTab);
   }
 }
