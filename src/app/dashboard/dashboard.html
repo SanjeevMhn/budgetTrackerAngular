@@ -57,7 +57,7 @@
           >
           <span
             class="total-balance col-2 row-1 leading-[1] font-semibold text-[2.2rem]"
-            >Rs. 2500</span
+            >Rs.{{stateTransactions.totalBalance()}}</span
           >
         </span>
       </div>
@@ -86,7 +86,7 @@
         <h2
           class="income text-[2rem] font-semibold col-[1/span_2] row-2 leading-[1.1]"
         >
-          Rs 3200
+          Rs. {{stateTransactions.totalIncome()}}
         </h2>
       </div>
       <div
@@ -102,9 +102,9 @@
         </span>
         <span class="label-text text-[1.4rem] row-1 col-2">Expenses</span>
         <h2
-          class="income text-[2rem] font-semibold col-[1/span_2] row-2 leading-[1.1] justify-self-end"
+          class="expenses text-[2rem] font-semibold col-[1/span_2] row-2 leading-[1.1] justify-self-end"
         >
-          Rs 250
+          Rs. {{stateTransactions.totalExpenses()}}
         </h2>
       </div>
     </div>
@@ -119,7 +119,8 @@
         <span class="see-all text-[1.4rem] text-neutral-500">See All</span>
       </div>
       <ul class="transactions flex flex-col gap-[0.5rem]">
-        @for(transaction of transactions; track transaction.id){
+        @for(transaction of
+        stateTransactions.transactions(); track transaction.id){
         <li
           class="tran-item grid grid-cols-2 gap-[0.8rem] p-[1.5rem] rounded-xl"
         >
@@ -138,6 +139,9 @@
             {{transaction.amount}}
           </p>
         </li>
+        } 
+        @empty{
+        <h2 class=" text-[2rem] text-center pt-[2.5rem]">No transactions</h2>
         }
       </ul>
     </div>

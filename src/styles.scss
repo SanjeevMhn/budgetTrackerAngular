@@ -110,6 +110,7 @@ div:has(.transaction-dialog) {
       @apply rounded-md;
       min-width: 9rem;
       font-size: 1.7rem;
+      cursor: pointer;
     }
   }
 }

@@ -42,26 +42,26 @@
         </svg>
       </button>
       <ul
-        class="menu-list text-white top-[-20rem] absolute left-[50%] translate-x-[-50%] min-w-[15rem] shadow-lg isolate"
+        class="menu-list text-white top-[-15rem] absolute left-[50%] translate-x-[-50%] min-w-[15rem] shadow-lg isolate"
         [class]="showMenu() ? 'show' : 'hidden'"
       >
-        <li
+        <!-- <li
           class="item bg-[#438883] text-[1.7rem] p-[1.5rem] text-center border-b border-green-200 cursor-pointer"
           (click)="openBudgetDialog()"
         >
           Add New Budget
+        </li> -->
+        <li
+          class="item bg-[#438883] text-[1.7rem] p-[1.5rem] text-center cursor-pointer"
+          (click)="openDialog('income')"
+        >
+          Add Income
         </li>
         <li
           class="item bg-[#438883] text-[1.7rem] p-[1.5rem] text-center border-b border-green-200 cursor-pointer"
           (click)="openDialog('expense')"
         >
           Add Expense
-        </li>
-        <li
-          class="item bg-[#438883] text-[1.7rem] p-[1.5rem] text-center cursor-pointer"
-          (click)="openDialog('income')"
-        >
-          Add Income
         </li>
       </ul>
     </div>
