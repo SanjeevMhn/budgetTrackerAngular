@@ -84,7 +84,6 @@ export class Statistics implements AfterViewInit {
       const labels = this.activeLabels();
       const data = this.activeData();
       const selected = this.activeDurationAndType();
-      // const dura =
 
       if (this.chart) {
         this.chart.data.labels = labels;
@@ -213,7 +212,7 @@ export class Statistics implements AfterViewInit {
             }`,
             data: this.activeData(),
             fill: true,
-            borderColor: '#438883',
+            backgroundColor: '#438883',
             tension: 0.3,
           },
         ],

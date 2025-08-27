@@ -11,10 +11,11 @@ import {
   Wallet,
 } from 'lucide-angular';
 import { TransactionStore } from '../store/transaction-store';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule,RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

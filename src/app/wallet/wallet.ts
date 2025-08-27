@@ -138,7 +138,6 @@ export class Wallet implements AfterViewInit {
         this.chart.data.labels = labels;
         this.chart.data.datasets[0].data = data;
         this.chart.update();
-        this.createChart();
       }
     });
   }
