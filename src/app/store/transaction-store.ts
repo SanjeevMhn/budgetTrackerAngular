@@ -55,6 +55,56 @@ export const TransactionStore = signalStore(
         return acc;
       }, 0);
     }),
+
+    incomeByWeek: () => {
+      const date = new Date();
+      date.setDate(date.getDate() - 7);
+
+      return transactions().filter(
+        (tran) => tran.type == 'income' && new Date(tran.date) >= date
+      );
+    },
+    incomeByHalfMonth: () => {
+      const date = new Date();
+      date.setDate(date.getDate() - 15);
+
+      return transactions().filter(
+        (tran) => tran.type == 'income' && new Date(tran.date) >= date
+      );
+    },
+    incomeByMonth: () => {
+      const date = new Date();
+      date.setDate(date.getDate() - 30);
+
+      return transactions().filter(
+        (tran) => tran.type == 'income' && new Date(tran.date) >= date
+      );
+    },
+
+    expensesByWeek: () => {
+      const date = new Date();
+      date.setDate(date.getDate() - 7);
+
+      return transactions().filter(
+        (tran) => tran.type == 'expense' && new Date(tran.date) >= date
+      );
+    },
+    expensesByHalfMonth: () => {
+      const date = new Date();
+      date.setDate(date.getDate() - 15);
+
+      return transactions().filter(
+        (tran) => tran.type == 'expense' && new Date(tran.date) >= date
+      );
+    },
+    expensesByMonth: () => {
+      const date = new Date();
+      date.setDate(date.getDate() - 30);
+
+      return transactions().filter(
+        (tran) => tran.type == 'expense' && new Date(tran.date) >= date
+      );
+    },
   })),
   withMethods((store) => ({
     addTransaction(transaction: Transaction): void {

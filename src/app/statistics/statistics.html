@@ -10,7 +10,7 @@
           class="w-full h-full"
         ></lucide-angular>
       </button>
-      <h2 class="title-text text-[2rem]">Statistics</h2>
+      <h2 class="title-text text-[2rem]">Transactions History</h2>
       <button
         type="button"
         class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
@@ -37,9 +37,11 @@
         name=""
         id=""
         class="p-[0.5rem_1.2rem] border border-neutral-500 rounded-xl text-neutral-500 text-[1.8rem]"
+        [value]="selectedOption()"
+        (change)="handleOptionChange($event)"
       >
         <option value="">Select Type</option>
-        <option value="exp" selected>Expense</option>
+        <option value="exp">Expense</option>
         <option value="inc">Income</option>
       </select>
     </div>
@@ -51,12 +53,12 @@
     >
       <div class="header flex items-center justify-between">
         <h2 class="header-text text-[1.7rem] font-medium">
-          Top Spendings / Income
+          Top {{selectedOption() == 'exp' ? 'Spendings' : 'Earnings'}}
         </h2>
         <span class="see-all text-[1.4rem] text-neutral-500">See All</span>
       </div>
       <ul class="transactions flex flex-col gap-[0.5rem]">
-        @for(transaction of transactions; track transaction.id){
+        @for(transaction of activeTransactionType(); track transaction.id){
         <li
           class="tran-item grid grid-cols-2 gap-[0.8rem] p-[1.5rem] rounded-xl"
         >
@@ -75,6 +77,8 @@
             {{transaction.amount}}
           </p>
         </li>
+        } @empty{
+        <h2 class="text-[2rem] pt-[3rem]">No Transactions</h2>
         }
       </ul>
     </div>
