@@ -3,6 +3,7 @@ import { Dashboard } from './dashboard/dashboard';
 import { BaseLayout } from './layouts/base-layout/base-layout';
 import { Statistics } from './statistics/statistics';
 import { Wallet } from './wallet/wallet';
+import { Profile } from './profile/profile';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
       { path: 'home', component: Dashboard },
       { path: 'statistics', component: Statistics },
       { path: 'wallet', component: Wallet },
+      { path: 'profile', component: Profile },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }

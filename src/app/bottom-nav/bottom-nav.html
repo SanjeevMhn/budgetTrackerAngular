@@ -25,23 +25,23 @@
       class="fab-center"
       [class]="this.currentRoute.url !== '/home' ? 'hidden pointer-events-none' : ''"
     > -->
-      <button
-        type="button"
-        [class]="showMenu() ? 'menu' : ''"
-        class="nav-btn w-[6.5rem] h-[6.5rem] rounded-full bg-[#438883] shadow-2xl shadow-[#1F615C] absolute left-[50%] translate-x-[-50%] nav-button flex items-center justify-center top-[calc(-1*calc(6.5rem/2))] cursor-pointer"
-        (click)="openDialog()"
+    <button
+      type="button"
+      [class]="showMenu() ? 'menu' : ''"
+      class="nav-btn w-[6.5rem] h-[6.5rem] rounded-full bg-[#438883] shadow-2xl shadow-[#1F615C] absolute left-[50%] translate-x-[-50%] nav-button flex items-center justify-center top-[calc(-1*calc(6.5rem/2))] cursor-pointer"
+      (click)="openDialog()"
+    >
+      <svg
+        class="w-1/2 h-1/2 fill-white"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 640 640"
       >
-        <svg
-          class="w-1/2 h-1/2 fill-white"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 640 640"
-        >
-          <path
-            d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"
-          />
-        </svg>
-      </button>
-      <!-- <ul
+        <path
+          d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"
+        />
+      </svg>
+    </button>
+    <!-- <ul
         class="menu-list text-white top-[-15rem] absolute left-[50%] translate-x-[-50%] min-w-[15rem] shadow-lg isolate"
         [class]="showMenu() ? 'show' : 'hidden'"
       >
@@ -73,7 +73,11 @@
       ></lucide-icon>
       <span class="text-[1.4rem] text-neutral-700">Budgeting</span>
     </a>
-    <a routerLink="/" class="link-btn flex items-center flex-col gap-[0.5rem]">
+    <a
+      routerLink="/profile"
+      routerLinkActive="active"
+      class="link-btn flex items-center flex-col gap-[0.5rem]"
+    >
       <lucide-icon [img]="userIcon" class="w-[2.5rem] h-[2.5rem]"></lucide-icon>
       <span class="text-[1.4rem] text-neutral-700">Profile</span>
     </a>
