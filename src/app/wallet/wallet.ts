@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   ElementRef,
+  inject,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -25,8 +26,12 @@ import {
   BellDot,
   ChevronLeft,
   LucideAngularModule,
+  NotebookText,
   Plus,
 } from 'lucide-angular';
+import { BudgetStore } from '../store/budgets-store';
+import { AddBudget } from '../dialog/add-budget/add-budget';
+import { MatDialog } from '@angular/material/dialog';
 
 Chart.register(
   LineController,
@@ -48,138 +53,150 @@ Chart.register(
   templateUrl: './wallet.html',
   styleUrl: './wallet.scss',
 })
-export class Wallet implements AfterViewInit {
+export class Wallet {
   backButtonIcon = ChevronLeft;
   bellIcon = BellDot;
   plusIcon = Plus;
+  notebook = NotebookText
 
-  transactions: Array<{
-    id: number;
-    name: string;
-    type: string;
-    amount: number;
-    date: string;
-  }> = [
-    {
-      id: 101,
-      name: 'Groceries',
-      type: 'expense',
-      amount: 2500,
-      date: '2025-05-12',
-    },
-    {
-      id: 102,
-      name: 'Tire Change',
-      type: 'expense',
-      amount: 4500,
-      date: '2025-05-20',
-    },
-    {
-      id: 103,
-      name: 'Freelance Payment',
-      type: 'income',
-      amount: 30000,
-      date: '2025-06-12',
-    },
-    {
-      id: 104,
-      name: 'Sold Artwork',
-      type: 'income',
-      amount: 8000,
-      date: '2025-06-25',
-    },
-  ];
+  budgets = inject(BudgetStore)
+  dialog = inject(MatDialog)
 
-  colors = ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'];
+  // transactions: Array<{
+  //   id: number;
+  //   name: string;
+  //   type: string;
+  //   amount: number;
+  //   date: string;
+  // }> = [
+  //   {
+  //     id: 101,
+  //     name: 'Groceries',
+  //     type: 'expense',
+  //     amount: 2500,
+  //     date: '2025-05-12',
+  //   },
+  //   {
+  //     id: 102,
+  //     name: 'Tire Change',
+  //     type: 'expense',
+  //     amount: 4500,
+  //     date: '2025-05-20',
+  //   },
+  //   {
+  //     id: 103,
+  //     name: 'Freelance Payment',
+  //     type: 'income',
+  //     amount: 30000,
+  //     date: '2025-06-12',
+  //   },
+  //   {
+  //     id: 104,
+  //     name: 'Sold Artwork',
+  //     type: 'income',
+  //     amount: 8000,
+  //     date: '2025-06-25',
+  //   },
+  // ];
 
-  // data = this.transactions().map((tran) => tran.amount);
+  // colors = ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'];
 
-  tabs = signal<
-    Array<{ id: number; name: string; type: string; active: boolean }>
-  >([
-    {
-      id: 1,
-      name: 'Expenses',
-      type: 'expense',
-      active: true,
-    },
-    {
-      id: 2,
-      name: 'Income',
-      type: 'income',
-      active: false,
-    },
-  ]);
+  // // data = this.transactions().map((tran) => tran.amount);
 
-  activeTabType = computed(() => {
-    return this.tabs().filter((tab) => tab.active)[0].type;
-  });
+  // tabs = signal<
+  //   Array<{ id: number; name: string; type: string; active: boolean }>
+  // >([
+  //   {
+  //     id: 1,
+  //     name: 'Expenses',
+  //     type: 'expense',
+  //     active: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Income',
+  //     type: 'income',
+  //     active: false,
+  //   },
+  // ]);
 
-  transactionsLabels = computed(() => {
-    return this.transactions
-      .filter((lb) => lb.type == this.activeTabType())
-      .map((lb) => lb.name);
-  });
+  // activeTabType = computed(() => {
+  //   return this.tabs().filter((tab) => tab.active)[0].type;
+  // });
 
-  activeChartData = computed(() => {
-    return this.transactions
-      .filter((da) => da.type == this.activeTabType())
-      .map((am) => am.amount);
-  });
+  // transactionsLabels = computed(() => {
+  //   return this.transactions
+  //     .filter((lb) => lb.type == this.activeTabType())
+  //     .map((lb) => lb.name);
+  // });
 
-  chart!: Chart;
-  @ViewChild('chart') chartRef!: ElementRef<HTMLCanvasElement>;
+  // activeChartData = computed(() => {
+  //   return this.transactions
+  //     .filter((da) => da.type == this.activeTabType())
+  //     .map((am) => am.amount);
+  // });
 
-  constructor() {
-    effect(() => {
-      const data = this.activeChartData();
-      const labels = this.transactionsLabels();
-      if (this.chart) {
-        this.chart.data.labels = labels;
-        this.chart.data.datasets[0].data = data;
-        this.chart.update();
-      }
-    });
-  }
+  // chart!: Chart;
+  // @ViewChild('chart') chartRef!: ElementRef<HTMLCanvasElement>;
 
-  ngAfterViewInit(): void {
-    this.createChart();
-  }
+  // constructor() {
+  //   effect(() => {
+  //     const data = this.activeChartData();
+  //     const labels = this.transactionsLabels();
+  //     if (this.chart) {
+  //       this.chart.data.labels = labels;
+  //       this.chart.data.datasets[0].data = data;
+  //       this.chart.update();
+  //     }
+  //   });
+  // }
+
+  // ngAfterViewInit(): void {
+  //   this.createChart();
+  // }
 
  
-  createChart() {
-    if(this.chart){
-      this.chart.destroy()
-    }
-    this.chart = new Chart(this.chartRef.nativeElement, {
-      type: 'doughnut',
-      data: {
-        labels: this.transactionsLabels(),
-        datasets: [
-          {
-            label: 'Transactions',
-            data: this.activeChartData(),
-            backgroundColor: this.colors,
-          },
-        ],
-      },
-    });
-  }
+  // createChart() {
+  //   if(this.chart){
+  //     this.chart.destroy()
+  //   }
+  //   this.chart = new Chart(this.chartRef.nativeElement, {
+  //     type: 'doughnut',
+  //     data: {
+  //       labels: this.transactionsLabels(),
+  //       datasets: [
+  //         {
+  //           label: 'Transactions',
+  //           data: this.activeChartData(),
+  //           backgroundColor: this.colors,
+  //         },
+  //       ],
+  //     },
+  //   });
+  // }
 
-  toggleActiveTabs(activeTab: number) {
-    const updated = this.tabs().map((tab) => {
-      if (tab.id == activeTab) {
-        return {
-          ...tab,
-          active: true,
-        };
-      }
-      return {
-        ...tab,
-        active: false,
-      };
-    });
+  // toggleActiveTabs(activeTab: number) {
+  //   const updated = this.tabs().map((tab) => {
+  //     if (tab.id == activeTab) {
+  //       return {
+  //         ...tab,
+  //         active: true,
+  //       };
+  //     }
+  //     return {
+  //       ...tab,
+  //       active: false,
+  //     };
+  //   });
 
-    this.tabs.set(updated);
+  //   this.tabs.set(updated);
+  // }
+
+  onOpenBudgetDialog(){
+    this.dialog.open(AddBudget,{
+      width: '100vw',
+      height: '100vh',
+      panelClass: 'transaction-dialog'
+    })
   }
 }

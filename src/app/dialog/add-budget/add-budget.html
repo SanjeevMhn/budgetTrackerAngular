@@ -21,8 +21,12 @@
         <lucide-angular [img]="ellipsesHorIcon"></lucide-angular>
       </button>
     </div>
-    <form class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl">
-      <div class="form-group">
+    <form
+      class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
+      [formGroup]="budgetForm"
+      (submit)="onBudgetSubmit()"
+    >
+      <!-- <div class="form-group">
         <label for="name" class="form-label">Budget Duration</label>
         <select name="name" id="name" class="form-control" placeholder="Name">
           <option value="">Select Duration</option>
@@ -30,7 +34,7 @@
           <option value="">Week</option>
           <option value="">Month</option>
         </select>
-      </div>
+      </div> -->
       <div class="form-group">
         <label for="amount" class="form-label">Amount</label>
         <input
@@ -39,11 +43,31 @@
           id="amount"
           class="form-control"
           placeholder="Amount"
+          formControlName="amount"
         />
+        @if(amount?.invalid && (amount?.touched || amount?.dirty)){
+          @if(amount?.hasError('required')){
+          <small class="text-red-600 text-[1.5rem]"
+            >Amount Required</small
+          >
+          } 
+          @if(amount?.hasError('min')){
+          <small class="text-red-600 text-[1.5rem]"
+            >Amount must be atleast 100</small
+          >
+          }
+        }
       </div>
       <div class="form-group">
-        <label for="date" class="form-label">Start Date</label>
-        <input type="date" name="date" id="date" class="form-control" />
+        <label for="date" class="form-label">Month</label>
+        <input type="month" name="date" id="date" class="form-control" formControlName="month" />
+        @if(month?.invalid && (month?.touched || month?.dirty)){
+          @if(month?.hasError('required')){
+          <small class="text-red-600 text-[1.5rem]">
+            Month Required
+          </small>
+          }
+        }
       </div>
       <div class="form-actions">
         <button type="submit" class="btn">Add</button>

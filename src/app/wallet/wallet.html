@@ -21,16 +21,23 @@
       </button>
     </div>
     <div
-      class="wallet-details rounded-tl-[2rem] rounded-tr-[2rem] bg-white p-[2rem_1.5rem] shadow-md flex flex-col gap-[3.5rem]"
+      class="wallet-details rounded-[3rem] rounded-tr-[2rem] bg-white p-[4rem_1.5rem] shadow-lg flex items-center flex-col gap-[3.5rem] "
     >
-      <div
+      <!-- <div
         class="total-balance flex flex-col gap-[1.5rem] items-center justify-center"
       >
         <span class="label text-[1.5rem] text-neutral-600">Total Balance</span>
         <h2 class="balance text-[2.5rem] font-medium">Rs. 3200</h2>
-      </div>
+      </div> -->
+      @if(budgets.budgetOfCurrentMonth().length == 0){
+        <span class="icon-container w-[12rem] h-[12rem] flex items-center justify-center rounded-full bg-[#e9c46a]"> 
+          <lucide-angular [img]="notebook" class="w-[75%] h-[75%] text-white flex items-center justify-center"></lucide-angular>
+        </span>
+        <h2 class="text-[2.4rem] text-center">No budgets set.</h2>
+        <button class="rounded-full p-[2.5rem] bg-[#438883] text-white text-[1.8rem] text-center w-full cursor-pointer" (click)="onOpenBudgetDialog()">Add Budget</button>
+      }
 
-      <div class="tab-container flex items-center justify-center">
+      <!-- <div class="tab-container flex items-center justify-center">
         @for(tab of tabs(); track tab.id){
         <button
           class="tab-item p-[1rem_2rem] cursor-pointer rounded-md min-w-[8rem] text-neutral-700 text-[1.7rem]"
@@ -40,11 +47,11 @@
           {{tab.name}}
         </button>
         }
-      </div>
+      </div> -->
 
-      <div class="chart-container pt">
+      <!-- <div class="chart-container pt">
         <canvas #chart class="w-full"></canvas>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
