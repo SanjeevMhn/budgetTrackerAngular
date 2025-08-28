@@ -7,6 +7,8 @@ import {
   withState,
 } from '@ngrx/signals';
 
+import { withStorageSync } from '@angular-architects/ngrx-toolkit'
+
 export type Transaction = {
   id: string | number;
   date: string;
@@ -131,5 +133,8 @@ export const TransactionStore = signalStore(
         transactions: state.transactions.filter(t => t.id !== id)
       }))
     }
-  }))
+  })),
+  withStorageSync({
+    key: 'transactions'
+  })
 );
