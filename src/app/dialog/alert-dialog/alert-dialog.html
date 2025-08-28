@@ -1,0 +1,23 @@
+<div class="dialog-container p-[2.5rem] flex flex-col gap-[2rem]">
+  <div class="header flex flex-col gap-[2.5rem]">
+    <h2 class="title text-[1.7rem] text-neutral-700">{{data.title}}</h2>
+    <p class="description text-[1.8rem]">{{data.description}}</p>
+  </div>
+
+  <div class="flex justify-center gap-[0.8rem]">
+    <button
+      type="button"
+      class="p-[1rem_2rem] rounded-xl cursor-pointer"
+      (click)="closeDialog('cancel')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="p-[1rem_2rem] bg-[#438883] rounded-xl text-white cursor-pointer"
+      (click)="closeDialog('delete')"
+    >
+      Delete
+    </button>
+  </div>
+</div>

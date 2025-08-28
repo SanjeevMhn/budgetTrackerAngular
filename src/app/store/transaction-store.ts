@@ -112,5 +112,24 @@ export const TransactionStore = signalStore(
         transactions: [...state.transactions, transaction],
       }));
     },
+    updateTransaction(transaction: Transaction): void {
+      patchState(store, (state) => ({
+        transactions: state.transactions.map((t) => {
+          if(t.id == transaction.id){
+            return {
+              ...t,
+              ...transaction
+            }
+          }
+          return t
+        })
+      }));
+    },
+
+    deleteTransaction(id:string | number){
+      patchState(store,(state) => ({
+        transactions: state.transactions.filter(t => t.id !== id)
+      }))
+    }
   }))
 );

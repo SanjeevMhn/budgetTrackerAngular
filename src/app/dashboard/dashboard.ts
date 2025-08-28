@@ -12,10 +12,11 @@ import {
 } from 'lucide-angular';
 import { TransactionStore } from '../store/transaction-store';
 import { RouterLink } from '@angular/router';
+import { TransactionsList } from "../transactions-list/transactions-list";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [LucideAngularModule,RouterLink],
+  imports: [LucideAngularModule, RouterLink, TransactionsList],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

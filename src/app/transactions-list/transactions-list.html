@@ -1,0 +1,32 @@
+<ul class="transactions flex flex-col gap-[0.5rem]">
+  @for(transaction of transactions(); track transaction.id){
+  <li class="tran-item grid grid-cols-[2.5rem_1fr_1fr] gap-[0.8rem] p-[1.5rem_0] rounded-xl">
+    <button type="button" class="col-1 row-1 cursor-pointer" [matMenuTriggerFor]="menu">
+      <span
+        class="icon-container w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+      >
+        <lucide-angular [img]="ellipsesIcon"></lucide-angular>
+      </span>
+    </button>
+    <mat-menu #menu="matMenu" class="bg-white! rounded-xl!">
+        <button type="button" mat-menu-item class="p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onTransactionEdit(transaction)">Edit</button>
+        <button type="button" mat-menu-item class="text-red-700! p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onDelete(transaction.id)">Delete</button>
+    </mat-menu>
+
+    <h2 class="name text-[1.8rem] font-medium row-1 col-2 leading-[1]">
+      {{transaction.name}}
+    </h2>
+    <span class="date text-neutral-600 text-[1.4rem] row-2 col-2 leading-[1.1]"
+      >{{transaction.date}}</span
+    >
+    <p
+      class="amount text-[1.8rem] col-3 row-[1/span_2] leading-[1.1] flex items-center justify-end"
+      [class]="transaction.type == 'expense' ? 'text-red-600' : 'text-green-600'"
+    >
+      {{transaction.type == 'expense' ? '-' : '+'}} Rs. {{transaction.amount}}
+    </p>
+  </li>
+  } @empty{
+  <h2 class="text-[2rem] text-center pt-[2.5rem]">No transactions</h2>
+  }
+</ul>

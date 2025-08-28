@@ -30,6 +30,7 @@ import {
 } from 'chart.js';
 import { LineController } from 'chart.js';
 import { TransactionStore } from '../store/transaction-store';
+import { TransactionsList } from "../transactions-list/transactions-list";
 Chart.register(
   LineController,
   LineElement,
@@ -46,7 +47,7 @@ Chart.register(
 
 @Component({
   selector: 'app-statistics',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, TransactionsList],
   templateUrl: './statistics.html',
   styleUrl: './statistics.scss',
 })

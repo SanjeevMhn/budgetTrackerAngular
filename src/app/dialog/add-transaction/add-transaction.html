@@ -14,7 +14,8 @@
         ></lucide-angular>
       </button>
       <h2 class="title-text text-[2rem]">
-        Add @if(data.type == 'expense'){ Expense }@else{ Income }
+        <!-- Add @if(data.type == 'expense'){ Expense }@else{ Income } -->
+        @if(editMode()){Edit}@else{Add} Transaction
       </h2>
       <button
         type="button"
@@ -28,23 +29,6 @@
       [formGroup]="transactionForm"
       (submit)="onTransactionSubmit()"
     >
-      <div class="form-group">
-        <label for="name" class="form-label">Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          class="form-control"
-          placeholder="Name"
-          formControlName="name"
-        />
-        @if(name?.invalid && (name?.touched || name?.dirty)){
-        @if(name?.errors?.['required']){
-        <small class="text-red-600 text-[1.5rem]"
-          >Transaction Name Required</small
-        >
-        } }
-      </div>
       <div class="form-group">
         <label for="amount" class="form-label">Amount</label>
         <input
@@ -67,6 +51,36 @@
         } }
       </div>
       <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="Name"
+          formControlName="name"
+        />
+        @if(name?.invalid && (name?.touched || name?.dirty)){
+        @if(name?.errors?.['required']){
+        <small class="text-red-600 text-[1.5rem]"
+          >Transaction Name Required</small
+        >
+        } }
+      </div>
+      <div class="form-group">
+        <label for="type" class="form-label">Type</label>
+        <select
+          name="type"
+          id="type"
+          class="form-control"
+          formControlName="type"
+        >
+          <option value="">Select Transaction Type</option>
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label for="date" class="form-label">Date</label>
         <input
           type="date"
@@ -83,7 +97,9 @@
         } }
       </div>
       <div class="form-actions">
-        <button type="submit" class="btn">Add</button>
+        <button type="submit" class="btn">
+          @if(editMode()){Update}@else{Add}
+        </button>
       </div>
     </form>
   </div>

@@ -118,32 +118,7 @@
         </h2>
         <a routerLink="/statistics" class="see-all text-[1.4rem] text-neutral-500 cursor-pointer">See All</a>
       </div>
-      <ul class="transactions flex flex-col gap-[0.5rem]">
-        @for(transaction of
-        stateTransactions.transactions(); track transaction.id){
-        <li
-          class="tran-item grid grid-cols-2 gap-[0.8rem] p-[1.5rem] rounded-xl"
-        >
-          <h2 class="name text-[1.6rem] font-medium row-1 col-1 leading-[1.1]">
-            {{transaction.name}}
-          </h2>
-          <span
-            class="date text-neutral-600 text-[1.4rem] row-2 col-1 leading-[1.1]"
-            >{{transaction.date}}</span
-          >
-          <p
-            class="amount text-[1.8rem] col-2 row-[1/span_2] leading-[1.1] flex items-center justify-end"
-            [class]="transaction.type == 'expense' ? 'text-red-600' : 'text-green-600'"
-          >
-            {{transaction.type == 'expense' ? '-' : '+'}} Rs.
-            {{transaction.amount}}
-          </p>
-        </li>
-        } 
-        @empty{
-        <h2 class=" text-[2rem] text-center pt-[2.5rem]">No transactions</h2>
-        }
-      </ul>
+      <app-transactions-list [transactions]="stateTransactions.transactions()" />
     </div>
   </div>
 </section>

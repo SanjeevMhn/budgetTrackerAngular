@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ChevronLeft, Ellipsis, LucideAngularModule } from 'lucide-angular';
 import {
@@ -15,21 +15,31 @@ import { Transaction, TransactionStore } from '../../store/transaction-store';
   templateUrl: './add-transaction.html',
   styleUrl: './add-transaction.scss',
 })
-export class AddTransaction {
+export class AddTransaction implements OnInit {
   backButtonIcon = ChevronLeft;
   ellipsesHorIcon = Ellipsis;
 
-  transactionStore = inject(TransactionStore)
+  transactionStore = inject(TransactionStore);
   dialogRef = inject(MatDialogRef<AddTransaction>);
   public data: {
-    type: 'expense' | 'income';
+    transaction?: Transaction;
   } = inject(MAT_DIALOG_DATA);
 
   transactionForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required, Validators.min(1)]),
+    type: new FormControl('', [Validators.required]),
     date: new FormControl('', [Validators.required]),
   });
+
+  editMode = signal<boolean>(false);
+
+  ngOnInit(): void {
+    if (this.data.transaction !== null && this.data.transaction !== undefined) {
+      this.transactionForm.patchValue(this.data.transaction);
+      this.editMode.set(true);
+    }
+  }
 
   get name() {
     return this.transactionForm.get('name');
@@ -37,6 +47,10 @@ export class AddTransaction {
 
   get amount() {
     return this.transactionForm.get('amount');
+  }
+
+  get type() {
+    return this.transactionForm.get('type');
   }
 
   get date() {
@@ -49,14 +63,21 @@ export class AddTransaction {
       return;
     }
 
-    let transaction = {
-      id: Date.now(),
-      ...this.transactionForm.value,
-      type: this.data.type,
-    } as Transaction;
+    if (this.editMode()) {
+      let transaction = {
+        ...this.data.transaction,
+        ...this.transactionForm.value,
+      } as Transaction;
+      this.transactionStore.updateTransaction(transaction);
+    } else {
+      let transaction = {
+        id: Date.now(),
+        ...this.transactionForm.value,
+      } as Transaction;
+      this.transactionStore.addTransaction(transaction);
+    }
 
-    this.transactionStore.addTransaction(transaction)
-    this.closeDialog()
+    this.closeDialog();
   }
 
   closeDialog() {

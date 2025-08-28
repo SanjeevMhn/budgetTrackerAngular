@@ -36,15 +36,16 @@ export class BottomNav {
     this.showMenu.set(!this.showMenu());
   }
 
-  openDialog(type: 'expense' | 'income') {
-    this.toggleShowMenu();
+  // openDialog(type: 'expense' | 'income') {
+  openDialog() {
+    // this.toggleShowMenu();
     this.dialog.open(AddTransaction, {
       height: '100vh',
       width: '100vw',
       panelClass: 'transaction-dialog',
-      data: {
-        type: type,
-      },
+      // data: {
+      //   type: type,
+      // },
     });
   }
 
