@@ -43,6 +43,24 @@ export const BudgetStore = signalStore(
         budgets: [...state.budgets, budget],
       }));
     },
+    updateBudget(budget: Budget):void{
+      patchState(store, (state) => ({
+        budgets: state.budgets.map(bud => {
+          if(bud.id == budget.id){
+            return {
+              ...bud,
+              ...budget
+            }
+          }
+          return bud
+        })
+      }))
+    },
+    deleteBudget(id:string | number):void{
+      patchState(store,(state) => ({
+        budgets: state.budgets.filter(bud => bud.id !== id)
+      }))
+    }
   })),
   withStorageSync({
     key: 'budgets'

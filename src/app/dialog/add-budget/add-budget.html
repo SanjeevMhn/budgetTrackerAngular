@@ -13,7 +13,9 @@
           class="w-full h-full"
         ></lucide-angular>
       </button>
-      <h2 class="title-text text-[2rem]">Add Budget</h2>
+      <h2 class="title-text text-[2rem]">
+        @if(editMode()){Edit}@else{Add} Budget
+      </h2>
       <button
         type="button"
         class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
@@ -46,31 +48,32 @@
           formControlName="amount"
         />
         @if(amount?.invalid && (amount?.touched || amount?.dirty)){
-          @if(amount?.hasError('required')){
-          <small class="text-red-600 text-[1.5rem]"
-            >Amount Required</small
-          >
-          } 
-          @if(amount?.hasError('min')){
-          <small class="text-red-600 text-[1.5rem]"
-            >Amount must be atleast 100</small
-          >
-          }
-        }
+        @if(amount?.hasError('required')){
+        <small class="text-red-600 text-[1.5rem]">Amount Required</small>
+        } @if(amount?.hasError('min')){
+        <small class="text-red-600 text-[1.5rem]"
+          >Amount must be atleast 100</small
+        >
+        } }
       </div>
       <div class="form-group">
         <label for="date" class="form-label">Month</label>
-        <input type="month" name="date" id="date" class="form-control" formControlName="month" />
+        <input
+          type="month"
+          name="date"
+          id="date"
+          class="form-control"
+          formControlName="month"
+        />
         @if(month?.invalid && (month?.touched || month?.dirty)){
-          @if(month?.hasError('required')){
-          <small class="text-red-600 text-[1.5rem]">
-            Month Required
-          </small>
-          }
-        }
+        @if(month?.hasError('required')){
+        <small class="text-red-600 text-[1.5rem]"> Month Required </small>
+        } }
       </div>
       <div class="form-actions">
-        <button type="submit" class="btn">Add</button>
+        <button type="submit" class="btn">
+          @if(editMode()){Update}@else{Add}
+        </button>
       </div>
     </form>
   </div>

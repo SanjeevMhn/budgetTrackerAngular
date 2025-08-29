@@ -111,7 +111,7 @@ export const TransactionStore = signalStore(
   withMethods((store) => ({
     addTransaction(transaction: Transaction): void {
       patchState(store, (state) => ({
-        transactions: [...state.transactions, transaction],
+        transactions: [ transaction, ...state.transactions],
       }));
     },
     updateTransaction(transaction: Transaction): void {
