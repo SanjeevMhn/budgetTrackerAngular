@@ -10,15 +10,19 @@ export class BudgetCheck {
   transactionsStore = inject(TransactionStore);
 
   getCurrentMonthTotalExpenses = computed(() => {
-    return this.transactionsStore
-      .expensesByMonth()
-      .reduce((acc,curr) => {
-        acc += Number(curr.amount);
-        return acc;
-      }, 0);
+    return this.transactionsStore.expensesByMonth().reduce((acc, curr) => {
+      acc += Number(curr.amount);
+      return acc;
+    }, 0);
   });
 
   getCurrentBudgetState = computed(() => {
-    return ((this.getCurrentMonthTotalExpenses() / Number(this.budgetStore.budgetOfCurrentMonth().amount))*100).toFixed(1).toString();
+    return (
+      (this.getCurrentMonthTotalExpenses() /
+        Number(this.budgetStore.budgetOfCurrentMonth().amount)) *
+      100
+    )
+      .toFixed(0)
+      .toString();
   });
 }

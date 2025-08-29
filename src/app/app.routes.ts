@@ -4,6 +4,7 @@ import { BaseLayout } from './layouts/base-layout/base-layout';
 import { Statistics } from './statistics/statistics';
 import { Wallet } from './wallet/wallet';
 import { Profile } from './profile/profile';
+import { Register } from './user/register/register';
 
 export const routes: Routes = [
   {
@@ -14,7 +15,8 @@ export const routes: Routes = [
       { path: 'statistics', component: Statistics },
       { path: 'wallet', component: Wallet },
       { path: 'profile', component: Profile },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
-    ]
-  }
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
+  },
+  { path: 'register', component: Register },
 ];
