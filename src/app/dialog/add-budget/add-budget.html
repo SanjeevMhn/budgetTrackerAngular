@@ -47,14 +47,16 @@
           placeholder="Amount"
           formControlName="amount"
         />
-        @if(amount?.invalid && (amount?.touched || amount?.dirty)){
-        @if(amount?.hasError('required')){
-        <small class="text-red-600 text-[1.5rem]">Amount Required</small>
-        } @if(amount?.hasError('min')){
-        <small class="text-red-600 text-[1.5rem]"
-          >Amount must be atleast 100</small
-        >
-        } }
+        @if(amount?.touched || amount?.dirty){
+          @if(amount?.hasError('required')){
+            <small class="text-red-600 text-[1.5rem]">Amount Required</small>
+          } 
+          @if(amount?.hasError('min')){
+            <small class="text-red-600 text-[1.5rem]"
+              >Amount must be atleast 100</small
+            >
+          } 
+        }
       </div>
       <div class="form-group">
         <label for="date" class="form-label">Month</label>
@@ -65,10 +67,11 @@
           class="form-control"
           formControlName="month"
         />
-        @if(month?.invalid && (month?.touched || month?.dirty)){
-        @if(month?.hasError('required')){
-        <small class="text-red-600 text-[1.5rem]"> Month Required </small>
-        } }
+        @if(month?.touched || month?.dirty){
+          @if(month?.hasError('required')){
+            <small class="text-red-600 text-[1.5rem]"> Month Required </small>
+          } 
+        }
       </div>
       <div class="form-actions">
         <button type="submit" class="btn">
