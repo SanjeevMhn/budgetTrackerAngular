@@ -1,3 +1,4 @@
+import { withStorageSync } from '@angular-architects/ngrx-toolkit';
 import { computed } from '@angular/core';
 import {
   patchState,
@@ -7,12 +8,12 @@ import {
   withState,
 } from '@ngrx/signals';
 
-type Budget = {
+export type Budget = {
   id: string | number;
-  duration: 'day' | 'week' | 'month';
+  // duration: 'day' | 'week' | 'month';
   recurring: boolean;
   amount: number | string;
-  startDate: string;
+  date: string;
   limitReached: boolean;
 };
 
@@ -32,8 +33,8 @@ export const BudgetStore = signalStore(
       const date = new Date();
       const currentMonth = date.getMonth() + 1;
       return budgets().filter(
-        (budget) => new Date(budget.startDate).getMonth() + 1 == currentMonth
-      );
+        (budget) => new Date(budget.date).getMonth() + 1 == currentMonth
+      )[0];
     },
   })),
   withMethods((store) => ({
@@ -42,5 +43,8 @@ export const BudgetStore = signalStore(
         budgets: [...state.budgets, budget],
       }));
     },
-  }))
+  })),
+  withStorageSync({
+    key: 'budgets'
+  })
 );

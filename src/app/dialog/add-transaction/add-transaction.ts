@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ChevronLeft, Ellipsis, LucideAngularModule } from 'lucide-angular';
 import {
@@ -15,7 +21,7 @@ import { Transaction, TransactionStore } from '../../store/transaction-store';
   templateUrl: './add-transaction.html',
   styleUrl: './add-transaction.scss',
 })
-export class AddTransaction implements OnInit {
+export class AddTransaction implements AfterViewInit {
   backButtonIcon = ChevronLeft;
   ellipsesHorIcon = Ellipsis;
 
@@ -34,8 +40,13 @@ export class AddTransaction implements OnInit {
 
   editMode = signal<boolean>(false);
 
-  ngOnInit(): void {
-    if (this.data.transaction !== null && this.data.transaction !== undefined) {
+  ngAfterViewInit(): void {
+    if (
+      this.data &&
+      this.data.transaction &&
+      this.data.transaction !== null &&
+      this.data.transaction !== undefined
+    ) {
       this.transactionForm.patchValue(this.data.transaction);
       this.editMode.set(true);
     }

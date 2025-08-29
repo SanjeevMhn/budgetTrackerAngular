@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ChevronLeft, Ellipsis, LucideAngularModule } from 'lucide-angular';
+import { Budget, BudgetStore } from '../../store/budgets-store';
 
 @Component({
   selector: 'app-add-budget',
@@ -15,6 +16,7 @@ export class AddBudget {
   ellipsesHorIcon = Ellipsis
 
   dialogRef = inject(MatDialogRef<AddBudget>)
+  budgetStore = inject(BudgetStore)
 
   budgetForm = new FormGroup({
     month: new FormControl('',[Validators.required]),
@@ -39,6 +41,15 @@ export class AddBudget {
       return
     }
 
-    console.log(this.budgetForm.value)
+    let budget = {
+      id: Date.now(),
+      recurring: false,
+      amount: this.budgetForm.get('amount')?.value,
+      date: this.budgetForm.get('month')?.value,
+      limitReached: false
+    } as Budget
+
+    this.budgetStore.addBudget(budget)
+    this.closeDialog()
   }
 }
