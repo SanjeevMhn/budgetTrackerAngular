@@ -8,16 +8,16 @@
     <button
       type="button"
       class="p-[1rem_2rem] rounded-xl cursor-pointer"
-      (click)="closeDialog('cancel')"
+      (click)="closeDialog(false)"
     >
-      Cancel
+    {{data.cancelBtnLabel ?? 'Cancel'}}
     </button>
     <button
       type="button"
       class="p-[1rem_2rem] bg-[#438883] rounded-xl text-white cursor-pointer"
-      (click)="closeDialog('delete')"
+      (click)="closeDialog(true)"
     >
-      Delete
+      {{data.actionBtnLabel ?? 'Delete'}}
     </button>
   </div>
 </div>

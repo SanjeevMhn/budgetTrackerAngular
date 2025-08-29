@@ -43,7 +43,7 @@ export class TransactionsList {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'delete'){
+      if(result){
         this.transactionsStore.deleteTransaction(id)
       }
     })

@@ -11,12 +11,14 @@ export class AlertDialog {
 
   public data:{
     title: string,
-    description: string
+    description: string,
+    cancelBtnLabel?: string,
+    actionBtnLabel?: string
   } = inject(MAT_DIALOG_DATA)
 
   dialog = inject(MatDialogRef<AlertDialog>)
 
-  closeDialog(state:'cancel' | 'delete'){
+  closeDialog(state:boolean){
     this.dialog.close(state)
   }
 

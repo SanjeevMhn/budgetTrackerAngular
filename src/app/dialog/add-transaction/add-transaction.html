@@ -62,7 +62,7 @@
           placeholder="Name"
           formControlName="name"
         />
-        @if(name?.touched || name?.dirty){
+        @if(name?.invalid && (name?.touched || name?.dirty)){
           @if(name?.hasError('required')){
           <small class="text-red-600 text-[1.5rem]"
             >Transaction Name Required</small
@@ -82,7 +82,7 @@
           <option value="expense">Expense</option>
           <option value="income">Income</option>
         </select>
-        @if(type?.touched || type?.dirty){
+        @if(type?.invalid && (type?.touched || type?.dirty)){
           @if(type?.hasError('required')){
           <small class="text-red-600 text-[1.5rem]">Transaction type Required</small>
           }
@@ -98,7 +98,7 @@
           class="form-control"
           formControlName="date"
         />
-        @if(date?.touched || date?.dirty){
+        @if(date?.invalid && (date?.touched || date?.dirty)){
           @if(date?.hasError('required')){
             <small class="text-red-600 text-[1.5rem]"
               >Transaction Date Required</small

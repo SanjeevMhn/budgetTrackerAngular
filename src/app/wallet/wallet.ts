@@ -69,7 +69,7 @@ export class Wallet {
     });
 
     ref.afterClosed().subscribe((res) => {
-      if (res == 'delete') {
+      if (res) {
         this.budgets.deleteBudget(id);
       }
     });

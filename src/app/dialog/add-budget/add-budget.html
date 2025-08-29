@@ -47,7 +47,7 @@
           placeholder="Amount"
           formControlName="amount"
         />
-        @if(amount?.touched || amount?.dirty){
+        @if(amount?.invalid && (amount?.touched || amount?.dirty)){
           @if(amount?.hasError('required')){
             <small class="text-red-600 text-[1.5rem]">Amount Required</small>
           } 
@@ -67,7 +67,7 @@
           class="form-control"
           formControlName="month"
         />
-        @if(month?.touched || month?.dirty){
+        @if(month?.invalid && (month?.touched || month?.dirty)){
           @if(month?.hasError('required')){
             <small class="text-red-600 text-[1.5rem]"> Month Required </small>
           } 
