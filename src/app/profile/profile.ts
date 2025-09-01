@@ -2,6 +2,10 @@ import { Component, inject, signal } from '@angular/core';
 import { BellDot, ChevronLeft, LucideAngularModule, Pen, PenTool, Plus } from 'lucide-angular';
 import { UserStore } from '../store/user-store';
 import { MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet'
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
+import { Router } from '@angular/router';
+import { Auth } from '../services/auth/auth';
 
 @Component({
   selector: 'app-profile',
@@ -18,10 +22,29 @@ export class Profile {
 
   userStore = inject(UserStore)
   bottomSheet = inject(MatBottomSheet)
+  dialog = inject(MatDialog)
+  router = inject(Router)
+  authService = inject(Auth)
 
 
   openBottomSheet(){
     this.bottomSheet.open(UserImgAction)
+  }
+
+  onLogout(){
+    const dialogRef = this.dialog.open(AlertDialog,{
+      data:{
+        title: 'Logout?',
+        description: 'Are you sure you want to logout?',
+        actionBtnLabel: 'Logout'
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res){
+        this.authService.logoutUser()
+      }
+    })
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BottomNav } from "../../bottom-nav/bottom-nav";
 
@@ -8,5 +8,4 @@ import { BottomNav } from "../../bottom-nav/bottom-nav";
   templateUrl: './base-layout.html',
   styleUrl: './base-layout.scss'
 })
-export class BaseLayout {
-}
+export class BaseLayout {}

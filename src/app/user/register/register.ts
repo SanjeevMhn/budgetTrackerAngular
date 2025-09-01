@@ -83,7 +83,10 @@ export class Register {
   }
 
   userPasswordForm = new FormGroup({
-    password: new FormControl('', [Validators.minLength(6)]),
+    password: new FormControl('', [
+      Validators.minLength(6),
+      Validators.pattern(/^[0-9]+$/),
+    ]),
   });
 
   get password() {
@@ -97,7 +100,9 @@ export class Register {
     }
     if (this.password && this.password.value) {
       this.userStore.setUserData({
-        password: this.password.value,
+        password: Number(this.password.value),
+        password_skipped: false,
+        authenticated: true,
       });
       this.router.navigate(['/']);
     }
@@ -106,6 +111,7 @@ export class Register {
   onPasswordSkip() {
     this.userStore.setUserData({
       password_skipped: true,
+      authenticated: true,
     });
 
     this.router.navigate(['/']);

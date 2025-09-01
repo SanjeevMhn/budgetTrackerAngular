@@ -1,5 +1,6 @@
 import { withStorageSync } from '@angular-architects/ngrx-toolkit';
-import { computed } from '@angular/core';
+import { computed, effect, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   patchState,
   signalStore,
@@ -7,12 +8,13 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
+import { Auth } from '../services/auth/auth';
 
 export type User = {
   name: string;
   img: string;
-  password: string;
-  password_skipped: boolean; 
+  password: number | null;
+  password_skipped: boolean;
   authenticated: boolean;
 };
 
@@ -21,9 +23,9 @@ type UserStoreState = User;
 const initialState: UserStoreState = {
   name: '',
   img: '',
-  password: '',
+  password: null,
   password_skipped: false,
-  authenticated: false
+  authenticated: false,
 };
 
 export const UserStore = signalStore(
@@ -33,9 +35,6 @@ export const UserStore = signalStore(
     getUserDetail: computed(() => {
       return user;
     }),
-    isAuthenticated: computed(() => {
-        return user.password_skipped() ? true : user.authenticated()
-    })
   })),
   withMethods((store) => ({
     setUserData(data: Partial<User>): void {
@@ -44,7 +43,6 @@ export const UserStore = signalStore(
         ...data,
       }));
     },
-
   })),
   withStorageSync({
     key: 'user',

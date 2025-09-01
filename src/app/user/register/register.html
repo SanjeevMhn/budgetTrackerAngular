@@ -106,15 +106,18 @@
         class="w-[75%] h-[75%] text-white flex items-center justify-center"
       ></lucide-icon>
     </div>
-    <form [formGroup]="userPasswordForm" class="form">
+    <form (submit)="onPasswordSubmit()" [formGroup]="userPasswordForm" class="form">
       <div class="form-group">
         <label for="password" class="form-label text-white!">Password</label>
         <!-- @for(input of [0,1,2,3,4,5]; track input){ -->
-        <input type="number" name="" id="" class="form-control bg-white w-full"  placeholder="6 digit passcode" formControlName="password" />
+        <input type="password" name="" id="" class="form-control bg-white w-full"  placeholder="6 digit passcode" formControlName="password" />
         @if(password?.invalid && (password?.touched || password?.dirty)){
           @if(password?.hasError('minlength')){
             <span class="text-red-200">Passcode must be 6 digits or more</span>
           }
+          @if(password?.hasError('pattern')){
+            <span class="text-red-200">Invalid passcode.(Should be numbers)</span>
+          } 
         }
       </div>
       <div class="form-action flex flex-col gap-[1rem]">

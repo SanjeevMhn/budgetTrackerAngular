@@ -6,6 +6,7 @@ import { Wallet } from './wallet/wallet';
 import { Profile } from './profile/profile';
 import { Register } from './user/register/register';
 import { authGuard } from './auth-guard';
+import { Login } from './user/login/login';
 
 export const routes: Routes = [
   {
@@ -22,4 +23,5 @@ export const routes: Routes = [
   },
   { path: 'register/:step', component: Register },
   { path: 'register', component: Register },
+  { path: 'login', component: Login }
 ];
