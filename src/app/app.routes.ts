@@ -5,6 +5,7 @@ import { Statistics } from './statistics/statistics';
 import { Wallet } from './wallet/wallet';
 import { Profile } from './profile/profile';
 import { Register } from './user/register/register';
+import { authGuard } from './auth-guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,8 @@ export const routes: Routes = [
       { path: 'profile', component: Profile },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
+    canActivate: [authGuard]
   },
+  { path: 'register/:step', component: Register },
   { path: 'register', component: Register },
 ];

@@ -14,7 +14,7 @@
         class="w-[75%] h-[75%] text-white flex items-center justify-center"
       ></lucide-icon>
     </div>
-    <form [formGroup]="userNameForm" class="form">
+    <form (submit)="onUserNameSubmit()" [formGroup]="userNameForm" class="form">
       <div class="form-group">
         <!-- <label for="name" class="form-label text-white!">Name</label> -->
         <input
@@ -24,20 +24,30 @@
           class="form-control bg-white!"
           placeholder="Your Name"
           formControlName="name"
+          [class]="name?.hasError('required') ? 'border border-red-500' : ''"
         />
+        @if(name?.invalid && (name?.touched || name?.dirty)){
+        @if(name?.hasError('required')){
+        <span class="text-red-200 text-[1.6rem] font-normal"
+          >User Name Required</span
+        >
+        } @if(name?.hasError('minlength')){
+        <span class="text-red-200 text-[1.6rem] font-normal"
+          >User Name Must be atleast 3 characters</span
+        >
+        } }
       </div>
       <div class="form-action">
         <button
-          type="button"
+          type="submit"
           class="w-full rounded-full bg-[#56b6ac] text-white shadow-2xl p-[2.5rem] text-[2rem] text-center cursor-pointer"
-          (click)="userRegisterState.set('img')"
         >
           Next
         </button>
       </div>
     </form>
     } @if(userRegisterState() == 'img'){
-    <form [formGroup]="userNameForm" class="form">
+    <form (submit)="onUserImgSubmit()" [formGroup]="userNameForm" class="form">
       <div class="form-group relative">
         <label
           for="img"
@@ -79,7 +89,7 @@
       </div>
       <div class="form-action pt-[2.5rem]">
         <button
-          type="button"
+          type="submit"
           class="w-full rounded-full bg-[#56b6ac] text-white shadow-2xl p-[2.5rem] text-[2rem] text-center cursor-pointer"
           (click)="userRegisterState.set('password')"
         >
@@ -99,25 +109,27 @@
     <form [formGroup]="userPasswordForm" class="form">
       <div class="form-group">
         <label for="password" class="form-label text-white!">Password</label>
-        <div class="input-group flex gap-[0.5rem]">
-            @for(input of [0,1,2,3,4,5]; track input){
-            <input
-                type="number"
-                name=""
-                id=""
-                class="w-[5rem] h-[5rem] p-[1rem] border border-neutral-800 text-neutral-700 bg-white rounded-xl text-center text-[1.8rem]"
-                [attr.data-input]="input"
-                #input
-            />
-            }
-        </div>
+        <!-- @for(input of [0,1,2,3,4,5]; track input){ -->
+        <input type="number" name="" id="" class="form-control bg-white w-full"  placeholder="6 digit passcode" formControlName="password" />
+        @if(password?.invalid && (password?.touched || password?.dirty)){
+          @if(password?.hasError('minlength')){
+            <span class="text-red-200">Passcode must be 6 digits or more</span>
+          }
+        }
       </div>
-      <div class="form-action">
+      <div class="form-action flex flex-col gap-[1rem]">
         <button
-          type="button"
+          type="submit"
           class="w-full rounded-full bg-[#56b6ac] text-white shadow-2xl p-[2.5rem] text-[2rem] text-center cursor-pointer"
         >
           Done
+        </button>
+        <button
+          type="button"
+          class="w-full rounded-full border-2 border-[#56b6ac] text-white bg-transparent shadow-2xl p-[2.5rem] text-[2rem] text-center cursor-pointer"
+          (click)="onPasswordSkip()"
+        >
+          Skip
         </button>
       </div>
     </form>

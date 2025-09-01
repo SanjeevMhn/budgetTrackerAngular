@@ -13,6 +13,7 @@ import {
 import { TransactionStore } from '../store/transaction-store';
 import { RouterLink } from '@angular/router';
 import { TransactionsList } from "../transactions-list/transactions-list";
+import { UserStore } from '../store/user-store';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,4 +32,5 @@ export class Dashboard {
   circleArrowUpIcon = CircleArrowUp;
   
   stateTransactions = inject(TransactionStore)
+  userStore = inject(UserStore)
 }

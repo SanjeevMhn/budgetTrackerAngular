@@ -6,8 +6,12 @@
       <div class="user-profile flex items-center gap-[1rem]">
         <span
           class="img-container w-[3.5rem] h-[3.5rem] rounded-full bg-red-300"
-        ></span>
-        <span class="user-fill text-[2rem] text-white font-bold">John Doe</span>
+        >
+          @if(userStore.getUserDetail().img()){
+            <img [src]="userStore.getUserDetail().img()" class="w-full h-full object-cover rounded-full" />
+          }
+        </span>
+        <span class="user-fill text-[2rem] text-white font-bold">{{userStore.getUserDetail().name()}}</span>
       </div>
       <div class="utils ml-auto flex items-center gap-[1.5rem] z-[3]">
         <button
@@ -116,9 +120,15 @@
         <h2 class="header-text text-[1.7rem] font-medium">
           Transactions History
         </h2>
-        <a routerLink="/statistics" class="see-all text-[1.4rem] text-neutral-500 cursor-pointer">See All</a>
+        <a
+          routerLink="/statistics"
+          class="see-all text-[1.4rem] text-neutral-500 cursor-pointer"
+          >See All</a
+        >
       </div>
-      <app-transactions-list [transactions]="stateTransactions.transactions()" />
+      <app-transactions-list
+        [transactions]="stateTransactions.transactions()"
+      />
     </div>
   </div>
 </section>
