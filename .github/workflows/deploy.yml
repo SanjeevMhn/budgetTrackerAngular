@@ -27,5 +27,5 @@ jobs:
       - name: Deploy to Github Pages
         uses: peaceiris/action-gh-pages@v4
         with:
-          branch: gh-pages
-          folder: dist/budget-tracker/browser
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
+          publish_dir: ./dist/budget-tracker/browser
