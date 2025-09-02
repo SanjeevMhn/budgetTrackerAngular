@@ -24,7 +24,7 @@ jobs:
         run: npm build --configuration=production --base-href=/budgetTrackerAngular/
 
       - name: Deploy to Github Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: peaceiris/action-gh-pages@v4
         with:
           branch: gh-pages
           folder: dist/budget-tracker/browser
