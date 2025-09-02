@@ -16,10 +16,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Install Dependancies
-        run: npm install --force
+        run: npm ci
 
       - name: Build Angular PWA App
         run: npm build --configuration=production --base-href=/budgetTrackerAngular/
