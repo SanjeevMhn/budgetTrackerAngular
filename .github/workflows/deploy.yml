@@ -2,17 +2,15 @@ name: BudgetTrackerDeploy
 
 on:
   push:
-    branches: ['master']
-  pull_request:
-    branches: ['master']
-  
-  workflow_dispatch:
+    branches: 
+      - main
 
     jobs:
-      build-deploy:
+      build-and-deploy:
         runs-on: ubuntu-lastest
         steps:
-          - uses: actions/checkout@v4
+          - name: Checkout Code
+            uses: actions/checkout@v4
 
           - name: Setup Node
             uses: actions/setup-node@v4
@@ -20,14 +18,14 @@ on:
               node-version: 22
 
           - name: Install Dependancies
-            run: npm ci
+            run: npm install --force
 
           - name: Build Angular PWA App
-            run: npm build --configuration:production
+            run: npm build --configuration=production --base-href=/budgetTrackerAngular/
 
           - name: Deploy to Github Pages
-            uses: peaceiris/actions-gh-pages@v4
+            uses: JamesIves/github-pages-deploy-action@v4
             with: 
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              publish_dir: ./dist/budget-tracker/browser
+              branch: gh-pages
+              folder: dist/budget-tracker/browser
 
