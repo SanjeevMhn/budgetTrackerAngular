@@ -28,7 +28,9 @@ export class Profile {
 
 
   openBottomSheet(){
-    this.bottomSheet.open(UserImgAction)
+    this.bottomSheet.open(UserImgAction,{
+      panelClass: 'bg-white'
+    })
   }
 
   onLogout(){
