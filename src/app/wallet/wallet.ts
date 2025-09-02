@@ -62,6 +62,7 @@ export class Wallet {
 
   onDelete(id: string | number) {
     const ref = this.dialog.open(AlertDialog, {
+      panelClass: 'alert-dialog',
       data: {
         title: 'Delete Budget?',
         description: 'Are you sure you want to delete this budget?',

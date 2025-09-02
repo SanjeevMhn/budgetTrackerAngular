@@ -28,11 +28,14 @@ export class Profile {
 
 
   openBottomSheet(){
-    this.bottomSheet.open(UserImgAction)
+    this.bottomSheet.open(UserImgAction,{
+      panelClass: 'bg-white'
+    })
   }
 
   onLogout(){
     const dialogRef = this.dialog.open(AlertDialog,{
+      panelClass: 'alert-dialog',
       data:{
         title: 'Logout?',
         description: 'Are you sure you want to logout?',
@@ -52,7 +55,7 @@ export class Profile {
 @Component({
   selector: 'app-user-img-action',
   template: `
-    <ul class="selection-list p-[2rem_0]">
+    <ul class="selection-list p-[2rem_0] bg-white">
       <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]" (click)="removeCurrentUserImg()">Remove Current Image</li>
       <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]">
         <label for="img">Change Current Image</label>

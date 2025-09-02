@@ -42,6 +42,10 @@ body {
 }
 /* You can add global styles to this file, and also import other style files */
 
+p,h2,span{
+  line-height: 1.2;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr min(90%, 40rem) 1fr;
@@ -80,6 +84,11 @@ div:has(.transaction-dialog) {
       }
     }
   }
+}
+
+.alert-dialog{
+  width: min(90%, 40rem)!important;
+  max-width: unset!important;
 }
 
 .form {

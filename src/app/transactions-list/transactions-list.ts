@@ -36,6 +36,7 @@ export class TransactionsList {
   
   onDelete(id:string | number){
     const dialogRef = this.dialog.open(AlertDialog,{
+      panelClass: 'alert-dialog',
       data:{
         title: 'Delete Transaction?',
         description: 'Are you sure you want to delete this transaction?'
