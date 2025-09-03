@@ -7,6 +7,7 @@ import { Profile } from './profile/profile';
 import { Register } from './user/register/register';
 import { authGuard } from './auth-guard';
 import { Login } from './user/login/login';
+import { loginGuard } from './login-guard';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,5 @@ export const routes: Routes = [
   },
   { path: 'register/:step', component: Register },
   { path: 'register', component: Register },
-  { path: 'login', component: Login }
+  { path: 'login', component: Login, canActivate: [loginGuard] }
 ];
