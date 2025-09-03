@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
 import { Router } from '@angular/router';
 import { Auth } from '../services/auth/auth';
+//@ts-ignore
+import Compress from 'compress.js'
 
 @Component({
   selector: 'app-profile',
@@ -28,9 +30,7 @@ export class Profile {
 
 
   openBottomSheet(){
-    this.bottomSheet.open(UserImgAction,{
-      panelClass: 'bg-white'
-    })
+    this.bottomSheet.open(UserImgAction)
   }
 
   onLogout(){
@@ -55,10 +55,17 @@ export class Profile {
 @Component({
   selector: 'app-user-img-action',
   template: `
-    <ul class="selection-list p-[2rem_0] bg-white">
-      <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]" (click)="removeCurrentUserImg()">Remove Current Image</li>
+    <ul class="selection-list p-[2rem_0]">
+      @if(userStore.getUserDetail().img() !== ''){
+        <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]" (click)="removeCurrentUserImg()">Remove Current Image</li>
+      }
       <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]">
-        <label for="img">Change Current Image</label>
+        <label for="img">
+        @if(userStore.getUserDetail().img() !== ''){
+          Change Current Image
+        }@else {
+          Add Image
+        }</label>
         <input type="file" id="img" name="img" class="hidden" (change)="changeCurrentImg($event)" />
       </li>
     </ul>
@@ -75,17 +82,24 @@ export class UserImgAction{
     this.bottomSheetRef.dismiss()
   }
 
-  changeCurrentImg(event:any){
+  async changeCurrentImg(event:any){
     const file = event.target.files[0]
     const reader = new FileReader()
+    const compress = new Compress()
 
+    const imgFile = await compress.compress(file,{
+      quality: 0.95,
+      crop: true,
+      maxWidth: 320,
+      maxHeight: 320
+    })
     reader.onload = () => {
       const result = reader.result as string
       this.userStore.setUserData({
         img: result
       })
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(imgFile)
     this.bottomSheetRef.dismiss()
   }
 }
