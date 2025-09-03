@@ -8,6 +8,7 @@ import { Register } from './user/register/register';
 import { authGuard } from './auth-guard';
 import { Login } from './user/login/login';
 import { loginGuard } from './login-guard';
+import { registerGuard } from './register-guard';
 
 export const routes: Routes = [
   {
@@ -22,7 +23,6 @@ export const routes: Routes = [
     ],
     canActivate: [authGuard]
   },
-  { path: 'register/:step', component: Register },
-  { path: 'register', component: Register },
+  { path: 'register', component: Register, canActivate: [registerGuard] },
   { path: 'login', component: Login, canActivate: [loginGuard] }
 ];
