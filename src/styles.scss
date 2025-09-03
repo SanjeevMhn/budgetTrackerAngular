@@ -49,6 +49,7 @@ p,h2,span{
 .wrapper {
   display: grid;
   grid-template-columns: 1fr min(90%, 40rem) 1fr;
+  column-gap: 1.2rem;
   > * {
     grid-column: 2;
   }
@@ -94,7 +95,7 @@ div:has(.transaction-dialog) {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   .form-group {
     display: flex;
     flex-direction: column;
@@ -103,7 +104,7 @@ div:has(.transaction-dialog) {
     @apply font-medium;
   }
   .form-control {
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
     font-size: 1.6rem;
     border: 1px solid;
     @apply border-neutral-400;

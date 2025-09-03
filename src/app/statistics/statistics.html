@@ -18,7 +18,7 @@
         <lucide-angular [img]="downloadIcon"></lucide-angular>
       </button>
     </div>
-    <ul class="tab-list flex items-center justify-between gap-[1rem] flex-wrap">
+    <ul class="tab-list flex items-center justify-evenly gap-[0.5rem] flex-wrap">
       @for(tab of tabList(); track tab.id){
       <li class="tab">
         <button
