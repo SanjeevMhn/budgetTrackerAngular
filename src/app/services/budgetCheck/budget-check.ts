@@ -16,13 +16,13 @@ export class BudgetCheck {
     }, 0);
   });
 
-  getCurrentBudgetState = computed(() => {
-    return (
-      (this.getCurrentMonthTotalExpenses() /
-        Number(this.budgetStore.budgetOfCurrentMonth().amount)) *
-      100
-    )
-      .toFixed(0)
-      .toString();
-  });
+  // getCurrentBudgetState = computed(() => {
+  //   return (
+  //     (this.getCurrentMonthTotalExpenses() /
+  //       Number(this.budgetStore.budgetOfCurrentMonth().amount)) *
+  //     100
+  //   )
+  //     .toFixed(0)
+  //     .toString();
+  // });
 }

@@ -28,8 +28,11 @@ export class AddBudget implements AfterViewInit {
   editMode = signal<boolean>(false);
 
   budgetForm = new FormGroup({
-    month: new FormControl('', [Validators.required]),
+    name: new FormControl(''),
+    duration: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required, Validators.min(100)]),
+    active: new FormControl(''),
+    recurring: new FormControl(''),
   });
 
   get month() {
@@ -47,10 +50,10 @@ export class AddBudget implements AfterViewInit {
       this.data.budget !== null &&
       this.data.budget !== undefined
     ) {
-      this.budgetForm.get('month')!.setValue(this.data.budget.date);
-      this.budgetForm
-        .get('amount')!
-        .setValue(this.data.budget.amount.toString());
+      // this.budgetForm.get('month')!.setValue(this.data.budget.date);
+      // this.budgetForm
+      //   .get('amount')!
+      //   .setValue(this.data.budget.amount.toString());
       this.editMode.set(true);
     }
   }
@@ -69,17 +72,21 @@ export class AddBudget implements AfterViewInit {
       let budget = {
         ...this.data.budget,
         ...this.budgetForm.value,
-      } as Budget
-      this.budgetStore.updateBudget(budget)
+      } as Budget;
+      this.budgetStore.updateBudget(budget);
     } else {
       let budget = {
         id: Date.now(),
-        recurring: false,
+        name: this.budgetForm.get('name')?.value,
+        duration: this.budgetForm.get('duration')?.value,
         amount: this.budgetForm.get('amount')?.value,
-        date: this.budgetForm.get('month')?.value,
+        date: Boolean(this.budgetForm.get('active')?.value) ? new Date() : '',
+        active: Boolean(this.budgetForm.get('active')?.value),
+        recurring: Boolean(this.budgetForm.get('recurring')?.value),
         limitReached: false,
       } as Budget;
       this.budgetStore.addBudget(budget);
+      console.log(this.budgetForm.value);
     }
     this.closeDialog();
   }

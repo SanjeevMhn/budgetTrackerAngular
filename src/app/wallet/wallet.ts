@@ -25,7 +25,7 @@ import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
 
 @Component({
   selector: 'app-wallet',
-  imports: [LucideAngularModule, MatMenuModule, TransactionsList],
+  imports: [LucideAngularModule, MatMenuModule],
   templateUrl: './wallet.html',
   styleUrl: './wallet.scss',
 })

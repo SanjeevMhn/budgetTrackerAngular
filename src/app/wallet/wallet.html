@@ -21,26 +21,26 @@
       </button>
     </div>
     <div
-      class="wallet-details rounded-[3rem] rounded-tr-[2rem] bg-white p-[4rem_1.5rem] shadow-lg relative  flex items-center flex-col gap-[3.5rem]"
+      class="wallet-details rounded-[3rem] rounded-tr-[2rem] bg-white p-[2rem_1.5rem] shadow-lg relative flex items-center flex-col gap-[1.5rem]"
     >
-      @if(!budgets.budgetOfCurrentMonth()){
+      @if(budgets.getActiveBudgets().length == 0){
       <span
-        class="icon-container w-[12rem] h-[12rem] flex items-center justify-center rounded-full bg-[#e9c46a]"
+        class="icon-container w-[45%] aspect-square flex items-center justify-center rounded-full bg-[#e9c46a]"
       >
         <lucide-angular
           [img]="notebook"
           class="w-[75%] h-[75%] text-white flex items-center justify-center"
         ></lucide-angular>
       </span>
-      <h2 class="text-[2.4rem] text-center">No budgets set.</h2>
+      <h2 class="text-[1.8rem] text-center">No budgets set.</h2>
       <button
-        class="rounded-full p-[2.5rem] bg-[#438883] text-white text-[1.8rem] text-center w-full cursor-pointer"
+        class="rounded-full p-[1.5rem] bg-[#438883] text-white text-[1.6rem] text-center w-full cursor-pointer"
         (click)="onOpenBudgetDialog()"
       >
         Add Budget
       </button>
       }@else {
-      <button
+      <!-- <button
         type="button"
         class="cursor-pointer absolute right-[1.2rem] top-[1.2rem]"
         [matMenuTriggerFor]="menu"
@@ -84,8 +84,84 @@
             </span>
           </p>
         </div>
-      </div>
-      <app-transactions-list [transactions]="transactions.expensesByMonth()" class="w-full" />
+      </div> -->
+      <header class="title-header flex justify-between items-center w-full">
+        <h2 class="list-title text-[2rem] font-medium">Budget List</h2>
+        <button
+          class="rounded-full p-[1rem] bg-[#438883] text-white text-[1.2rem] text-center cursor-pointer"
+          (click)="onOpenBudgetDialog()"
+        >
+          <lucide-angular [img]="plusIcon"></lucide-angular>
+        </button>
+      </header>
+      <ul class="budgets-list w-full">
+        @for(budget of budgets.getActiveBudgets(); track budget.id){
+        <li
+          class="item grid grid-cols-[2rem_1fr_1fr] gap-x-[1rem] gap-y-[0.2rem] first: border-b-2 border-neutral-200 p-[1.5rem_0]"
+        >
+          <div class="input-container row-[1/span_3] col-1 flex items-center">
+            <input
+              type="checkbox"
+              class="w-[2rem] h-[2rem] accent-[#438883]"
+              [checked]="budget.active"
+            />
+          </div>
+          <h2 class="budget-name text-[1.7rem] row-1 col-[2/-1] flex items-end">{{budget.name}}</h2>
+          <p
+            class="budget-duration capitalize text-[1.5rem] flex row-3 col-2 gap-[0.5rem]"
+          >
+            <span class="label-text font-medium">Duration:</span>
+            <span class="data">{{budget.duration}}</span>
+          </p>
+          <p class="col-3 row-3 text-end text-[1.4rem] text-neutral-700">
+            0% used
+          </p>
+          <p class="budget-amount font-medium text-[1.7rem] row-2 col-2">
+            Rs.{{ budget.amount}}
+          </p>
+          <button
+            type="button"
+            class="cursor-pointer col-3 row-1 flex justify-end"
+            [matMenuTriggerFor]="menu"
+          >
+            <span
+              class="icon-container w-[2.5rem] h-[2.5rem] flex items-center justify-center"
+            >
+              <lucide-angular [img]="ellipsesIcon"></lucide-angular>
+            </span>
+          </button>
+          <mat-menu #menu="matMenu" class="bg-white! rounded-xl!">
+            <button
+              type="button"
+              mat-menu-item
+              class="p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300"
+              (click)="onEdit(budget)"
+            >
+              Edit Budget
+            </button>
+            <button
+              type="button"
+              mat-menu-item
+              class="text-red-700! p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300"
+              (click)="onDelete(budget.id)"
+            >
+              Delete Budget
+            </button>
+          </mat-menu>
+          <div
+            class="progress-bar-container row-4 col-[2/-1] h-[0.8rem] bg-[#e9c46a] rounded-full overflow-hidden"
+          >
+            <div
+              class="progress-data rounded-full h-full w-[100%] bg-[#438883]"
+            ></div>
+          </div>
+        </li>
+        }
+      </ul>
+      <!-- <app-transactions-list
+        [transactions]="transactions.expensesByMonth()"
+        class="w-full"
+      /> -->
       }
     </div>
   </div>

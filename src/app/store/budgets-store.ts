@@ -10,10 +10,12 @@ import {
 
 export type Budget = {
   id: string | number;
-  // duration: 'day' | 'week' | 'month';
-  recurring: boolean;
+  name: string;
+  duration: 'day' | 'week' | 'month';
   amount: number | string;
   date: string;
+  active: boolean;
+  recurring: boolean;
   limitReached: boolean;
 };
 
@@ -29,13 +31,16 @@ export const BudgetStore = signalStore(
   { providedIn: 'root' },
   withState<BudgetStoreState>(initialState),
   withComputed(({ budgets }) => ({
-    budgetOfCurrentMonth: () => {
-      const date = new Date();
-      const currentMonth = date.getMonth() + 1;
-      return budgets().filter(
-        (budget) => new Date(budget.date).getMonth() + 1 == currentMonth
-      )[0];
-    },
+    // budgetOfCurrentMonth: () => {
+    //   const date = new Date();
+    //   const currentMonth = date.getMonth() + 1;
+    //   return budgets().filter(
+    //     (budget) => new Date(budget.date).getMonth() + 1 == currentMonth
+    //   )[0];
+    // },
+    getActiveBudgets: () => {
+      return budgets().filter(budget => budget.active)
+    }
   })),
   withMethods((store) => ({
     addBudget(budget: Budget): void {

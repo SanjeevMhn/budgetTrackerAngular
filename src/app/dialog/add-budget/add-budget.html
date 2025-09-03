@@ -28,15 +28,21 @@
       [formGroup]="budgetForm"
       (submit)="onBudgetSubmit()"
     >
-      <!-- <div class="form-group">
-        <label for="name" class="form-label">Budget Duration</label>
-        <select name="name" id="name" class="form-control" placeholder="Name">
+    <div class="form-group">
+      <label class="form-label" for="name">
+        Budget Name
+      </label>
+      <input type="text" name="name" id="nme" class="form-control" placeholder="Budget Name" formControlName="name">
+    </div>
+      <div class="form-group">
+        <label for="duration" class="form-label">Budget Duration</label>
+        <select name="duration" id="duration" class="form-control" placeholder="Duration" formControlName="duration">
           <option value="">Select Duration</option>
-          <option value="">Day</option>
-          <option value="">Week</option>
-          <option value="">Month</option>
+          <option value="day">Day</option>
+          <option value="week">Week</option>
+          <option value="month">Month</option>
         </select>
-      </div> -->
+      </div>
       <div class="form-group">
         <label for="amount" class="form-label">Amount</label>
         <input
@@ -48,17 +54,15 @@
           formControlName="amount"
         />
         @if(amount?.invalid && (amount?.touched || amount?.dirty)){
-          @if(amount?.hasError('required')){
-            <small class="text-red-600 text-[1.5rem]">Amount Required</small>
-          } 
-          @if(amount?.hasError('min')){
-            <small class="text-red-600 text-[1.5rem]"
-              >Amount must be atleast 100</small
-            >
-          } 
-        }
+        @if(amount?.hasError('required')){
+        <small class="text-red-600 text-[1.5rem]">Amount Required</small>
+        } @if(amount?.hasError('min')){
+        <small class="text-red-600 text-[1.5rem]"
+          >Amount must be atleast 100</small
+        >
+        } }
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="date" class="form-label">Month</label>
         <input
           type="month"
@@ -72,6 +76,26 @@
             <small class="text-red-600 text-[1.5rem]"> Month Required </small>
           } 
         }
+      </div> -->
+      <div class="form-group flex-row! items-center!">
+        <input
+          type="checkbox"
+          name="active"
+          id="active"
+          formControlName="active"
+          class="w-[2rem] h-[2rem] accent-[#438883]"
+        />
+        <label for="active" class="">Active</label>
+      </div>
+      <div class="form-group flex-row! items-center!">
+        <input
+          type="checkbox"
+          name="recurring"
+          id="recurring"
+          formControlName="recurring"
+          class="w-[2rem] h-[2rem] accent-[#438883]"
+        />
+        <label for="recurring" class="">Recurring Budget?</label>
       </div>
       <div class="form-actions">
         <button type="submit" class="btn">
