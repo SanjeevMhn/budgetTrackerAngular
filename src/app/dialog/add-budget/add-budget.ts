@@ -8,10 +8,11 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ChevronLeft, Ellipsis, LucideAngularModule } from 'lucide-angular';
 import { Budget, BudgetStore } from '../../store/budgets-store';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-budget',
-  imports: [LucideAngularModule, ReactiveFormsModule],
+  imports: [LucideAngularModule, ReactiveFormsModule, DatePipe],
   templateUrl: './add-budget.html',
   styleUrl: './add-budget.scss',
 })
@@ -29,19 +30,17 @@ export class AddBudget implements AfterViewInit {
 
   budgetForm = new FormGroup({
     name: new FormControl(''),
-    duration: new FormControl('', [Validators.required]),
-    amount: new FormControl('', [Validators.required, Validators.min(100)]),
-    active: new FormControl(''),
-    recurring: new FormControl(''),
+    limit: new FormControl('', [Validators.required, Validators.min(100)]),
   });
 
-  get month() {
-    return this.budgetForm.get('month');
+  get date() {
+    return new Date();
   }
 
-  get amount() {
-    return this.budgetForm.get('amount');
+  get limit() {
+    return this.budgetForm.get('limit');
   }
+
 
   ngAfterViewInit(): void {
     if (
@@ -75,18 +74,15 @@ export class AddBudget implements AfterViewInit {
       } as Budget;
       this.budgetStore.updateBudget(budget);
     } else {
-      let budget = {
+      let budget:Budget = {
         id: Date.now(),
-        name: this.budgetForm.get('name')?.value,
-        duration: this.budgetForm.get('duration')?.value,
-        amount: this.budgetForm.get('amount')?.value,
-        date: Boolean(this.budgetForm.get('active')?.value) ? new Date() : '',
-        active: Boolean(this.budgetForm.get('active')?.value),
-        recurring: Boolean(this.budgetForm.get('recurring')?.value),
+        name: this.budgetForm.get('name')?.value!,
+        date: new Date().toString(),
+        limit: this.budgetForm.get('limit')?.value!,
         limitReached: false,
-      } as Budget;
+        total_spent: 0,
+      };
       this.budgetStore.addBudget(budget);
-      console.log(this.budgetForm.value);
     }
     this.closeDialog();
   }

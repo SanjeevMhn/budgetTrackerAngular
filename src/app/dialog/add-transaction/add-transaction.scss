@@ -1,0 +1,19 @@
+.transaction-type{
+    .grp{
+        label{
+            color: #4b4b4b;
+            .icon-container{
+                display: none;
+            }
+        }
+        input[type="radio"]:checked{
+            & + label{
+                color: #438883;
+                font-weight: 500;
+                .icon-container{
+                    display: flex;
+                }
+            }
+        }
+    }
+}

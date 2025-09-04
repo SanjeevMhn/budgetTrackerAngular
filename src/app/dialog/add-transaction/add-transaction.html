@@ -29,8 +29,54 @@
       [formGroup]="transactionForm"
       (submit)="onTransactionSubmit()"
     >
+      <div class="transaction-type flex items-center">
+        <div class="grp grow flex justify-center">
+          <input
+            type="radio"
+            name="type"
+            id="expense"
+            class="hidden"
+            formControlName="type"
+            value="expense"
+          />
+          <label
+            for="expense"
+            class="flex items-center gap-[0.8rem] text-[1.75rem] cursor-pointer"
+          >
+            <span class="icon-container w-[2rem] h-[2rem]">
+              <lucide-angular
+                [img]="checkIcon"
+                class="flex items-center justify-center w-full h-full"
+              ></lucide-angular>
+            </span>
+            Expense
+          </label>
+        </div>
+        <div class="grp grow flex justify-center">
+          <input
+            type="radio"
+            name="type"
+            id="income"
+            class="hidden"
+            formControlName="type"
+            value="income"
+          />
+          <label
+            for="income"
+            class="flex items-center gap-[0.8rem] text-[1.75rem] cursor-pointer"
+          >
+            <span class="icon-container w-[2rem] h-[2rem]">
+              <lucide-angular
+                [img]="checkIcon"
+                class="flex items-center justify-center w-full h-full"
+              ></lucide-angular>
+            </span>
+            Income
+          </label>
+        </div>
+      </div>
       <div class="form-group">
-        <label for="amount" class="form-label">Amount</label>
+        <!-- <label for="amount" class="form-label">Amount</label> -->
         <input
           type="number"
           name="amount"
@@ -40,20 +86,18 @@
           formControlName="amount"
         />
         @if(amount?.touched || amount?.dirty){
-          @if(amount?.hasError('required')){
-            <small class="text-red-600 text-[1.5rem]"
-              >Transaction Amount Required</small
-            >
-          } 
-          @if(amount?.hasError('min')){
-            <small class="text-red-600 text-[1.5rem]"
-              >Transaction amount must be greater than 1</small
-            >
-          } 
-        }
+        @if(amount?.hasError('required')){
+        <small class="text-red-600 text-[1.5rem]"
+          >Transaction Amount Required</small
+        >
+        } @if(amount?.hasError('min')){
+        <small class="text-red-600 text-[1.5rem]"
+          >Transaction amount must be greater than 1</small
+        >
+        } }
       </div>
       <div class="form-group">
-        <label for="name" class="form-label">Name</label>
+        <!-- <label for="name" class="form-label">Name</label> -->
         <input
           type="text"
           name="name"
@@ -63,14 +107,13 @@
           formControlName="name"
         />
         @if(name?.invalid && (name?.touched || name?.dirty)){
-          @if(name?.hasError('required')){
-          <small class="text-red-600 text-[1.5rem]"
-            >Transaction Name Required</small
-          >
-          } 
-        }
+        @if(name?.hasError('required')){
+        <small class="text-red-600 text-[1.5rem]"
+          >Transaction Name Required</small
+        >
+        } }
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="type" class="form-label">Type</label>
         <select
           name="type"
@@ -83,28 +126,21 @@
           <option value="income">Income</option>
         </select>
         @if(type?.invalid && (type?.touched || type?.dirty)){
-          @if(type?.hasError('required')){
-          <small class="text-red-600 text-[1.5rem]">Transaction type Required</small>
-          }
-        }
-
-      </div>
+        @if(type?.hasError('required')){
+        <small class="text-red-600 text-[1.5rem]"
+          >Transaction type Required</small
+        >
+        } }
+      </div> -->
       <div class="form-group">
-        <label for="date" class="form-label">Date</label>
-        <input
-          type="date"
-          name="date"
-          id="date"
-          class="form-control"
-          formControlName="date"
-        />
-        @if(date?.invalid && (date?.touched || date?.dirty)){
-          @if(date?.hasError('required')){
-            <small class="text-red-600 text-[1.5rem]"
-              >Transaction Date Required</small
-            >
-          } 
-        }
+        <!-- <label for="date" class="form-label">Date</label> -->
+        <button
+          type="button"
+          class="form-control text-left cursor-pointer"
+          (click)="showDateDialog()"
+        >
+          {{today | date}}
+        </button>
       </div>
       <div class="form-actions">
         <button type="submit" class="btn">

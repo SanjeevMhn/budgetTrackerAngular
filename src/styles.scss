@@ -46,6 +46,12 @@ p,h2,span{
   line-height: 1.2;
 }
 
+.mat-calendar{
+  --mat-sys-title-small-size: 1.4rem!important;
+  --mat-sys-body-medium-size: 1.2rem!important;
+  --mat-sys-label-large-size: 1.5rem!important;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr min(90%, 40rem) 1fr;
@@ -100,7 +106,7 @@ div:has(.transaction-dialog) {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    @apply text-neutral-500;
+    @apply text-neutral-600;
     @apply font-medium;
   }
   .form-control {
@@ -109,6 +115,7 @@ div:has(.transaction-dialog) {
     border: 1px solid;
     @apply border-neutral-400;
     @apply rounded-xl;
+    height: 4.1rem;
   }
   .form-actions{
     display: flex;

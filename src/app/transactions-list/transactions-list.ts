@@ -9,10 +9,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTransaction } from '../dialog/add-transaction/add-transaction';
 import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transactions-list',
-  imports: [MatMenuModule, LucideAngularModule],
+  imports: [MatMenuModule, LucideAngularModule,DatePipe],
   templateUrl: './transactions-list.html',
   styleUrl: './transactions-list.scss',
 })

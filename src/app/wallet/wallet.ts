@@ -9,6 +9,7 @@ import {
 import {
   BellDot,
   ChevronLeft,
+  Ellipsis,
   EllipsisVertical,
   LucideAngularModule,
   NotebookText,
@@ -22,10 +23,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TransactionsList } from '../transactions-list/transactions-list';
 import { TransactionStore } from '../store/transaction-store';
 import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-wallet',
-  imports: [LucideAngularModule, MatMenuModule],
+  imports: [LucideAngularModule, MatMenuModule, DatePipe],
   templateUrl: './wallet.html',
   styleUrl: './wallet.scss',
 })
@@ -34,7 +36,7 @@ export class Wallet {
   bellIcon = BellDot;
   plusIcon = Plus;
   notebook = NotebookText;
-  ellipsesIcon = EllipsisVertical;
+  ellipsesIcon = Ellipsis;
 
   budgets = inject(BudgetStore);
   dialog = inject(MatDialog);
@@ -74,5 +76,15 @@ export class Wallet {
         this.budgets.deleteBudget(id);
       }
     });
+  }
+
+  getTotalPercentageUsed(
+    spent: number | string,
+    limit: number | string
+  ): string {
+    if (spent && limit) {
+      return ((Number(spent) / Number(limit)) * 100).toPrecision(0);
+    }
+    return '0';
   }
 }

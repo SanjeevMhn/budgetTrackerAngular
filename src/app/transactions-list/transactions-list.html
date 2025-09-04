@@ -17,7 +17,7 @@
       {{transaction.name}}
     </h2>
     <span class="date text-neutral-600 text-[1.4rem] row-2 col-2 leading-[1.1]"
-      >{{transaction.date}}</span
+      >{{transaction.date | date: 'MMM d, y, h:mm a'}}</span
     >
     <p
       class="amount text-[1.8rem] col-3 row-[1/span_2] leading-[1.1] flex items-center justify-end"
