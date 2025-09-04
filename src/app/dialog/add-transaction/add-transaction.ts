@@ -29,6 +29,8 @@ import { Transaction, TransactionStore } from '../../store/transaction-store';
 import { DatePipe } from '@angular/common';
 import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { BudgetStore } from '../../store/budgets-store';
+import { BudgetCheck } from '../../services/budgetCheck/budget-check';
 
 @Component({
   selector: 'app-add-transaction',
@@ -47,6 +49,8 @@ export class AddTransaction implements AfterViewInit {
   checkIcon = CircleCheckBig;
 
   transactionStore = inject(TransactionStore);
+  budgetStore = inject(BudgetStore);
+  budgetCheck = inject(BudgetCheck);
   dialogRef = inject(MatDialogRef<AddTransaction>);
   public data: {
     transaction?: Transaction;
@@ -56,7 +60,8 @@ export class AddTransaction implements AfterViewInit {
     name: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required, Validators.min(1)]),
     type: new FormControl('expense', [Validators.required]),
-    date: new FormControl<Date | string>('', [Validators.required]),
+    date: new FormControl(''),
+    budget_id: new FormControl(''),
   });
 
   editMode = signal<boolean>(false);
@@ -72,7 +77,7 @@ export class AddTransaction implements AfterViewInit {
       console.log(date);
       this.transactionForm.patchValue(propData);
       this.transactionForm.get('date')?.reset();
-      this.transactionForm.get('date')?.setValue(new Date(date));
+      this.transactionForm.get('date')?.setValue(new Date(date).toString());
       this.editMode.set(true);
     }
   }
@@ -110,24 +115,28 @@ export class AddTransaction implements AfterViewInit {
   }
 
   get today() {
-    return this.transactionForm.get('date')?.value !== ''
+    return this.transactionForm.get('date')?.value &&
+      this.transactionForm.get('date')?.value !== ''
       ? this.transactionForm.get('date')?.value
       : this.selected();
   }
 
   onTransactionSubmit() {
+    if (!this.transactionForm.get('date')?.value) {
+      this.transactionForm.get('date')?.setValue(this.selected().toString());
+    }
     if (this.transactionForm.invalid) {
       this.transactionForm.markAllAsTouched();
       return;
     }
 
     if (this.editMode()) {
-      console.log(this.transactionForm.value);
       let transaction = {
         ...this.data.transaction,
         ...this.transactionForm.value,
       } as Transaction;
-      this.transactionStore.updateTransaction(transaction);
+
+      this.budgetCheck.updateTransaction(transaction);
     } else {
       let transaction = {
         id: Date.now(),
@@ -135,8 +144,10 @@ export class AddTransaction implements AfterViewInit {
         date: this.transactionForm.get('date')?.value?.toString(),
         amount: this.transactionForm.get('amount')?.value,
         type: this.transactionForm.get('type')?.value,
+        budget_id: this.transactionForm.get('budget_id')?.value,
       } as Transaction;
-      this.transactionStore.addTransaction(transaction);
+
+      this.budgetCheck.addTransaction(transaction);
     }
 
     this.closeDialog();

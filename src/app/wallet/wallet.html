@@ -72,7 +72,7 @@
           </div>
           <div class="budget-amount font-medium text-[1.4rem] row-3 col-[1/span_2]">
             <span class="font-medium">Remaining: </span> Rs.{{
-            budget.total_spent}}
+            getRemaining(budget.total_spent, budget.limit)}}
           </div>
           <button
             type="button"

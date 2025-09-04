@@ -14,7 +14,6 @@
         ></lucide-angular>
       </button>
       <h2 class="title-text text-[2rem]">
-        <!-- Add @if(data.type == 'expense'){ Expense }@else{ Income } -->
         @if(editMode()){Edit}@else{Add} Transaction
       </h2>
       <button
@@ -75,8 +74,17 @@
           </label>
         </div>
       </div>
+      @if(budgetStore.getBudgets().length > 0){
       <div class="form-group">
-        <!-- <label for="amount" class="form-label">Amount</label> -->
+        <select name="budget" id="budget" class="form-control" formControlName="budget_id">
+          <option value="">Select Budget</option>
+          @for(budget of budgetStore.getBudgets(); track budget.id){
+            <option [value]="budget.id">{{budget.name}}</option>
+          }
+        </select>
+      </div>
+      }
+      <div class="form-group">
         <input
           type="number"
           name="amount"
@@ -97,7 +105,6 @@
         } }
       </div>
       <div class="form-group">
-        <!-- <label for="name" class="form-label">Name</label> -->
         <input
           type="text"
           name="name"
@@ -113,27 +120,7 @@
         >
         } }
       </div>
-      <!-- <div class="form-group">
-        <label for="type" class="form-label">Type</label>
-        <select
-          name="type"
-          id="type"
-          class="form-control"
-          formControlName="type"
-        >
-          <option value="">Select Transaction Type</option>
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select>
-        @if(type?.invalid && (type?.touched || type?.dirty)){
-        @if(type?.hasError('required')){
-        <small class="text-red-600 text-[1.5rem]"
-          >Transaction type Required</small
-        >
-        } }
-      </div> -->
       <div class="form-group">
-        <!-- <label for="date" class="form-label">Date</label> -->
         <button
           type="button"
           class="form-control text-left cursor-pointer"

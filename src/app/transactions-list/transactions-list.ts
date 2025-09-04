@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddTransaction } from '../dialog/add-transaction/add-transaction';
 import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
 import { DatePipe } from '@angular/common';
+import { BudgetCheck } from '../services/budgetCheck/budget-check';
 
 @Component({
   selector: 'app-transactions-list',
@@ -22,7 +23,7 @@ export class TransactionsList {
   ellipsesIcon = EllipsisVertical;
 
   dialog = inject(MatDialog);
-  transactionsStore = inject(TransactionStore)
+  budgetCheck = inject(BudgetCheck)
 
   onTransactionEdit(transaction: Transaction) {
     this.dialog.open(AddTransaction, {
@@ -46,7 +47,7 @@ export class TransactionsList {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.transactionsStore.deleteTransaction(id)
+        this.budgetCheck.deleteTransaction(id)
       }
     })
 

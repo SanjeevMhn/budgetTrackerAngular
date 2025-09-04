@@ -29,17 +29,9 @@ export const BudgetStore = signalStore(
   { providedIn: 'root' },
   withState<BudgetStoreState>(initialState),
   withComputed(({ budgets }) => ({
-    // budgetOfCurrentMonth: () => {
-    //   const date = new Date();
-    //   const currentMonth = date.getMonth() + 1;
-    //   return budgets().filter(
-    //     (budget) => new Date(budget.date).getMonth() + 1 == currentMonth
-    //   )[0];
-    // },
     getBudgets: computed(() => {
       return budgets()
-    })
-
+    }),
   })),
   withMethods((store) => ({
     addBudget(budget: Budget): void {
@@ -64,7 +56,7 @@ export const BudgetStore = signalStore(
       patchState(store,(state) => ({
         budgets: state.budgets.filter(bud => bud.id !== id)
       }))
-    }
+    },
   })),
   withStorageSync({
     key: 'budgets'

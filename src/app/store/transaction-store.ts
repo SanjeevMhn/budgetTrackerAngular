@@ -1,4 +1,4 @@
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import {
   patchState,
   signalStore,
@@ -7,7 +7,8 @@ import {
   withState,
 } from '@ngrx/signals';
 
-import { withStorageSync } from '@angular-architects/ngrx-toolkit'
+import { withStorageSync } from '@angular-architects/ngrx-toolkit';
+import { BudgetStore } from './budgets-store';
 
 export type Transaction = {
   id: string | number;
@@ -15,7 +16,9 @@ export type Transaction = {
   amount: string;
   type: 'income' | 'expense';
   name: string;
+  budget_id?: string;
 };
+
 
 type TransactionStoreState = {
   transactions: Array<Transaction>;
@@ -107,34 +110,38 @@ export const TransactionStore = signalStore(
         (tran) => tran.type == 'expense' && new Date(tran.date) >= date
       );
     },
+
+    getAllTransaction: computed(() => {
+      return transactions()
+    })
   })),
   withMethods((store) => ({
     addTransaction(transaction: Transaction): void {
       patchState(store, (state) => ({
-        transactions: [ transaction, ...state.transactions],
+        transactions: [transaction, ...state.transactions],
       }));
     },
     updateTransaction(transaction: Transaction): void {
       patchState(store, (state) => ({
         transactions: state.transactions.map((t) => {
-          if(t.id == transaction.id){
+          if (t.id == transaction.id) {
             return {
               ...t,
-              ...transaction
-            }
+              ...transaction,
+            };
           }
-          return t
-        })
+          return t;
+        }),
       }));
     },
 
-    deleteTransaction(id:string | number){
-      patchState(store,(state) => ({
-        transactions: state.transactions.filter(t => t.id !== id)
-      }))
-    }
+    deleteTransaction(id: string | number) {
+      patchState(store, (state) => ({
+        transactions: state.transactions.filter((t) => t.id !== id),
+      }));
+    },
   })),
   withStorageSync({
-    key: 'transactions'
+    key: 'transactions',
   })
 );

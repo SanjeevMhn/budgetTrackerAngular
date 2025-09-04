@@ -83,8 +83,16 @@ export class Wallet {
     limit: number | string
   ): string {
     if (spent && limit) {
-      return ((Number(spent) / Number(limit)) * 100).toPrecision(0);
+      return ((Number(spent) / Number(limit)) * 100).toFixed(0);
     }
     return '0';
   }
+
+  getRemaining(spent: number | string, limit: number | string){
+    if(spent && limit){
+      return Number(limit) - Number(spent)
+    }
+    return limit
+  }
+
 }
