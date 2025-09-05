@@ -98,11 +98,14 @@ div:has(.transaction-dialog) {
 .alert-dialog{
   width: min(90%, 40rem)!important;
   max-width: unset!important;
-  .mat-bottom-sheet-container-large{
+  justify-content: center;
+  .mat-bottom-sheet-container {
     width: 100%!important;
     min-width: unset!important;
     max-width: unset!important;
     padding: 0!important;
+    background: unset!important;
+    box-shadow: none!important;
   }
 }
 

@@ -19,7 +19,7 @@
     </header>
 
     <section
-      class="budget-detail p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl flex flex-col gap-[2rem]"
+      class="budget-detail p-[3rem_1rem] bg-white rounded-[2rem] shadow-xl flex flex-col gap-[2rem]"
     >
       <div class="budget-info flex">
         <h2
@@ -29,7 +29,7 @@
         </h2>
       </div>
       <div
-        class="usage-container rounded-xl p-[1rem] w-full grid grid-cols-[20rem_1fr] gap-[1rem]"
+        class="usage-container rounded-xl p-[1rem] w-full grid grid-cols-[60%_1fr] gap-[1rem]"
       >
         <div class="created-date row-1 col-[1/-1] leading-[1.1] text-center">
           {{budgetDetail()!.date | date:"longDate"}}
@@ -39,7 +39,7 @@
           [style.--progress]="`${getTotalPercentageUsed(budgetDetail()!.total_spent, budgetDetail()!.limit)}%`"
         ></div>
         <div
-          class="percentage-used row-2 col-2 text-[2rem] flex items-center leading-[1.1]"
+          class="percentage-used row-2 col-2 text-[1.75rem] flex items-center leading-[1.1]"
         >
           {{getTotalPercentageUsed(budgetDetail()!.total_spent,
           budgetDetail()!.limit)}}% used of {{budgetDetail()!.limit}}
