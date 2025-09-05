@@ -138,6 +138,14 @@ export class Statistics implements AfterViewInit {
       : [];
   });
 
+  activeLabelsDateConversion = computed(() => {
+    return this.activeLabels().length > 0 ? this.activeLabels().map(lab => new Date(lab).toLocaleDateString('en-US',{
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    })) : []
+  })
+
   activeData = computed(() => {
     return this.activeDurationAndType().duration == '7 Days' &&
       this.activeDurationAndType().type == 'exp'
@@ -195,7 +203,7 @@ export class Statistics implements AfterViewInit {
     this.chart = new Chart(this.chartRef.nativeElement, {
       type: 'line',
       data: {
-        labels: this.activeLabels(),
+        labels: this.activeLabelsDateConversion(),
         datasets: [
           {
             label: `${

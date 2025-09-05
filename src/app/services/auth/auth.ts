@@ -32,5 +32,6 @@ export class Auth {
 
     // this.router.navigate(['/login']);
     this.router.navigate([environment.apiUrl])
+    location.href=environment.apiUrl
   }
 }

@@ -78,6 +78,7 @@ export class AddTransaction implements AfterViewInit {
       this.transactionForm.patchValue(propData);
       this.transactionForm.get('date')?.reset();
       this.transactionForm.get('date')?.setValue(new Date(date).toString());
+      this.selected.set(new Date(date))
       this.editMode.set(true);
     }
   }
@@ -115,10 +116,7 @@ export class AddTransaction implements AfterViewInit {
   }
 
   get today() {
-    return this.transactionForm.get('date')?.value &&
-      this.transactionForm.get('date')?.value !== ''
-      ? this.transactionForm.get('date')?.value
-      : this.selected();
+    return this.selected();
   }
 
   onTransactionSubmit() {
