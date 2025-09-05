@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1757055373766,
+  "timestamp": 1757055826195,
   "index": "/budgetTrackerAngular/index.html",
   "assetGroups": [
     {
@@ -16,7 +16,7 @@
         "/budgetTrackerAngular/index.html",
         "/budgetTrackerAngular/main-XX5J5NGE.js",
         "/budgetTrackerAngular/manifest.webmanifest",
-        "/budgetTrackerAngular/styles-YA6SC6Z4.css"
+        "/budgetTrackerAngular/styles-ZW3ED6QI.css"
       ],
       "patterns": []
     },
@@ -54,10 +54,10 @@
     "/budgetTrackerAngular/icons/icon-512x512.png": "1eb555e244e875fc00cc9813aa4f2ed0c79c1f57",
     "/budgetTrackerAngular/icons/icon-72x72.png": "6f024d4b9fcb66cd0eb2f78903332900e45d2018",
     "/budgetTrackerAngular/icons/icon-96x96.png": "d5a48ac45a8883ff9c3907a76defb3c782126a3c",
-    "/budgetTrackerAngular/index.html": "89c66afd4538e1f1c2ef928b2af0975b00ef1059",
+    "/budgetTrackerAngular/index.html": "14dfd47b78465ec0124a0c97f6aa477ff74b5b74",
     "/budgetTrackerAngular/main-XX5J5NGE.js": "6268502d2deafa4076a695f023d0fb80262e0fac",
     "/budgetTrackerAngular/manifest.webmanifest": "a2b8a8bf7619d395ef8816d29392e5bcdf77ea65",
-    "/budgetTrackerAngular/styles-YA6SC6Z4.css": "d1463636a473ecbaf5929f54fd23629036da31f9"
+    "/budgetTrackerAngular/styles-ZW3ED6QI.css": "9f89fe8e3ca4714198fff32d1c1bcaebed248ac9"
   },
   "navigationUrls": [
     {
