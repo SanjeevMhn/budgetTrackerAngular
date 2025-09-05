@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { BellDot, ChevronLeft, LucideAngularModule, Pen, PenTool, Plus } from 'lucide-angular';
 import { UserStore } from '../store/user-store';
 import { MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet'
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
 import { Router } from '@angular/router';
 import { Auth } from '../services/auth/auth';
@@ -30,7 +30,10 @@ export class Profile {
 
 
   openBottomSheet(){
-    this.bottomSheet.open(UserImgAction)
+    // this.bottomSheet.open(UserImgAction)
+    this.dialog.open(UserImgAction,{
+      panelClass: 'alert-dialog',
+    })
   }
 
   onLogout(){
@@ -60,7 +63,7 @@ export class Profile {
 @Component({
   selector: 'app-user-img-action',
   template: `
-    <ul class="selection-list p-[2rem_0]">
+    <ul class="selection-list p-[2rem]">
       @if(userStore.getUserDetail().img() !== ''){
         <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]" (click)="removeCurrentUserImg()">Remove Current Image</li>
       }
@@ -78,13 +81,14 @@ export class Profile {
 })
 export class UserImgAction{
 
-  bottomSheetRef = inject(MatBottomSheetRef<UserImgAction>)
+  // bottomSheetRef = inject(MatBottomSheetRef<UserImgAction>)
+  dialogRef = inject(MatDialogRef<UserImgAction>)
   userStore = inject(UserStore)
   removeCurrentUserImg(){
     this.userStore.setUserData({
       img: ''
     })
-    this.bottomSheetRef.dismiss()
+    this.dialogRef.close()
   }
 
   async changeCurrentImg(event:any){
@@ -105,6 +109,6 @@ export class UserImgAction{
       })
     }
     reader.readAsDataURL(imgFile)
-    this.bottomSheetRef.dismiss()
+    this.dialogRef.close()
   }
 }
