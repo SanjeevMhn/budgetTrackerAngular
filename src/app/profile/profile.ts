@@ -30,10 +30,10 @@ export class Profile {
 
 
   openBottomSheet(){
-    // this.bottomSheet.open(UserImgAction)
-    this.dialog.open(UserImgAction,{
-      panelClass: 'alert-dialog',
-    })
+    this.bottomSheet.open(UserImgAction)
+    // this.dialog.open(UserImgAction,{
+    //   panelClass: 'alert-dialog',
+    // })
   }
 
   onLogout(){
@@ -63,7 +63,8 @@ export class Profile {
 @Component({
   selector: 'app-user-img-action',
   template: `
-    <ul class="selection-list p-[2rem]">
+  <div class="dialog-container p-[2rem] bg-[#fff]">
+    <ul class="selection-list">
       @if(userStore.getUserDetail().img() !== ''){
         <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]" (click)="removeCurrentUserImg()">Remove Current Image</li>
       }
@@ -77,18 +78,20 @@ export class Profile {
         <input type="file" id="img" name="img" class="hidden" (change)="changeCurrentImg($event)" />
       </li>
     </ul>
+  </div>
   `,
 })
 export class UserImgAction{
 
-  // bottomSheetRef = inject(MatBottomSheetRef<UserImgAction>)
-  dialogRef = inject(MatDialogRef<UserImgAction>)
+  bottomSheetRef = inject(MatBottomSheetRef<UserImgAction>)
+  // dialogRef = inject(MatDialogRef<UserImgAction>)
   userStore = inject(UserStore)
   removeCurrentUserImg(){
     this.userStore.setUserData({
       img: ''
     })
-    this.dialogRef.close()
+    // this.dialogRef.close()
+    this.bottomSheetRef.dismiss()
   }
 
   async changeCurrentImg(event:any){
@@ -109,6 +112,7 @@ export class UserImgAction{
       })
     }
     reader.readAsDataURL(imgFile)
-    this.dialogRef.close()
+    // this.dialogRef.close()
+    this.bottomSheetRef.dismiss()
   }
 }
