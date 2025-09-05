@@ -34,6 +34,10 @@
             alt=""
             class="w-full h-full object-cover rounded-full"
           />
+          }@else{
+            <div class="capitalize text-[3.2rem]">
+              {{getUserInitials(userStore.getUserDetail().name())}}
+            </div>
           }
           <!-- <label
             for="user"

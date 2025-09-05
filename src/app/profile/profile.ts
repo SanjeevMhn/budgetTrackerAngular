@@ -50,6 +50,11 @@ export class Profile {
     })
   }
 
+  getUserInitials(name: string){
+    let nameArr = name.split(' ')
+    return nameArr.length > 2 ? nameArr[0].charAt(0) +' '+nameArr[2].charAt(0) : nameArr[0].charAt(0) + ' ' + nameArr[1].charAt(0)
+  }
+
 }
 
 @Component({

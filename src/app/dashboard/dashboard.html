@@ -5,10 +5,14 @@
     <div class="top-section flex items-center z-[2] p-[2rem] pb-[1.5rem] gap-[1.5rem]">
       <div class="user-profile flex items-center gap-[1rem]">
         <span
-          class="img-container flex-[0_0_4.5rem] w-[4.5rem] h-[4.5rem] rounded-full bg-red-300"
+          class="img-container flex-[0_0_5rem] w-[5rem] h-[5rem] rounded-full bg-red-300 flex items-center justify-center"
         >
           @if(userStore.getUserDetail().img()){
             <img [src]="userStore.getUserDetail().img()" class="w-full h-full object-cover rounded-full" />
+          }@else {
+            <div class="capitalize text-white text-[2rem]">
+              {{getUserInitials(userStore.getUserDetail().name())}}
+            </div>
           }
         </span>
         <span class="user-fill text-[1.75rem] text-white font-medium">{{userStore.getUserDetail().name()}}</span>
