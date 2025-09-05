@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1757049626568,
+  "index": "/budgetTrackerAngular/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/budgetTrackerAngular/chunk-D2NQD24O.js",
+        "/budgetTrackerAngular/favicon.ico",
+        "/budgetTrackerAngular/index.html",
+        "/budgetTrackerAngular/main-MOMHJVTN.js",
+        "/budgetTrackerAngular/manifest.webmanifest",
+        "/budgetTrackerAngular/styles-MQXPF6YI.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/budgetTrackerAngular/icons/icon-128x128.png",
+        "/budgetTrackerAngular/icons/icon-144x144.png",
+        "/budgetTrackerAngular/icons/icon-152x152.png",
+        "/budgetTrackerAngular/icons/icon-192x192.png",
+        "/budgetTrackerAngular/icons/icon-256x256.png",
+        "/budgetTrackerAngular/icons/icon-384x384.png",
+        "/budgetTrackerAngular/icons/icon-512x512.png",
+        "/budgetTrackerAngular/icons/icon-72x72.png",
+        "/budgetTrackerAngular/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/budgetTrackerAngular/chunk-D2NQD24O.js": "9c48f459c5deb90438476ff5df120a3ac63e27ce",
+    "/budgetTrackerAngular/favicon.ico": "78a41bafcebe714af4f79604a0aed1f7d74e46d3",
+    "/budgetTrackerAngular/icons/icon-128x128.png": "c89be26b03bd30d9a027e16a6af8948603809344",
+    "/budgetTrackerAngular/icons/icon-144x144.png": "830e4c0510bf9d105ea5ef4efad1ab3e2b91319a",
+    "/budgetTrackerAngular/icons/icon-152x152.png": "d691fff7cad166292ecfddde2d874f7c9ed59d11",
+    "/budgetTrackerAngular/icons/icon-192x192.png": "5d4f92a2cd329137cf2ec727fbe90e9065f48004",
+    "/budgetTrackerAngular/icons/icon-256x256.png": "86e2f35f0459e312d69e8ff90096d41ad11cdbbc",
+    "/budgetTrackerAngular/icons/icon-384x384.png": "fd0ca5b02d963e48a671341f4da76c392eda6811",
+    "/budgetTrackerAngular/icons/icon-512x512.png": "1eb555e244e875fc00cc9813aa4f2ed0c79c1f57",
+    "/budgetTrackerAngular/icons/icon-72x72.png": "6f024d4b9fcb66cd0eb2f78903332900e45d2018",
+    "/budgetTrackerAngular/icons/icon-96x96.png": "d5a48ac45a8883ff9c3907a76defb3c782126a3c",
+    "/budgetTrackerAngular/index.html": "0f289625e64666521dcb8cab5b7d8435c462dc79",
+    "/budgetTrackerAngular/main-MOMHJVTN.js": "efc90d024e71df415f66ccf470706716f725e29e",
+    "/budgetTrackerAngular/manifest.webmanifest": "a2b8a8bf7619d395ef8816d29392e5bcdf77ea65",
+    "/budgetTrackerAngular/styles-MQXPF6YI.css": "614f5b294b944d1360f98792208734010e562700"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
