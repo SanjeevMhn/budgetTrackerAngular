@@ -28,12 +28,6 @@
       [formGroup]="budgetForm"
       (submit)="onBudgetSubmit()"
     >
-    <div class="form-group">
-      <!-- <label class="form-label" for="name">
-        Budget Name
-      </label> -->
-      <input type="text" name="name" id="nme" class="form-control" placeholder="Budget Name" formControlName="name">
-    </div>
       <div class="form-group">
         <!-- <label for="limit" class="form-label">Limit</label> -->
         <input
@@ -53,7 +47,22 @@
         >
         } }
       </div>
-      <div class="date text-center text-neutral-500">Month: {{ date | date: 'MMMM, yyyy' }}</div>
+      <div class="form-group">
+        <!-- <label class="form-label" for="name">
+        Budget Name
+      </label> -->
+        <input
+          type="text"
+          name="name"
+          id="nme"
+          class="form-control"
+          placeholder="Budget Name"
+          formControlName="name"
+        />
+      </div>
+      <div class="date text-center text-neutral-500">
+        Month: {{ date | date: 'MMMM, yyyy' }}
+      </div>
       <div class="form-actions">
         <button type="submit" class="btn text-white">
           @if(editMode()){Update}@else{Add}
