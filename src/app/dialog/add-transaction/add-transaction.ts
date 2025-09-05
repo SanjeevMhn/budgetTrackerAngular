@@ -163,10 +163,12 @@ export class AddTransaction implements AfterViewInit {
   imports: [MatDatepickerModule],
   providers: [provideNativeDateAdapter()],
   template: `
-    <mat-calendar
-      [selected]="data.date!"
-      (selectedChange)="selectData($event)"
-    />
+    <div class="dialog-container bg-[#fff] rounded-[2.8rem]">
+      <mat-calendar
+        [selected]="data.date!"
+        (selectedChange)="selectData($event)"
+      />
+    </div>
   `,
 })
 export class DialogDatePicker {
