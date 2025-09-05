@@ -28,6 +28,6 @@ export class Auth {
       authenticated: false,
     });
 
-    window.location.href = '/';
+    this.router.navigate(['/login']);
   }
 }
