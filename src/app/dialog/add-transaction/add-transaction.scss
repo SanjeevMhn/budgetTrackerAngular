@@ -1,24 +1,28 @@
-.transaction-type{
-    .grp{
-        label{
-            color: #4b4b4b;
-            .icon-container{
-                display: none;
-            }
-        }
-        input[type="radio"]:checked{
-            & + label{
-                color: #438883;
-                font-weight: 500;
-                .icon-container{
-                    display: flex;
-                }
-            }
-        }
+.add-transaction-container {
+  background: #f5f5f5;
+}
+
+.transaction-type {
+  .grp {
+    label {
+      color: #4b4b4b;
+      .icon-container {
+        display: none;
+      }
     }
-    &:has(.grp input#income:checked){
-        & + .form-group{
-            display: none;
+    input[type="radio"]:checked {
+      & + label {
+        color: #438883;
+        font-weight: 500;
+        .icon-container {
+          display: flex;
         }
+      }
     }
+  }
+  &:has(.grp input#income:checked) {
+    & + .form-group {
+      display: none;
+    }
+  }
 }
