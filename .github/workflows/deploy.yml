@@ -1,0 +1,33 @@
+name: Angular PWA
+
+on:
+  push:
+   branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    stepsB:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/checkout@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Angular PWA
+        run: |
+          npm install -g @angular/cli
+          ng build --configuration=production --base-href="/${{ github.event.repository.name }}/"
+
+      - name: Deloy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with: 
+          brach: gh-pages
+          folder: dist/budget-tracker/browser
