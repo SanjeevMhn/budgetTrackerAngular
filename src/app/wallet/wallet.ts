@@ -24,6 +24,7 @@ import { TransactionsList } from '../transactions-list/transactions-list';
 import { TransactionStore } from '../store/transaction-store';
 import { AlertDialog } from '../dialog/alert-dialog/alert-dialog';
 import { DatePipe } from '@angular/common';
+import { BudgetDetails } from '../dialog/budget-details/budget-details';
 
 @Component({
   selector: 'app-wallet',
@@ -88,11 +89,25 @@ export class Wallet {
     return '0';
   }
 
-  getRemaining(spent: number | string, limit: number | string){
-    if(spent && limit){
-      return Number(limit) - Number(spent)
+  getRemaining(spent: number | string, limit: number | string) {
+    if (spent && limit) {
+      return Number(limit) - Number(spent);
     }
-    return limit
+    return limit;
   }
 
+  showBudgetDetail(id: string | number) {
+    this.dialog.open(BudgetDetails, {
+      panelClass: 'transaction-dialog',
+      width: '100vw',
+      height: '100vh',
+      data: {
+        budget_id: id,
+      },
+    });
+  }
+
+  stopPropagation(event: any){
+    event.stopPropagation()
+  }
 }

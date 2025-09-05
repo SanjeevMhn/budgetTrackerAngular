@@ -30,7 +30,9 @@ export class Profile {
 
 
   openBottomSheet(){
-    this.bottomSheet.open(UserImgAction)
+    this.bottomSheet.open(UserImgAction,{
+      panelClass: 'alert-dialog'
+    })
     // this.dialog.open(UserImgAction,{
     //   panelClass: 'alert-dialog',
     // })
@@ -63,7 +65,7 @@ export class Profile {
 @Component({
   selector: 'app-user-img-action',
   template: `
-  <div class="dialog-container p-[2rem] bg-[#fff]">
+  <div class="dialog-container p-[2rem] bg-[#fff] rounded-tr-[2.8rem] rounded-tl-[2.8rem]">
     <ul class="selection-list">
       @if(userStore.getUserDetail().img() !== ''){
         <li class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]" (click)="removeCurrentUserImg()">Remove Current Image</li>

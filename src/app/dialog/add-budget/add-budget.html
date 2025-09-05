@@ -40,9 +40,9 @@
         />
         @if(limit?.invalid && (limit?.touched || limit?.dirty)){
         @if(limit?.hasError('required')){
-        <small class="text-red-600 text-[1.5rem]">limit Required</small>
+        <small class="err-text text-[1.5rem]">limit Required</small>
         } @if(limit?.hasError('min')){
-        <small class="text-red-600 text-[1.5rem]"
+        <small class="err-text text-[1.5rem]"
           >Amount must be atleast 100</small
         >
         } }

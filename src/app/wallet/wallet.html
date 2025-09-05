@@ -54,7 +54,8 @@
       <ul class="budgets-list w-full">
         @for(budget of budgets.getBudgets(); track budget.id){
         <li
-          class="item grid grid-cols-[2rem_1fr_1fr] gap-x-[1rem] gap-y-[0.75rem] first: border-b-2 border-neutral-200 py-[1.5rem]"
+          class="item grid grid-cols-[2rem_1fr_1fr] gap-x-[1rem] gap-y-[0.75rem] first: border-b-2 border-[#e5e5e5] py-[1.5rem] cursor-pointer"
+          (click)="showBudgetDetail(budget.id)"
         >
           <h2 class="budget-name text-[1.65rem] text-[#438883] row-1 col-[1/-1] flex items-end font-medium">
             {{budget.name}}
@@ -78,6 +79,7 @@
             type="button"
             class="cursor-pointer col-3 row-1 flex justify-end"
             [matMenuTriggerFor]="menu"
+            (click)="stopPropagation($event)"
           >
             <span
               class="icon-container w-[2.5rem] h-[2.5rem] flex items-center justify-center"
@@ -97,7 +99,7 @@
             <button
               type="button"
               mat-menu-item
-              class="text-red-700! p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300"
+              class="err-text p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300"
               (click)="onDelete(budget.id)"
             >
               Delete Budget

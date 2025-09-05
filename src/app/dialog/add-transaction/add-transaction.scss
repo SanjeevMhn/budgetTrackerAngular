@@ -16,4 +16,9 @@
             }
         }
     }
+    &:has(.grp input#income:checked){
+        & + .form-group{
+            display: none;
+        }
+    }
 }

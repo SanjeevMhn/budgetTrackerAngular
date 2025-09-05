@@ -82,7 +82,7 @@ export class Statistics implements AfterViewInit {
 
   constructor() {
     effect(() => {
-      const labels = this.activeLabels();
+      const labels = this.activeLabelsDateConversion();
       const data = this.activeData();
       const selected = this.activeDurationAndType();
 

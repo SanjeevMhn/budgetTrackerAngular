@@ -10,7 +10,7 @@
     </button>
     <mat-menu #menu="matMenu" class="bg-white! rounded-xl!">
         <button type="button" mat-menu-item class="p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onTransactionEdit(transaction)">Edit</button>
-        <button type="button" mat-menu-item class="text-red-700! p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onDelete(transaction.id)">Delete</button>
+        <button type="button" mat-menu-item class="err-text p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onDelete(transaction.id)">Delete</button>
     </mat-menu>
 
     <h2 class="name text-[1.8rem] font-medium row-1 col-2 leading-[1]">
@@ -21,7 +21,7 @@
     >
     <p
       class="amount text-[1.8rem] col-3 row-[1/span_2] leading-[1.1] flex items-center justify-end"
-      [class]="transaction.type == 'expense' ? 'text-red-600' : 'text-green-600'"
+      [class]="transaction.type == 'expense' ? 'err-text' : 'success-text'"
     >
       {{transaction.type == 'expense' ? '-' : '+'}} Rs. {{transaction.amount}}
     </p>

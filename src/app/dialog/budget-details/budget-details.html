@@ -1,0 +1,53 @@
+<section class="budget-detail-container h-full">
+  <div
+    class="wrapper pt-[3.5rem] flex flex-col gap-y-[5.5rem] isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[20rem] after:absolute after:rounded-b-[5rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
+  >
+    <header class="flex items-center">
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justiy-center text-[#fff] cursor-pointer"
+        (click)="close()"
+      >
+        <lucide-angular
+          [img]="closeIcon"
+          class="flex items-center justify-center w-full h-full"
+        ></lucide-angular>
+      </button>
+      <h2 class="header-text text-[#fff] text-[2.25rem] mx-auto">
+        Budget Details
+      </h2>
+    </header>
+
+    <section
+      class="budget-detail p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl flex flex-col gap-[2rem]"
+    >
+      <div class="budget-info flex">
+        <h2
+          class="budget-name inline-flex mx-auto bg-[#438883] text-[2rem] p-[0.5rem_1.5rem] rounded-full text-[#fff]"
+        >
+          {{budgetDetail()!.name}}
+        </h2>
+      </div>
+      <div
+        class="usage-container rounded-xl p-[1rem] w-full grid grid-cols-[20rem_1fr] gap-[1rem]"
+      >
+        <div class="created-date row-1 col-[1/-1] leading-[1.1] text-center">
+          {{budgetDetail()!.date | date:"longDate"}}
+        </div>
+        <div
+          class="progress-indicator row-2 col-1"
+          [style.--progress]="`${getTotalPercentageUsed(budgetDetail()!.total_spent, budgetDetail()!.limit)}%`"
+        ></div>
+        <div
+          class="percentage-used row-2 col-2 text-[2rem] flex items-center leading-[1.1]"
+        >
+          {{getTotalPercentageUsed(budgetDetail()!.total_spent,
+          budgetDetail()!.limit)}}% used of {{budgetDetail()!.limit}}
+        </div>
+      </div>
+      <div class="expenses-list">
+        <app-transactions-list [transactions]="budgetTransactions()" />
+      </div>
+    </section>
+  </div>
+</section>

@@ -53,6 +53,8 @@ export class AddBudget implements AfterViewInit {
       // this.budgetForm
       //   .get('amount')!
       //   .setValue(this.data.budget.amount.toString());
+      this.budgetForm.get('limit')?.setValue(this.data.budget.limit.toString())
+      this.budgetForm.get('name')?.setValue(this.data.budget.name)
       this.editMode.set(true);
     }
   }
