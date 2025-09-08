@@ -1,5 +1,16 @@
 <div class="main-container h-screen">
   <div class="content-container">
+    <div class="global-date-container flex items-center gap-[1.5rem] justify-center sticky top-0 z-[50] py-[1rem] bg-[#438883]">
+      <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer" (click)="gDate.getPrevMonth()">
+        <lucide-angular [img]="chevronLeft" class="text-[#fff] w-full h-full"></lucide-angular>
+      </button>
+      <h2 class="date text-[1.8rem] text-[#fff] ">
+        {{ gDate.date() | date: 'MMM yyyy'}}
+      </h2>
+      <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"  (click)="gDate.getNextMonth()">
+        <lucide-angular [img]="chevronRight" class="text-[#fff]  w-full h-full"></lucide-angular>
+      </button>
+    </div>
     <router-outlet class="contents" />
   </div>
   <app-bottom-nav />

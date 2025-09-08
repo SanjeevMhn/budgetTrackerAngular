@@ -8,7 +8,6 @@ import {
 } from '@ngrx/signals';
 
 import { withStorageSync } from '@angular-architects/ngrx-toolkit';
-import { BudgetStore } from './budgets-store';
 
 export type Transaction = {
   id: string | number;
@@ -19,103 +18,163 @@ export type Transaction = {
   budget_id?: string;
 };
 
-
 type TransactionStoreState = {
   transactions: Array<Transaction>;
+  currentDate: Date;
 };
 
 const initialState: TransactionStoreState = {
   transactions: [],
+  currentDate: new Date(),
 };
 
 export const TransactionStore = signalStore(
   { providedIn: 'root' },
   withState<TransactionStoreState>(initialState),
-  withComputed(({ transactions }) => ({
-    totalBalance: computed(() => {
-      return transactions().reduce((acc, curr) => {
-        if (curr.type == 'expense') {
-          acc -= Number(curr.amount);
-        }
-        if (curr.type == 'income') {
-          acc += Number(curr.amount);
-        }
-        return acc;
-      }, 0);
-    }),
+  withComputed(({ transactions, currentDate }) => ({
+    totalBalance: () => {
+      return transactions()
+        .filter(
+          (transaction) =>
+            new Date(transaction.date).getFullYear() ==
+              currentDate().getFullYear() &&
+            new Date(transaction.date).getMonth() ==
+              new Date(currentDate()).getMonth()
+        )
+        .reduce((acc, curr) => {
+          if (curr.type == 'expense') {
+            acc -= Number(curr.amount);
+          }
+          if (curr.type == 'income') {
+            acc += Number(curr.amount);
+          }
+          return acc;
+        }, 0);
+    },
     totalIncome: computed(() => {
-      return transactions().reduce((acc, curr) => {
-        if (curr.type == 'income') {
-          acc += Number(curr.amount);
-        }
-        return acc;
-      }, 0);
+      return transactions()
+        .filter(
+          (transaction) =>
+            new Date(transaction.date).getFullYear() ==
+              new Date(currentDate()).getFullYear() &&
+            new Date(transaction.date).getMonth() ==
+              new Date(currentDate()).getMonth()
+        )
+        .reduce((acc, curr) => {
+          if (curr.type == 'income') {
+            acc += Number(curr.amount);
+          }
+          return acc;
+        }, 0);
     }),
     totalExpenses: computed(() => {
-      return transactions().reduce((acc, curr) => {
-        if (curr.type == 'expense') {
-          acc += Number(curr.amount);
-        }
+      return transactions()
+        .filter(
+          (transaction) =>
+            new Date(transaction.date).getFullYear() ==
+              currentDate().getFullYear() &&
+            new Date(transaction.date).getMonth() ==
+              new Date(currentDate()).getMonth()
+        )
+        .reduce((acc, curr) => {
+          if (curr.type == 'expense') {
+            acc += Number(curr.amount);
+          }
 
-        return acc;
-      }, 0);
+          return acc;
+        }, 0);
     }),
 
-    incomeByWeek: () => {
-      const date = new Date();
+    incomeByWeek: computed(() => {
+      const date = new Date(currentDate());
       date.setDate(date.getDate() - 7);
 
       return transactions().filter(
-        (tran) => tran.type == 'income' && new Date(tran.date) >= date
+        (tran) =>
+          tran.type == 'income' &&
+          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date) >= date
       );
-    },
-    incomeByHalfMonth: () => {
-      const date = new Date();
+    }),
+    incomeByHalfMonth: computed(() => {
+      const date = new Date(currentDate());
       date.setDate(date.getDate() - 15);
 
       return transactions().filter(
-        (tran) => tran.type == 'income' && new Date(tran.date) >= date
+        (tran) =>
+          tran.type == 'income' &&
+          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date) >= date
       );
-    },
-    incomeByMonth: () => {
-      const date = new Date();
+    }),
+    incomeByMonth: computed(() => {
+      const date = new Date(currentDate());
       date.setDate(date.getDate() - 30);
 
       return transactions().filter(
-        (tran) => tran.type == 'income' && new Date(tran.date) >= date
+        (tran) =>
+          tran.type == 'income' &&
+          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date) >= date
       );
-    },
+    }),
 
-    expensesByWeek: () => {
-      const date = new Date();
+    expensesByWeek: computed(() => {
+      const date = new Date(currentDate());
       date.setDate(date.getDate() - 7);
 
       return transactions().filter(
-        (tran) => tran.type == 'expense' && new Date(tran.date) >= date
+        (tran) =>
+          tran.type == 'expense' &&
+          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date) >= date
       );
-    },
-    expensesByHalfMonth: () => {
-      const date = new Date();
+    }),
+    expensesByHalfMonth: computed(() => {
+      const date = new Date(currentDate());
       date.setDate(date.getDate() - 15);
 
       return transactions().filter(
-        (tran) => tran.type == 'expense' && new Date(tran.date) >= date
+        (tran) =>
+          tran.type == 'expense' &&
+          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date) >= date
       );
-    },
-    expensesByMonth: () => {
-      const date = new Date();
+    }),
+    expensesByMonth: computed(() => {
+      const date = new Date(currentDate());
       date.setDate(date.getDate() - 30);
 
       return transactions().filter(
-        (tran) => tran.type == 'expense' && new Date(tran.date) >= date
+        (tran) =>
+          tran.type == 'expense' &&
+          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date) >= date
       );
-    },
+    }),
 
     getAllTransaction: computed(() => {
-      return transactions()
-    })
+      return transactions().filter(
+        (transaction) =>
+          new Date(transaction.date).getFullYear() ==
+            currentDate().getFullYear() &&
+          new Date(transaction.date).getMonth() ==
+            new Date(currentDate()).getMonth()
+      );
+    }),
   })),
   withMethods((store) => ({
+    setDate(date: Date): void {
+      patchState(store, (state) => ({
+        currentDate: date,
+      }));
+    },
     addTransaction(transaction: Transaction): void {
       patchState(store, (state) => ({
         transactions: [transaction, ...state.transactions],

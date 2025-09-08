@@ -19,7 +19,7 @@ import { BudgetCheck } from '../services/budgetCheck/budget-check';
   styleUrl: './transactions-list.scss',
 })
 export class TransactionsList {
-  transactions = input<Array<Transaction>>([]);
+  transactions = input<Array<Transaction | any>>([]);
   ellipsesIcon = EllipsisVertical;
 
   dialog = inject(MatDialog);
