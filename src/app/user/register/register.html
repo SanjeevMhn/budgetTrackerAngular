@@ -30,11 +30,11 @@
         />
         @if(name?.invalid && (name?.touched || name?.dirty)){
         @if(name?.hasError('required')){
-        <span class="text-red-200 text-[1.4rem] font-normal"
+        <span class="err-text text-[1.4rem] font-normal"
           >User Name Required</span
         >
         } @if(name?.hasError('minlength')){
-        <span class="text-red-200 text-[1.4rem] font-normal"
+        <span class="err-text text-[1.4rem] font-normal"
           >User Name Must be atleast 3 characters</span
         >
         } }
@@ -128,11 +128,11 @@
         />
         @if(password?.invalid && (password?.touched || password?.dirty)){
         @if(password?.hasError('minlength')){
-        <span class="text-red-200 text-[1.4rem]"
+        <span class="err-text text-[1.4rem]"
           >Passcode must be 6 digits or more</span
         >
         } @if(password?.hasError('pattern')){
-        <span class="text-red-200 text-[1.4rem]"
+        <span class="err-text text-[1.4rem]"
           >Invalid passcode.(Should be numbers)</span
         >
         } }

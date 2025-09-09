@@ -28,18 +28,18 @@
         />
         @if(password?.invalid && (password?.touched || password?.dirty)){
             @if(password?.hasError('required')){
-            <span class="text-red-200 text-[1.4rem]">Passcode Required</span>
+            <span class="err-text text-[1.4rem]">Passcode Required</span>
             } 
             @if(password?.hasError('minlength')){
-            <span class="text-red-200 text-[1.4rem]">Passcode must be 6 digits or more</span>
+            <span class="err-text text-[1.4rem]">Passcode must be 6 digits or more</span>
             } 
             @if(password?.hasError('pattern')){
-            <span class="text-red-200 text-[1.4rem]">Invalid passcode.(Should be numbers)</span>
+            <span class="err-text text-[1.4rem]">Invalid passcode.(Should be numbers)</span>
             } 
         }
       </div>
         @if(loginErrorMessage() !== null){
-        <span class="text-red-200 text-[1.4rem]">{{loginErrorMessage()}}</span>
+        <span class="err-text text-[1.4rem]">{{loginErrorMessage()}}</span>
         }
       <div class="form-action flex flex-col gap-[1rem]">
         <button
