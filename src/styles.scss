@@ -59,7 +59,7 @@ span {
 .mat-datepicker-content {
   background-color: #fff !important;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.1)!important;
+    0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
 }
 
 .wrapper {
@@ -168,4 +168,19 @@ input[type="number"] {
 
 .success-text {
   color: #228b22;
+}
+
+@media (hover: hover) {
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+      .mat-calendar-body-comparison-identical
+    ) {
+    background-color: #e3e2e6 !important;
+  }
+}
+
+.mat-calendar-body-cell.mat-calendar-body-active {
+  .mat-calendar-body-cell-content {
+    background-color: #e3e2e6 !important;
+  }
 }
