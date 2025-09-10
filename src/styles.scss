@@ -42,20 +42,24 @@ body {
 }
 /* You can add global styles to this file, and also import other style files */
 
-p,h2,span{
+p,
+h2,
+span {
   line-height: 1.2;
 }
 
-.mat-calendar{
-  --mat-sys-title-small-size: 1.4rem!important;
-  --mat-sys-body-medium-size: 1.2rem!important;
-  --mat-sys-label-large-size: 1.5rem!important;
-  --mat-sys-primary: #005cbb!important;
-  --mat-sys-on-primary: #fff!important;
+.mat-calendar {
+  --mat-sys-title-small-size: 1.4rem !important;
+  --mat-sys-body-medium-size: 1.2rem !important;
+  --mat-sys-label-large-size: 1.5rem !important;
+  --mat-sys-primary: #005cbb !important;
+  --mat-sys-on-primary: #fff !important;
 }
 
-.mat-datepicker-content{
-  background-color: #fff!important;
+.mat-datepicker-content {
+  background-color: #fff !important;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1)!important;
 }
 
 .wrapper {
@@ -76,8 +80,8 @@ p,h2,span{
           stroke-width: 2.5px;
         }
       }
-      span{
-        color:  #438883 !important;
+      span {
+        color: #438883 !important;
         font-weight: 500;
       }
     }
@@ -99,17 +103,17 @@ div:has(.transaction-dialog) {
   }
 }
 
-.alert-dialog{
-  width: min(90%, 40rem)!important;
-  max-width: unset!important;
+.alert-dialog {
+  width: min(90%, 40rem) !important;
+  max-width: unset !important;
   justify-content: center;
   .mat-bottom-sheet-container {
-    width: 100%!important;
-    min-width: unset!important;
-    max-width: unset!important;
-    padding: 0!important;
-    background: unset!important;
-    box-shadow: none!important;
+    width: 100% !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    padding: 0 !important;
+    background: unset !important;
+    box-shadow: none !important;
   }
 }
 
@@ -132,10 +136,10 @@ div:has(.transaction-dialog) {
     @apply rounded-xl;
     height: 4.1rem;
   }
-  .form-actions{
+  .form-actions {
     display: flex;
     justify-content: center;
-    .btn{
+    .btn {
       background-color: #438883;
       color: #fff;
       padding: 1.5rem 2rem;
@@ -147,22 +151,21 @@ div:has(.transaction-dialog) {
   }
 }
 
-
-input[type="number"]{
+input[type="number"] {
   &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button{
+  &::-webkit-outer-spin-button {
     display: none;
   }
 }
 
-.mat-mdc-menu-item-text{
-  font-size: 1.5rem!important;
+.mat-mdc-menu-item-text {
+  font-size: 1.5rem !important;
 }
 
-.err-text{
+.err-text {
   color: #ba1111;
 }
 
-.success-text{
+.success-text {
   color: #228b22;
 }
