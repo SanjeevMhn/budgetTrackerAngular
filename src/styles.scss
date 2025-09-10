@@ -54,6 +54,10 @@ p,h2,span{
   --mat-sys-on-primary: #fff!important;
 }
 
+.mat-datepicker-content{
+  background-color: #fff!important;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr min(90%, 40rem) 1fr;
