@@ -1,14 +1,42 @@
 <div class="main-container h-screen">
   <div class="content-container">
-    <div class="global-date-container flex items-center gap-[1.5rem] justify-center sticky top-0 z-[50] py-[1rem] bg-[#438883]">
-      <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer" (click)="gDate.getPrevMonth()">
-        <lucide-angular [img]="chevronLeft" class="text-[#fff] w-full h-full"></lucide-angular>
+    <div
+      class="global-date-container flex items-center gap-[1.5rem] justify-center sticky top-0 z-[50] py-[1rem] bg-[#438883]"
+    >
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"
+        (click)="gDate.getPrevMonth()"
+      >
+        <lucide-angular
+          [img]="chevronLeft"
+          class="text-[#fff] w-full h-full"
+        ></lucide-angular>
       </button>
-      <h2 class="date text-[1.8rem] text-[#fff] ">
-        {{ gDate.date() | date: 'MMM yyyy'}}
-      </h2>
-      <button type="button" class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"  (click)="gDate.getNextMonth()">
-        <lucide-angular [img]="chevronRight" class="text-[#fff]  w-full h-full"></lucide-angular>
+
+      <div class="date-container relative isolate">
+        <button class="date text-[1.8rem] text-[#fff] cursor-pointer" (click)="openPicker()">
+          {{ gDate.date() | date: 'MMM yyyy'}}
+        </button>
+        <input matInput [matDatepicker]="picker" class="absolute text-[transparent] left-[50%] translate-x-[-50%] z-[-1]">
+        <mat-datepicker
+          [startAt]="gDate.date()"
+          id="datepicker"
+          #picker
+          startView="year"
+          (monthSelected)="monthSelected($event, picker)"
+        ></mat-datepicker>
+      </div>
+
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"
+        (click)="gDate.getNextMonth()"
+      >
+        <lucide-angular
+          [img]="chevronRight"
+          class="text-[#fff] w-full h-full"
+        ></lucide-angular>
       </button>
     </div>
     <router-outlet class="contents" />

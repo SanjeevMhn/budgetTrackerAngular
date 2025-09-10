@@ -31,4 +31,11 @@ export class GlobalDate {
     newMonth.setDate(1);
     this.date.set(newMonth);
   }
+
+  setMonth(date: Date){
+    let newDate = new Date(date)
+    newDate.setMonth(newDate.getMonth());
+    newDate.setDate(1)
+    this.date.set(newDate)
+  }
 }
