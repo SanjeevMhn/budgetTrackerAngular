@@ -69,6 +69,11 @@ export const BudgetStore = signalStore(
         budgets: state.budgets.filter((bud) => bud.id !== id),
       }));
     },
+    reset(){
+      patchState(store, (state) => ({
+        budgets: []
+      }))
+    }
   })),
   withStorageSync({
     key: 'budgets',

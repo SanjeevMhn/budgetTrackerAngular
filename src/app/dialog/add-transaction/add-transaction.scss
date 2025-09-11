@@ -21,7 +21,7 @@
     }
   }
   &:has(.grp input#income:checked) {
-    & + .form-group {
+    & + .form-group.select-budget {
       display: none;
     }
   }

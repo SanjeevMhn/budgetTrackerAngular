@@ -75,7 +75,7 @@
         </div>
       </div>
       @if(budgetStore.getBudgets().length > 0){
-      <div class="form-group">
+      <div class="form-group select-budget">
         <select name="budget" id="budget" class="form-control" formControlName="budget_id">
           <option value="">Select Budget</option>
           @for(budget of budgetStore.getBudgets(); track budget.id){

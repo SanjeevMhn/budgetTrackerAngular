@@ -199,6 +199,12 @@ export const TransactionStore = signalStore(
         transactions: state.transactions.filter((t) => t.id !== id),
       }));
     },
+
+    reset(){
+      patchState(store, (state) => ({
+        transactions: [],
+      }))
+    }
   })),
   withStorageSync({
     key: 'transactions',

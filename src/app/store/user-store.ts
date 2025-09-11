@@ -43,6 +43,15 @@ export const UserStore = signalStore(
         ...data,
       }));
     },
+    reset() {
+      patchState(store, (state) => ({
+        name: '',
+        img: '',
+        password: null,
+        password_skipped: false,
+        authenticated: false,
+      }));
+    },
   })),
   withStorageSync({
     key: 'user',
