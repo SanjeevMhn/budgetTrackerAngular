@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Auth } from '../services/auth/auth';
 //@ts-ignore
 import Compress from 'compress.js'
+import { ProfileDetails } from '../dialog/profile-details/profile-details';
 
 @Component({
   selector: 'app-profile',
@@ -33,9 +34,6 @@ export class Profile {
     this.bottomSheet.open(UserImgAction,{
       panelClass: 'alert-dialog'
     })
-    // this.dialog.open(UserImgAction,{
-    //   panelClass: 'alert-dialog',
-    // })
   }
 
   onLogout(){
@@ -57,7 +55,18 @@ export class Profile {
 
   getUserInitials(name: string){
     let nameArr = name.split(' ')
-    return nameArr.length > 2 ? nameArr[0].charAt(0) +' '+nameArr[2].charAt(0) : nameArr[0].charAt(0) + ' ' + nameArr[1].charAt(0)
+    return nameArr.length > 2 ? 
+      nameArr[0].charAt(0) +' '+nameArr[2].charAt(0) : 
+      nameArr.length == 2 ? nameArr[0].charAt(0) + ' ' + nameArr[1].charAt(0) :
+      nameArr[0].charAt(0)
+  }
+
+  openDialog(dialog: 'profile-details' | string){
+    this.dialog.open(ProfileDetails,{
+      width: '100vw',
+      height: '100vh',
+      panelClass: 'transaction-dialog'
+    })
   }
 
 }

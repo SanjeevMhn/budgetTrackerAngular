@@ -1,5 +1,7 @@
-<div class="wrapper bg-[#438883] flex h-screen">
-  <div class="inner flex flex-col justify-center gap-y-[1.2rem] w-full my-auto h-[80%]">
+<div class="wrapper bg-[#438883] flex h-screen overflow-y-auto">
+  <div
+    class="inner flex flex-col justify-center gap-y-[1.2rem] w-full my-auto h-[80%]"
+  >
     <header class="flex flex-col gap-[1.2rem] text-white items-center">
       <h2 class="text-[2.8rem] font-semibold">Budget Tracker</h2>
       <p class="text-[1.8rem] font-medium">Spend Smarter, Save More</p>
@@ -27,20 +29,21 @@
           formControlName="password"
         />
         @if(password?.invalid && (password?.touched || password?.dirty)){
-            @if(password?.hasError('required')){
-            <span class="err-text text-[1.4rem]">Passcode Required</span>
-            } 
-            @if(password?.hasError('minlength')){
-            <span class="err-text text-[1.4rem]">Passcode must be 6 digits or more</span>
-            } 
-            @if(password?.hasError('pattern')){
-            <span class="err-text text-[1.4rem]">Invalid passcode.(Should be numbers)</span>
-            } 
-        }
+        @if(password?.hasError('required')){
+        <span class="err-text text-[1.4rem]">Passcode Required</span>
+        } @if(password?.hasError('minlength')){
+        <span class="err-text text-[1.4rem]"
+          >Passcode must be 6 digits or more</span
+        >
+        } @if(password?.hasError('pattern')){
+        <span class="err-text text-[1.4rem]"
+          >Invalid passcode.(Should be numbers)</span
+        >
+        } }
       </div>
-        @if(loginErrorMessage() !== null){
-        <span class="err-text text-[1.4rem]">{{loginErrorMessage()}}</span>
-        }
+      @if(loginErrorMessage() !== null){
+      <span class="err-text text-[1.4rem]">{{loginErrorMessage()}}</span>
+      }
       <div class="form-action flex flex-col gap-[1rem]">
         <button
           type="submit"

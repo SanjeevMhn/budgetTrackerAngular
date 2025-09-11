@@ -1,0 +1,139 @@
+<section class="profile-details-container h-screen pb-[1.5rem] overflow-y-auto">
+  <div
+    class="wrapper pt-[3.5rem] flex flex-col gap-y-[2.5rem] isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[20rem] after:absolute after:rounded-b-[5rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
+  >
+    <div class="top-section flex items-center justify-between text-white">
+      <h2 class="title-text text-[2rem]">Profile</h2>
+      <button
+        type="button"
+        class="w-[2.5rem] h-[2.5rem] flex items-center justify-center cursor-pointer"
+        (click)="close()"
+      >
+        <lucide-angular [img]="closeIcon"></lucide-angular>
+      </button>
+    </div>
+    <div class="user-form">
+      <form
+        class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
+        [formGroup]="userForm"
+        (submit)="handleNameForm()"
+      >
+        <h2 class="text-[2rem]">Update Name</h2>
+        <div class="form-group">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control"
+            placeholder="Name"
+            formControlName="name"
+          />
+        </div>
+        @if(name?.invalid && (name?.touched || name?.dirty)){
+          @if(name?.hasError('required')){
+            <span class="text-[1.4rem] err-text">Name Required</span>
+          }
+          @if(name?.hasError('minlength')){
+            <span class="err-text text-[1.4rem]">Name must be atleast 3 characters long</span>
+          }
+        }
+        <div class="form-actions">
+          <button type="submit" class="btn">Update</button>
+        </div>
+      </form>
+    </div>
+    @if(!userStore.getUserDetail().password_skipped()){
+    <div class="password-form">
+      <form
+        class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
+        [formGroup]="userForm"
+        (submit)="handlePasswordForm()"
+      >
+        <h2 class="text-[2rem]">Change Passcode</h2>
+        <div class="form-group relative">
+          <div class="flex items-center">
+            <input
+              [type]="passwordState()"
+              name=""
+              id=""
+              class="form-control pr-[3.5rem]! w-full border-r-0! rounded-tr-[0]! rounded-br-[0]!"
+              formControlName="password"
+            />
+            <button
+              type="button"
+              class="w-[4.1rem] h-[4.1rem] flex-[0_0_4.1rem] flex items-center justify-center cursor-pointer border border-[#a1a1a1] rounded-tr-xl rounded-br-xl"
+              (click)="togglePassword($event)"
+            >
+              <lucide-angular
+                [img]="passwordState() == 'password' ? eyeClosedIcon : eyeIcon"
+                class="w-[80%] h-[80%] flex items-center justify-center"
+              ></lucide-angular>
+            </button>
+          </div>
+
+          @if(password?.invalid && (password?.touched || password?.dirty)){
+          @if(password?.hasError('minlength')){
+          <span class="err-text text-[1.4rem]"
+            >Passcode should be atleast 6 numbers</span
+          >
+          } @if(password?.hasError('pattern')){
+          <span class="err-text text-[1.4rem]">Passcode should be numbers</span>
+          } }
+        </div>
+        <div class="form-actions gap-[2rem]">
+          <button
+            type="button"
+            class="btn border border-[#438883]! text-[#438883]! bg-[#fff]!"
+            (click)="handleRemoveUserPassword()"
+          >
+            Remove
+          </button>
+          <button type="submit" class="btn">Update</button>
+        </div>
+      </form>
+    </div>
+    }@else {
+    <div class="password-form">
+      <form
+        class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
+        [formGroup]="userForm"
+        (submit)="handlePasswordForm()"
+      >
+        <h2 class="text-[2rem]">Add Password</h2>
+        <div class="form-group relative">
+          <div class="flex items-center">
+            <input
+              [type]="passwordState()"
+              name=""
+              id=""
+              class="form-control pr-[3.5rem]! w-full border-r-0! rounded-tr-[0]! rounded-br-[0]!"
+              formControlName="password"
+            />
+            <button
+              type="button"
+              class="w-[4.1rem] h-[4.1rem] flex-[0_0_4.1rem] flex items-center justify-center cursor-pointer border border-[#a1a1a1] rounded-tr-xl rounded-br-xl"
+              (click)="togglePassword($event)"
+            >
+              <lucide-angular
+                [img]="passwordState() == 'password' ? eyeClosedIcon : eyeIcon"
+                class="w-[80%] h-[80%] flex items-center justify-center"
+              ></lucide-angular>
+            </button>
+          </div>
+          @if(password?.invalid && (password?.touched || password?.dirty)){
+          @if(password?.hasError('minlength')){
+          <span class="err-text text-[1.4rem]"
+            >Passcode should be atleast 6 numbers</span
+          >
+          } @if(password?.hasError('pattern')){
+          <span class="err-text text-[1.4rem]">Passcode should be numbers</span>
+          } }
+        </div>
+        <div class="form-actions gap-[2rem]">
+          <button type="submit" class="btn">Add</button>
+        </div>
+      </form>
+    </div>
+    }
+  </div>
+</section>
