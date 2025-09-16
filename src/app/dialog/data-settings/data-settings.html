@@ -14,9 +14,22 @@
     </div>
 
     <ul class="option-list bg-white rounded-[2rem] shadow-xl overflow-hidden">
-      <li class="p-[2rem] hover:bg-[#efefef] cursor-pointer">Export Data</li>
-      <li class="p-[2rem] hover:bg-[#efefef] cursor-pointer">Backup & Restore</li>
-      <li class="p-[2rem] hover:bg-[#efefef] cursor-pointer" (click)="deleteReset()">Delete & Reset</li>
+      <li
+        class="p-[2rem] hover:bg-[#efefef] cursor-pointer"
+        (click)="exportData()"
+      >
+        Export Data
+      </li>
+      <li class="hover:bg-[#efefef] cursor-pointer">
+        <label for="import" class="w-full block p-[2rem] cursor-pointer"> Import Data </label>
+        <input type="file" name="import" id="import" class="hidden" accept=".json, application/json" (change)="importedData($event)">
+      </li>
+      <li
+        class="p-[2rem] hover:bg-[#efefef] cursor-pointer"
+        (click)="deleteReset()"
+      >
+        Delete & Reset
+      </li>
     </ul>
   </div>
 </section>
