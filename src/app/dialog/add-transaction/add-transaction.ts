@@ -18,6 +18,7 @@ import {
   CircleCheckBig,
   Ellipsis,
   LucideAngularModule,
+  X,
 } from 'lucide-angular';
 import {
   FormControl,
@@ -31,6 +32,7 @@ import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { BudgetStore } from '../../store/budgets-store';
 import { BudgetCheck } from '../../services/budgetCheck/budget-check';
+import { SnackBar } from '../../services/snack-bar';
 
 @Component({
   selector: 'app-add-transaction',
@@ -47,11 +49,13 @@ export class AddTransaction implements AfterViewInit {
   backButtonIcon = ChevronLeft;
   ellipsesHorIcon = Ellipsis;
   checkIcon = CircleCheckBig;
+  closeIcon = X
 
   transactionStore = inject(TransactionStore);
   budgetStore = inject(BudgetStore);
   budgetCheck = inject(BudgetCheck);
   dialogRef = inject(MatDialogRef<AddTransaction>);
+  snackBar = inject(SnackBar);
   public data: {
     transaction?: Transaction;
   } = inject(MAT_DIALOG_DATA);
@@ -66,6 +70,8 @@ export class AddTransaction implements AfterViewInit {
 
   editMode = signal<boolean>(false);
 
+  formError = signal<string | null>(null);
+
   ngAfterViewInit(): void {
     if (
       this.data &&
@@ -74,11 +80,10 @@ export class AddTransaction implements AfterViewInit {
       this.data.transaction !== undefined
     ) {
       let { date, ...propData } = this.data.transaction;
-      console.log(date);
       this.transactionForm.patchValue(propData);
       this.transactionForm.get('date')?.reset();
       this.transactionForm.get('date')?.setValue(new Date(date).toString());
-      this.selected.set(new Date(date))
+      this.selected.set(new Date(date));
       this.editMode.set(true);
     }
   }
@@ -133,8 +138,19 @@ export class AddTransaction implements AfterViewInit {
         ...this.data.transaction,
         ...this.transactionForm.value,
       } as Transaction;
-
-      this.budgetCheck.updateTransaction(transaction);
+      if (
+        !this.checkIfBudgetExpired(
+          Number(this.transactionForm.get('budget_id')?.value)
+        )
+      ) {
+        this.formError.set(
+          "Selected Budget's limit reached, Please choose another budget or create new budget or increase the limit of this budget"
+        );
+        return;
+      } else {
+        this.budgetCheck.updateTransaction(transaction);
+        this.closeDialog();
+      }
     } else {
       let transaction = {
         id: Date.now(),
@@ -145,14 +161,28 @@ export class AddTransaction implements AfterViewInit {
         budget_id: this.transactionForm.get('budget_id')?.value,
       } as Transaction;
 
-      this.budgetCheck.addTransaction(transaction);
+      const budgetExpired = this.checkIfBudgetExpired(
+        Number(this.transactionForm.get('budget_id')?.value)
+      );
+      if (budgetExpired) {
+        this.formError.set(
+          "Selected Budget's limit reached, Please choose another budget or create new budget or increase the limit of this budget"
+        );
+        return;
+      } else {
+        this.budgetCheck.addTransaction(transaction);
+        this.closeDialog();
+      }
     }
-
-    this.closeDialog();
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  checkIfBudgetExpired(id: number): boolean | undefined {
+    return this.budgetStore.getBudgets().find((budget) => budget.id == id)
+      ?.limitReached;
   }
 }
 

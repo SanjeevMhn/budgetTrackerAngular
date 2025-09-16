@@ -21,3 +21,42 @@
     z-index: -1;
   }
 }
+
+.disabled-budget {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; 
+  z-index: 3;
+
+  &:before{
+    content: 'Limit Reached!';
+    position: absolute;
+    padding: 1.5rem 2rem;
+    // background-color: #438883;
+    background-color: #ab3434;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      #8e8e8e69,
+      #8e8e8e69 5px,
+      #e5e5f71e 5px,
+      #e5e5f71e 25px
+    );
+
+    z-index: -1;
+  }
+}

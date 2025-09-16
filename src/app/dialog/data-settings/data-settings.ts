@@ -30,6 +30,7 @@ export class DataSettings {
 
   deleteReset() {
     let ref = this.dialog.open(AlertDialog, {
+      panelClass: 'alert-dialog',
       data: {
         title: 'Delete',
         description:

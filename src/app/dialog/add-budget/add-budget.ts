@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ChevronLeft, Ellipsis, LucideAngularModule } from 'lucide-angular';
+import { ChevronLeft, Ellipsis, LucideAngularModule, X } from 'lucide-angular';
 import { Budget, BudgetStore } from '../../store/budgets-store';
 import { DatePipe } from '@angular/common';
 
@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 export class AddBudget implements AfterViewInit {
   backButtonIcon = ChevronLeft;
   ellipsesHorIcon = Ellipsis;
+  closeIcon = X
 
   dialogRef = inject(MatDialogRef<AddBudget>);
   budgetStore = inject(BudgetStore);
@@ -41,7 +42,6 @@ export class AddBudget implements AfterViewInit {
     return this.budgetForm.get('limit');
   }
 
-
   ngAfterViewInit(): void {
     if (
       this.data &&
@@ -53,8 +53,8 @@ export class AddBudget implements AfterViewInit {
       // this.budgetForm
       //   .get('amount')!
       //   .setValue(this.data.budget.amount.toString());
-      this.budgetForm.get('limit')?.setValue(this.data.budget.limit.toString())
-      this.budgetForm.get('name')?.setValue(this.data.budget.name)
+      this.budgetForm.get('limit')?.setValue(this.data.budget.limit.toString());
+      this.budgetForm.get('name')?.setValue(this.data.budget.name);
       this.editMode.set(true);
     }
   }
@@ -72,11 +72,17 @@ export class AddBudget implements AfterViewInit {
     if (this.editMode()) {
       let budget = {
         ...this.data.budget,
-        ...this.budgetForm.value,
+        name: this.budgetForm.get('name')?.value,
+        limit: Number(this.budgetForm.get('limit')?.value),
+        limitReached:
+          Number(this.data.budget.total_spent) >=
+          Number(this.budgetForm.get('limit')?.value)
+            ? true
+            : false,
       } as Budget;
       this.budgetStore.updateBudget(budget);
     } else {
-      let budget:Budget = {
+      let budget: Budget = {
         id: Date.now(),
         name: this.budgetForm.get('name')?.value!,
         date: new Date().toString(),
