@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1758020839206,
+  "timestamp": 1758026170061,
   "index": "/budgetTrackerAngular/index.html",
   "assetGroups": [
     {
@@ -14,9 +14,9 @@
         "/budgetTrackerAngular/chunk-D2NQD24O.js",
         "/budgetTrackerAngular/favicon.ico",
         "/budgetTrackerAngular/index.html",
-        "/budgetTrackerAngular/main-S2E53V7N.js",
+        "/budgetTrackerAngular/main-KWMFZCYN.js",
         "/budgetTrackerAngular/manifest.webmanifest",
-        "/budgetTrackerAngular/styles-77QBCPY4.css"
+        "/budgetTrackerAngular/styles-VYWEOWM5.css"
       ],
       "patterns": []
     },
@@ -54,10 +54,10 @@
     "/budgetTrackerAngular/icons/icon-512x512.png": "1eb555e244e875fc00cc9813aa4f2ed0c79c1f57",
     "/budgetTrackerAngular/icons/icon-72x72.png": "6f024d4b9fcb66cd0eb2f78903332900e45d2018",
     "/budgetTrackerAngular/icons/icon-96x96.png": "d5a48ac45a8883ff9c3907a76defb3c782126a3c",
-    "/budgetTrackerAngular/index.html": "80d3a3d6f75b480548dfaf061e1bb2125e7fc5dc",
-    "/budgetTrackerAngular/main-S2E53V7N.js": "57766f7cb87fec4885378c2c8de1f75697322f8b",
+    "/budgetTrackerAngular/index.html": "beb9ea073a2e9d4110ef62d40d687bd62ce601de",
+    "/budgetTrackerAngular/main-KWMFZCYN.js": "3d83c49bee4be1915dd1d63d482095c20b621dd4",
     "/budgetTrackerAngular/manifest.webmanifest": "6c46e3e58c0ce1076f5bbd54343fea05786fbdb1",
-    "/budgetTrackerAngular/styles-77QBCPY4.css": "00ccce529998aa3d6c4ecc8eda387bcd63cca551"
+    "/budgetTrackerAngular/styles-VYWEOWM5.css": "74909b3d865f8aadcf858e4865ac1309e6c66b5d"
   },
   "navigationUrls": [
     {
