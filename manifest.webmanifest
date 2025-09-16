@@ -1,6 +1,6 @@
 {
-  "name": "budget-tracker",
-  "short_name": "budget-tracker",
+  "name": "Expense Tracker",
+  "short_name": "Expense Tracker",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
