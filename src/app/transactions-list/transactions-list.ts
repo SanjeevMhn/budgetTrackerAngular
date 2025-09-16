@@ -1,6 +1,8 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { Transaction, TransactionStore } from '../store/transaction-store';
 import {
+  ChevronLeft,
+  ChevronRight,
   Ellipsis,
   EllipsisVertical,
   LucideAngularModule,
@@ -14,16 +16,34 @@ import { BudgetCheck } from '../services/budgetCheck/budget-check';
 
 @Component({
   selector: 'app-transactions-list',
-  imports: [MatMenuModule, LucideAngularModule,DatePipe],
+  imports: [MatMenuModule, LucideAngularModule, DatePipe],
   templateUrl: './transactions-list.html',
   styleUrl: './transactions-list.scss',
 })
 export class TransactionsList {
   transactions = input<Array<Transaction | any>>([]);
+  page = signal<number>(1);
+  pageLimit = 4;
+  totalPages = computed(() => {
+    return Math.ceil(this.transactions().length / this.pageLimit);
+  });
+
+  getPaginatedData = computed(() => {
+    const startIndex = (this.page() - 1) * this.pageLimit;
+    const endIndex = Math.min(
+      startIndex + this.pageLimit,
+      this.transactions().length
+    );
+    const items = this.transactions();
+    return items.slice(startIndex, endIndex);
+  });
+
   ellipsesIcon = EllipsisVertical;
+  chevronLeft = ChevronLeft;
+  chevronRight = ChevronRight;
 
   dialog = inject(MatDialog);
-  budgetCheck = inject(BudgetCheck)
+  budgetCheck = inject(BudgetCheck);
 
   onTransactionEdit(transaction: Transaction) {
     this.dialog.open(AddTransaction, {
@@ -35,21 +55,32 @@ export class TransactionsList {
       },
     });
   }
-  
-  onDelete(id:string | number){
-    const dialogRef = this.dialog.open(AlertDialog,{
+
+  onDelete(id: string | number) {
+    const dialogRef = this.dialog.open(AlertDialog, {
       panelClass: 'alert-dialog',
-      data:{
+      data: {
         title: 'Delete Transaction?',
-        description: 'Are you sure you want to delete this transaction?'
-      }
-    })
+        description: 'Are you sure you want to delete this transaction?',
+      },
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.budgetCheck.deleteTransaction(id)
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.budgetCheck.deleteTransaction(id);
       }
-    })
+    });
+  }
 
+  prevPage() {
+    if (this.page() > 1) {
+      this.page.set(this.page() - 1);
+    }
+  }
+
+  nextPage() {
+    if (this.page() < this.totalPages()) {
+      this.page.set(this.page() + 1);
+    }
   }
 }

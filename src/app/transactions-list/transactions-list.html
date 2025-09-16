@@ -1,7 +1,13 @@
 <ul class="transactions flex flex-col gap-[0.5rem]">
-  @for(transaction of transactions(); track transaction.id){
-  <li class="tran-item grid grid-cols-[2.5rem_1fr_1fr] gap-[0.8rem] p-[1.5rem_0] rounded-xl">
-    <button type="button" class="col-1 row-1 cursor-pointer" [matMenuTriggerFor]="menu">
+  @for(transaction of getPaginatedData(); track transaction.id){
+  <li
+    class="tran-item grid grid-cols-[2.5rem_1fr_1fr] gap-y-[0.4rem] gap-x-[0.8rem] p-[1.5rem_0] rounded-xl"
+  >
+    <button
+      type="button"
+      class="col-1 row-1 cursor-pointer"
+      [matMenuTriggerFor]="menu"
+    >
       <span
         class="icon-container w-[2.5rem] h-[2.5rem] flex items-center justify-center"
       >
@@ -9,14 +15,28 @@
       </span>
     </button>
     <mat-menu #menu="matMenu" class="bg-white! rounded-xl!">
-        <button type="button" mat-menu-item class="p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onTransactionEdit(transaction)">Edit</button>
-        <button type="button" mat-menu-item class="err-text p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300" (click)="onDelete(transaction.id)">Delete</button>
+      <button
+        type="button"
+        mat-menu-item
+        class="p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300"
+        (click)="onTransactionEdit(transaction)"
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        mat-menu-item
+        class="err-text p-[0.5rem_1rem] text-[1.8rem]! cursor-pointer bg-white hover:bg-neutral-300"
+        (click)="onDelete(transaction.id)"
+      >
+        Delete
+      </button>
     </mat-menu>
 
-    <h2 class="name text-[1.8rem] font-medium row-1 col-2 leading-[1]">
+    <h2 class="name text-[1.65rem] font-medium row-1 col-2 leading-[1] whitespace-nowrap">
       {{transaction.name}}
     </h2>
-    <span class="date text-neutral-600 text-[1.4rem] row-2 col-2 leading-[1.1]"
+    <span class="date text-neutral-600 text-[1.4rem] row-2 col-2 leading-[1.1] whitespace-nowrap"
       >{{transaction.date | date: 'MMM d, y, h:mm a'}}</span
     >
     <p
@@ -30,3 +50,34 @@
   <h2 class="text-[2rem] text-center pt-[2.5rem]">No transactions</h2>
   }
 </ul>
+@if(this.transactions().length > 0){
+<div class="pagination-footer flex gap-[1rem] items-center pt-[1.5rem]">
+  <p class="text-[1.5rem] mr-auto">
+    Page {{this.page()}} of {{this.totalPages()}}
+  </p>
+  <button
+    [class]="this.page() == 1 ? 'pointer-events-none border-[#b1b1b1]!' : ''"
+    type="button"
+    class="w-[3.5rem] h-[3.5rem] flex items-center justify-center border-2 border-[#438883] rounded-full bg-[#fff]"
+    (click)="prevPage()"
+  >
+    <lucide-angular
+      [img]="chevronLeft"
+      [class]="this.page() == 1 ? 'text-[#b1b1b1]' : ''"
+      class="w-[85%] h-[85%] flex items-center justify-center text-[#438883]"
+    ></lucide-angular>
+  </button>
+  <button
+    type="button"
+    class="w-[3.5rem] h-[3.5rem] flex items-center justify-center border-2 border-[#438883] rounded-full bg-[#fff]"
+    [class]="this.page() >= this.totalPages() ? 'border-[#b1b1b1]!' : ''"
+    (click)="nextPage()"
+  >
+    <lucide-angular
+      [img]="chevronRight"
+      [class]="this.page() >= this.totalPages() ? 'text-[#b1b1b1]' : ''"
+      class="w-[85%] h-[85%] flex items-center justify-center text-[#438883]"
+    ></lucide-angular>
+  </button>
+</div>
+}
