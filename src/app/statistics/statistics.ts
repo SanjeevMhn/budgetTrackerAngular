@@ -27,10 +27,13 @@ import {
   RadialLinearScale,
   Title,
   Tooltip,
+  PluginChartOptions,
+  plugins,
 } from 'chart.js';
 import { LineController } from 'chart.js';
 import { TransactionStore } from '../store/transaction-store';
-import { TransactionsList } from "../transactions-list/transactions-list";
+import { TransactionsList } from '../transactions-list/transactions-list';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 Chart.register(
   LineController,
   LineElement,
@@ -42,7 +45,9 @@ Chart.register(
   PieController,
   ArcElement,
   Tooltip,
-  RadialLinearScale
+  RadialLinearScale,
+  plugins,
+  DatalabelsPlugin
 );
 
 @Component({
@@ -82,9 +87,10 @@ export class Statistics implements AfterViewInit {
 
   constructor() {
     effect(() => {
-      const labels = this.activeLabelsDateConversion();
+      const labels = this.activeLabelsNames();
       const data = this.activeData();
       const selected = this.activeDurationAndType();
+      const colors = this.chartBgColors();
 
       if (this.chart) {
         this.chart.data.labels = labels;
@@ -100,6 +106,7 @@ export class Statistics implements AfterViewInit {
             ? 'Month'
             : ''
         }`;
+        this.chart.data.datasets[0].backgroundColor = colors;
         this.chart.update();
       }
     });
@@ -119,32 +126,76 @@ export class Statistics implements AfterViewInit {
   activeLabels = computed(() => {
     return this.activeDurationAndType().duration == '7 Days' &&
       this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByWeek().map((week) => week.date)
+      ? this.stateTransactions.expensesByWeek().map((week) => {
+          return {
+            name: week.name,
+            date: week.date,
+            amount: week.amount,
+          };
+        })
       : this.activeDurationAndType().duration == '7 Days' &&
         this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByWeek().map((week) => week.date)
+      ? this.stateTransactions.incomeByWeek().map((week) => {
+          return {
+            name: week.name,
+            date: week.date,
+            amount: week.amount,
+          };
+        })
       : this.activeDurationAndType().duration == '15 Days' &&
         this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByHalfMonth().map((hm) => hm.date)
+      ? this.stateTransactions.expensesByHalfMonth().map((hm) => {
+          return {
+            name: hm.name,
+            date: hm.date,
+            amount: hm.amount,
+          };
+        })
       : this.activeDurationAndType().duration == '15 Days' &&
         this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByHalfMonth().map((hm) => hm.date)
+      ? this.stateTransactions.incomeByHalfMonth().map((hm) => {
+          return {
+            name: hm.name,
+            date: hm.date,
+            amount: hm.amount,
+          };
+        })
       : this.activeDurationAndType().duration == '30 Days' &&
         this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByMonth().map((m) => m.date)
+      ? this.stateTransactions.expensesByMonth().map((m) => {
+          return {
+            name: m.name,
+            date: m.date,
+            amount: m.amount,
+          };
+        })
       : this.activeDurationAndType().duration == '30 Days' &&
         this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByMonth().map((m) => m.date)
+      ? this.stateTransactions.incomeByMonth().map((m) => {
+          return {
+            name: m.name,
+            date: m.date,
+            amount: m.amount,
+          };
+        })
       : [];
   });
 
   activeLabelsDateConversion = computed(() => {
-    return this.activeLabels().length > 0 ? this.activeLabels().map(lab => new Date(lab).toLocaleDateString('en-US',{
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    })) : []
-  })
+    return this.activeLabels().length > 0
+      ? this.activeLabels().map((lab) =>
+          new Date(lab.date).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })
+        )
+      : [];
+  });
+
+  activeLabelsNames = computed(() => {
+    return this.activeLabels().map((lab) => lab.name);
+  });
 
   activeData = computed(() => {
     return this.activeDurationAndType().duration == '7 Days' &&
@@ -196,14 +247,21 @@ export class Statistics implements AfterViewInit {
       : [];
   });
 
+  chartBgColors = computed(() => {
+    console.log(
+      this.activeLabelsDateConversion().map((_) => this.getRandomColor())
+    );
+    return this.activeLabelsDateConversion().map((_) => this.getRandomColor());
+  });
+
   createChart(): void {
     if (this.chart) {
       this.chart.destroy();
     }
     this.chart = new Chart(this.chartRef.nativeElement, {
-      type: 'line',
+      type: 'pie',
       data: {
-        labels: this.activeLabelsDateConversion(),
+        labels: this.activeLabelsNames(),
         datasets: [
           {
             label: `${
@@ -220,14 +278,43 @@ export class Statistics implements AfterViewInit {
                 : ''
             }`,
             data: this.activeData(),
-            fill: true,
-            backgroundColor: '#438883',
-            tension: 0.3,
+            datalabels: {
+              anchor: 'end',
+              color: '#000',
+              font: {
+                size: 11.5,
+                weight: 500,
+                lineHeight: 1.25
+              },
+              backgroundColor: '#fff',
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: '#000',
+              formatter: (value) => {
+                return `${this.getNamesWithSpace(
+                  this.activeLabels().filter((da) => da.amount == value)[0].name
+                )}\nRs.${value}`;
+              },
+            },
+            backgroundColor: this.chartBgColors(),
           },
         ],
       },
       options: {
         responsive: true,
+        layout: {
+          padding: 25,
+        },
+        plugins: {
+          legend: {
+            display: false,
+            position: 'top',
+            align: 'start',
+            labels: {
+              // padding: 20,
+            },
+          },
+        },
       },
     });
   }
@@ -255,5 +342,30 @@ export class Statistics implements AfterViewInit {
   handleOptionChange(event: any) {
     let option = event.target.value;
     this.selectedOption.set(option);
+  }
+
+  getRandomColor(): string {
+    const randomInt = (min: number, max: number) => {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    let h = randomInt(0, 360);
+    let s = randomInt(42, 98);
+    let l = randomInt(40, 90);
+    return `hsl(${h},${s}%,${l}%)`;
+  }
+
+  getNamesWithSpace(names: string): string {
+    const words = names.split(' ');
+    let lines = '';
+    words.forEach((word) => {
+      if ((lines + ' '+ word).split(' ').length == 2) {
+        lines += (lines.length > 0 ? ' ' : '') + word;
+      } else {
+        lines += '\n' + word
+      }
+    });
+
+    return lines;
   }
 }

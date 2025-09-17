@@ -33,14 +33,14 @@
       </button>
     </mat-menu>
 
-    <h2 class="name text-[1.65rem] font-medium row-1 col-2 leading-[1] whitespace-nowrap">
+    <h2 class="name :text-[1.65rem] font-medium row-1 col-2 leading-[1.2]">
       {{transaction.name}}
     </h2>
     <span class="date text-neutral-600 text-[1.4rem] row-2 col-2 leading-[1.1] whitespace-nowrap"
       >{{transaction.date | date: 'MMM d, y, h:mm a'}}</span
     >
     <p
-      class="amount text-[1.8rem] col-3 row-[1/span_2] leading-[1.1] flex items-center justify-end"
+      class="amount text-[1.65rem] col-3 row-[1/span_2] leading-[1.1] flex items-center justify-end"
       [class]="transaction.type == 'expense' ? 'err-text' : 'success-text'"
     >
       {{transaction.type == 'expense' ? '-' : '+'}} Rs. {{transaction.amount}}
