@@ -139,7 +139,7 @@ export class AddTransaction implements AfterViewInit {
         ...this.transactionForm.value,
       } as Transaction;
       if (
-        !this.checkIfBudgetExpired(
+        this.checkIfBudgetExpired(
           Number(this.transactionForm.get('budget_id')?.value)
         )
       ) {

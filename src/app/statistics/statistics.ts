@@ -278,40 +278,41 @@ export class Statistics implements AfterViewInit {
                 : ''
             }`,
             data: this.activeData(),
-            datalabels: {
-              anchor: 'end',
-              color: '#000',
-              font: {
-                size: 11.25,
-                weight: 500,
-                lineHeight: 1.25,
-              },
-              backgroundColor: '#fff',
-              borderRadius: 8,
-              borderWidth: 1,
-              borderColor: '#000',
-              formatter: (value) => {
-                return `Rs.${value}\n ${this.getNamesWithSpace(
-                  this.activeLabels().filter((da) => da.amount == value)[0].name
-                )}`;
-              },
-            },
+
             backgroundColor: this.chartBgColors(),
           },
         ],
       },
       options: {
-        responsive: true,
+        responsive: false,
         layout: {
-          padding: 28,
+          padding: 35,
         },
         plugins: {
           legend: {
             display: false,
-            position: 'top',
+            position: 'bottom',
             align: 'start',
-            labels: {
-              // padding: 20,
+            // labels: {
+            //   padding: 20,
+            // },
+          },
+          datalabels: {
+            anchor: 'end',
+            color: '#000',
+            font: {
+              size: 11.5,
+              weight: 500,
+              lineHeight: 1.25,
+            },
+            backgroundColor: '#fff',
+            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            formatter: (value) => {
+              return `Rs.${value}\n${this.getNamesWithSpace(
+                this.activeLabels().filter((da) => da.amount == value)[0].name
+              )}`;
             },
           },
         },
@@ -350,7 +351,7 @@ export class Statistics implements AfterViewInit {
     };
 
     let h = randomInt(0, 360);
-    let s = randomInt(42, 98);
+    let s = randomInt(50, 80);
     let l = randomInt(40, 90);
     return `hsl(${h},${s}%,${l}%)`;
   }
@@ -359,8 +360,16 @@ export class Statistics implements AfterViewInit {
     const words = names.split(' ');
     let lines = '';
     words.forEach((word) => {
-      if ((lines + ' ' + word).split(' ').length == 2) {
-        lines += (lines.length > 0 ? ' ' : '') + word;
+      if ((lines + ' ' + word).split(' ').length <= 3) {
+        if (
+          lines == '' ||
+          (word.length <= 6 && lines.trim().split(' ').length < 2)
+        ) {
+          lines += (lines.length > 0 ? ' ' : '') + word;
+        } else {
+          debugger;
+          lines += '\n' + word;
+        }
       } else {
         lines += '\n' + word;
       }
