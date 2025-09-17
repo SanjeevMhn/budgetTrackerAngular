@@ -282,18 +282,18 @@ export class Statistics implements AfterViewInit {
               anchor: 'end',
               color: '#000',
               font: {
-                size: 11.5,
+                size: 11.25,
                 weight: 500,
-                lineHeight: 1.25
+                lineHeight: 1.25,
               },
               backgroundColor: '#fff',
               borderRadius: 8,
               borderWidth: 1,
               borderColor: '#000',
               formatter: (value) => {
-                return `${this.getNamesWithSpace(
+                return `Rs.${value}\n ${this.getNamesWithSpace(
                   this.activeLabels().filter((da) => da.amount == value)[0].name
-                )}\nRs.${value}`;
+                )}`;
               },
             },
             backgroundColor: this.chartBgColors(),
@@ -303,7 +303,7 @@ export class Statistics implements AfterViewInit {
       options: {
         responsive: true,
         layout: {
-          padding: 25,
+          padding: 28,
         },
         plugins: {
           legend: {
@@ -359,10 +359,10 @@ export class Statistics implements AfterViewInit {
     const words = names.split(' ');
     let lines = '';
     words.forEach((word) => {
-      if ((lines + ' '+ word).split(' ').length == 2) {
+      if ((lines + ' ' + word).split(' ').length == 2) {
         lines += (lines.length > 0 ? ' ' : '') + word;
       } else {
-        lines += '\n' + word
+        lines += '\n' + word;
       }
     });
 
