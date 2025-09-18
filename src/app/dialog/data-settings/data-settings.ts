@@ -77,7 +77,7 @@ export class DataSettings {
           });
         }
 
-        this.close()
+        this.close();
         this.snackBar.open('Importing data successful');
         this.router.navigate(['/']);
       } catch (err: any) {
@@ -100,12 +100,16 @@ export class DataSettings {
       },
     });
 
-    exportReq.afterClosed().subscribe((res) => {
-      if (res) {
-        this.exportData();
-        this.clearData();
-      }else if (!res){
-        this.clearData()
+    exportReq.afterClosed().subscribe((res: boolean) => {
+      if (res !== undefined) {
+        if (res) {
+          this.exportData();
+          this.clearData();
+        } else {
+          this.clearData();
+        }
+      } else {
+        return;
       }
     });
 
