@@ -35,14 +35,17 @@
           {{budgetDetail()!.date | date:"longDate"}}
         </div>
         <div
-          class="progress-indicator row-2 col-1"
+          class="progress-indicator row-2 col-[1/span_2] mx-auto"
           [style.--progress]="`${getTotalPercentageUsed(budgetDetail()!.total_spent, budgetDetail()!.limit)}%`"
-        ></div>
-        <div
-          class="percentage-used row-2 col-2 text-[1.75rem] flex items-center leading-[1.1]"
         >
-          {{getTotalPercentageUsed(budgetDetail()!.total_spent,
-          budgetDetail()!.limit)}}% used of {{budgetDetail()!.limit}}
+          <div class="inner p-[1.5rem]">
+            <div
+              class="percentage-used row-2 col-2 text-[1.75rem] flex items-center leading-[1.1]"
+            >
+              {{getTotalPercentageUsed(budgetDetail()!.total_spent,
+              budgetDetail()!.limit)}}% used of {{budgetDetail()!.limit}}
+            </div>
+          </div>
         </div>
       </div>
       <div class="expenses-list">

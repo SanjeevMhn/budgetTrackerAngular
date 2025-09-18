@@ -10,7 +10,7 @@
           class="w-full h-full"
         ></lucide-angular>
       </button> -->
-      <h2 class="title-text text-[2rem] mx-auto">Transactions History</h2>
+      <h2 class="title-text text-[2rem]">Transactions History</h2>
       <!-- <button
         type="button"
         class="w-[2.5rem] h-[2.5rem] flex items-center justify-center"
@@ -18,7 +18,9 @@
         <lucide-angular [img]="downloadIcon"></lucide-angular>
       </button> -->
     </div>
-    <ul class="tab-list flex items-center justify-evenly gap-[0.5rem] flex-wrap">
+    <ul
+      class="tab-list flex items-center justify-evenly gap-[0.5rem] flex-wrap"
+    >
       @for(tab of tabList(); track tab.id){
       <li class="tab">
         <button
@@ -32,6 +34,10 @@
       </li>
       }
     </ul>
+
+    <!-- <div class="chart-container p-[1.5rem] rounded-xl bg-white shadow-md flex justify-center">
+      <canvas class="w-full!" #chart></canvas>
+    </div> -->
     <div class="dropdown-container flex items-center justify-end">
       <select
         name=""
@@ -40,22 +46,37 @@
         [value]="selectedOption()"
         (change)="handleOptionChange($event)"
       >
-        <option value="">Select Type</option>
         <option value="exp">Expense</option>
         <option value="inc">Income</option>
       </select>
     </div>
-    <div class="chart-container p-[1.5rem] rounded-xl bg-white shadow-md flex justify-center">
-      <canvas class="" #chart></canvas>
-    </div>
     <div
       class="card-section p-[1rem] bg-white rounded-2xl min-h-[15rem] flex flex-col gap-[2rem] shadow-md"
     >
-      <div class="header flex items-center justify-between">
-        <h2 class="header-text text-[1.7rem] font-medium">
+      <div class="header flex items-center gap-[1.2rem] justify-between flex-wrap">
+        <h2 class="header-text text-[1.65rem] font-medium">
           Top {{selectedOption() == 'exp' ? 'Spendings' : 'Earnings'}}
         </h2>
-        <span class="see-all text-[1.4rem] text-neutral-500">See All</span>
+        <div class="form-group relative grow">
+          <input type="text" name="" id="" class="form-control p-[0.8rem_3rem_0.8rem_0.8rem] border border-neutral-400 rounded-md text-[1.4rem] w-full" placeholder="Search..." (input)="searchTransactions($event)" #searchInput />
+          @if(searchInputHasValue){
+           <button type="button" class="w-[1.5rem] h-[1.5rem] flex items-center justify-center absolute top-[50%] translate-y-[-50%] right-[0.5rem]" (click)="clearSearchInput()">
+            <lucide-angular
+              [img]="clearIcon"
+              class="w-full h-full flex items-center justify-center"
+            ></lucide-angular>
+           </button> 
+          }@else{
+            <span class="w-[1.5rem] h-[1.5rem] flex items-center justify-center absolute top-[50%] translate-y-[-50%] right-[0.5rem]">
+              <lucide-angular
+                [img]="searchIcon"
+                class="w-full h-full flex items-center justify-center"
+              ></lucide-angular>
+            </span>
+          }
+        </div>
+
+        <!-- <span class="see-all text-[1.4rem] text-neutral-500">See All</span> -->
       </div>
       <app-transactions-list [transactions]="activeTransactionType()" />
     </div>

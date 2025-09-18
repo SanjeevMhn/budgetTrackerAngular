@@ -13,6 +13,8 @@ import {
   Computer,
   Download,
   LucideAngularModule,
+  Search,
+  X,
 } from 'lucide-angular';
 import {
   ArcElement,
@@ -34,6 +36,9 @@ import { LineController } from 'chart.js';
 import { TransactionStore } from '../store/transaction-store';
 import { TransactionsList } from '../transactions-list/transactions-list';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { debounceTime, distinctUntilChanged, map, Subject } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+
 Chart.register(
   LineController,
   LineElement,
@@ -56,9 +61,9 @@ Chart.register(
   templateUrl: './statistics.html',
   styleUrl: './statistics.scss',
 })
-export class Statistics implements AfterViewInit {
-  backButtonIcon = ChevronLeft;
-  downloadIcon = Download;
+export class Statistics {
+  searchIcon = Search;
+  clearIcon = X
 
   stateTransactions = inject(TransactionStore);
   selectedOption = signal<'exp' | 'inc'>('exp');
@@ -66,6 +71,27 @@ export class Statistics implements AfterViewInit {
   @ViewChild('chart', { static: false })
   chartRef!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
+
+  @ViewChild('searchInput', {static: false})
+  searchInputRef!: ElementRef<HTMLInputElement>
+
+  searchSubject = new Subject<string>();
+  searchTerm = this.searchSubject.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    map((term: string) => term)
+  );
+
+
+  searchSignal = toSignal(this.searchTerm);
+
+  constructor(){
+    effect(() => {
+      if(this.searchSignal()){
+        this.searchInputRef.nativeElement.blur()
+      }
+    })
+  }
 
   tabList = signal([
     {
@@ -85,33 +111,6 @@ export class Statistics implements AfterViewInit {
     },
   ]);
 
-  constructor() {
-    effect(() => {
-      const labels = this.activeLabelsNames();
-      const data = this.activeData();
-      const selected = this.activeDurationAndType();
-      const colors = this.chartBgColors();
-
-      if (this.chart) {
-        this.chart.data.labels = labels;
-        this.chart.data.datasets[0].data = data;
-        this.chart.data.datasets[0].label = `${
-          selected.type == 'exp' ? 'Spendings' : 'Earnings'
-        } past ${
-          selected.duration == '7 Days'
-            ? 'week'
-            : selected.duration == '15 Days'
-            ? '15 days'
-            : selected.duration == '30 Days'
-            ? 'Month'
-            : ''
-        }`;
-        this.chart.data.datasets[0].backgroundColor = colors;
-        this.chart.update();
-      }
-    });
-  }
-
   activeTabName = computed(() => {
     return this.tabList().find((tab) => tab.active)?.name;
   });
@@ -123,111 +122,19 @@ export class Statistics implements AfterViewInit {
     };
   });
 
-  activeLabels = computed(() => {
-    return this.activeDurationAndType().duration == '7 Days' &&
-      this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByWeek().map((week) => {
-          return {
-            name: week.name,
-            date: week.date,
-            amount: week.amount,
-          };
-        })
-      : this.activeDurationAndType().duration == '7 Days' &&
-        this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByWeek().map((week) => {
-          return {
-            name: week.name,
-            date: week.date,
-            amount: week.amount,
-          };
-        })
-      : this.activeDurationAndType().duration == '15 Days' &&
-        this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByHalfMonth().map((hm) => {
-          return {
-            name: hm.name,
-            date: hm.date,
-            amount: hm.amount,
-          };
-        })
-      : this.activeDurationAndType().duration == '15 Days' &&
-        this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByHalfMonth().map((hm) => {
-          return {
-            name: hm.name,
-            date: hm.date,
-            amount: hm.amount,
-          };
-        })
-      : this.activeDurationAndType().duration == '30 Days' &&
-        this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByMonth().map((m) => {
-          return {
-            name: m.name,
-            date: m.date,
-            amount: m.amount,
-          };
-        })
-      : this.activeDurationAndType().duration == '30 Days' &&
-        this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByMonth().map((m) => {
-          return {
-            name: m.name,
-            date: m.date,
-            amount: m.amount,
-          };
-        })
-      : [];
-  });
-
-  activeLabelsDateConversion = computed(() => {
-    return this.activeLabels().length > 0
-      ? this.activeLabels().map((lab) =>
-          new Date(lab.date).toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-          })
-        )
-      : [];
-  });
-
-  activeLabelsNames = computed(() => {
-    return this.activeLabels().map((lab) => lab.name);
-  });
-
-  activeData = computed(() => {
-    return this.activeDurationAndType().duration == '7 Days' &&
-      this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions
-          .expensesByWeek()
-          .map((week) => Number(week.amount))
-      : this.activeDurationAndType().duration == '7 Days' &&
-        this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByWeek().map((week) => Number(week.amount))
-      : this.activeDurationAndType().duration == '15 Days' &&
-        this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions
-          .expensesByHalfMonth()
-          .map((hm) => Number(hm.amount))
-      : this.activeDurationAndType().duration == '15 Days' &&
-        this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions
-          .incomeByHalfMonth()
-          .map((hm) => Number(hm.amount))
-      : this.activeDurationAndType().duration == '30 Days' &&
-        this.activeDurationAndType().type == 'exp'
-      ? this.stateTransactions.expensesByMonth().map((m) => Number(m.amount))
-      : this.activeDurationAndType().duration == '30 Days' &&
-        this.activeDurationAndType().type == 'inc'
-      ? this.stateTransactions.incomeByMonth().map((m) => Number(m.amount))
-      : [];
-  });
-
   activeTransactionType = computed(() => {
-    return this.activeDurationAndType().duration == '7 Days' &&
-      this.activeDurationAndType().type == 'exp'
+    return this.searchSignal() !== '' &&
+      this.searchSignal() !== undefined &&
+      this.searchSignal()
+      ? this.stateTransactions
+          .getAllTransaction()
+          .filter((transaction) =>
+            transaction.name
+              .toLowerCase()
+              .includes(this.searchSignal()!.toLowerCase())
+          )
+      : this.activeDurationAndType().duration == '7 Days' &&
+        this.activeDurationAndType().type == 'exp'
       ? this.stateTransactions.expensesByWeek()
       : this.activeDurationAndType().duration == '7 Days' &&
         this.activeDurationAndType().type == 'inc'
@@ -246,83 +153,6 @@ export class Statistics implements AfterViewInit {
       ? this.stateTransactions.incomeByMonth()
       : [];
   });
-
-  chartBgColors = computed(() => {
-    console.log(
-      this.activeLabelsDateConversion().map((_) => this.getRandomColor())
-    );
-    return this.activeLabelsDateConversion().map((_) => this.getRandomColor());
-  });
-
-  createChart(): void {
-    if (this.chart) {
-      this.chart.destroy();
-    }
-    this.chart = new Chart(this.chartRef.nativeElement, {
-      type: 'pie',
-      data: {
-        labels: this.activeLabelsNames(),
-        datasets: [
-          {
-            label: `${
-              this.activeDurationAndType().type == 'exp'
-                ? 'Spendings'
-                : 'Earnings'
-            } past ${
-              this.activeDurationAndType().duration == '7 Days'
-                ? 'week'
-                : this.activeDurationAndType().duration == '15 Days'
-                ? '15 days'
-                : this.activeDurationAndType().duration == '30 Days'
-                ? 'Month'
-                : ''
-            }`,
-            data: this.activeData(),
-
-            backgroundColor: this.chartBgColors(),
-          },
-        ],
-      },
-      options: {
-        responsive: false,
-        layout: {
-          padding: 35,
-        },
-        plugins: {
-          legend: {
-            display: false,
-            position: 'bottom',
-            align: 'start',
-            // labels: {
-            //   padding: 20,
-            // },
-          },
-          datalabels: {
-            anchor: 'end',
-            color: '#000',
-            font: {
-              size: 11.5,
-              weight: 500,
-              lineHeight: 1.25,
-            },
-            backgroundColor: '#fff',
-            borderRadius: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            formatter: (value) => {
-              return `Rs.${value}\n${this.getNamesWithSpace(
-                this.activeLabels().filter((da) => da.amount == value)[0].name
-              )}`;
-            },
-          },
-        },
-      },
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.createChart();
-  }
 
   toggleActiveTab(tabId: number) {
     const updatedTab = this.tabList().map((tab) => {
@@ -343,6 +173,21 @@ export class Statistics implements AfterViewInit {
   handleOptionChange(event: any) {
     let option = event.target.value;
     this.selectedOption.set(option);
+  }
+
+  searchTransactions(event: any) {
+    this.searchSubject.next(event.target.value);
+  }
+
+  get searchInputHasValue():boolean{
+    return this.searchInputRef ? this.searchInputRef.nativeElement.value.length > 0 : false
+  }
+
+  clearSearchInput(){
+    if(this.searchInputRef){
+      this.searchInputRef.nativeElement.value = ''
+      this.searchSubject.next('')
+    }
   }
 
   getRandomColor(): string {

@@ -5,8 +5,8 @@
   display: grid;
   place-items: center;
   //   --size: min(20rem, 90vw);
-  --size: 100%;
-  --bar-width: 4rem;
+  --size: 85%;
+  --bar-width: 5rem;
   width: var(--size);
   aspect-ratio: 1 / 1;
   background-image: conic-gradient(#e9c46a var(--progress, 0%), #438883 0%);

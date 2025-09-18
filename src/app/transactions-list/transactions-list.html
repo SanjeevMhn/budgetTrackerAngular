@@ -1,7 +1,7 @@
 <ul class="transactions flex flex-col gap-[0.5rem]">
   @for(transaction of getPaginatedData(); track transaction.id){
   <li
-    class="tran-item grid grid-cols-[2.5rem_1fr_1fr] gap-y-[0.4rem] gap-x-[0.8rem] p-[1.5rem_0] rounded-xl"
+    class="tran-item grid grid-cols-[2.5rem_1fr_10rem] gap-y-[0.4rem] gap-x-[0.8rem] p-[1.5rem_0] rounded-xl"
   >
     <button
       type="button"
@@ -40,7 +40,7 @@
       >{{transaction.date | date: 'MMM d, y, h:mm a'}}</span
     >
     <p
-      class="amount text-[1.65rem] col-3 row-[1/span_2] leading-[1.1] flex items-center justify-end"
+      class="amount text-[1.65rem] col-3 row-[1/span_2] leading-[1.1] flex items-center"
       [class]="transaction.type == 'expense' ? 'err-text' : 'success-text'"
     >
       {{transaction.type == 'expense' ? '-' : '+'}} Rs. {{transaction.amount}}
@@ -58,7 +58,7 @@
   <button
     [class]="this.page() == 1 ? 'pointer-events-none border-[#b1b1b1]!' : ''"
     type="button"
-    class="w-[3.5rem] h-[3.5rem] flex items-center justify-center border-2 border-[#438883] rounded-full bg-[#fff]"
+    class="w-[3.5rem] h-[3.5rem] flex items-center justify-center border-2 border-[#438883] rounded-full bg-[#fff] cursor-pointer"
     (click)="prevPage()"
   >
     <lucide-angular
@@ -69,7 +69,7 @@
   </button>
   <button
     type="button"
-    class="w-[3.5rem] h-[3.5rem] flex items-center justify-center border-2 border-[#438883] rounded-full bg-[#fff]"
+    class="w-[3.5rem] h-[3.5rem] flex items-center justify-center border-2 border-[#438883] rounded-full bg-[#fff] cursor-pointer"
     [class]="this.page() >= this.totalPages() ? 'border-[#b1b1b1]!' : ''"
     (click)="nextPage()"
   >
