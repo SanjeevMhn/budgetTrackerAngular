@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { Transaction, TransactionStore } from '../store/transaction-store';
 import {
   ChevronLeft,
@@ -22,6 +22,15 @@ import { BudgetCheck } from '../services/budgetCheck/budget-check';
 })
 export class TransactionsList {
   transactions = input<Array<Transaction | any>>([]);
+
+  constructor(){
+    effect(() => {
+      if(this.transactions()){
+        this.page.set(1)
+      }
+    })
+  }
+
   page = signal<number>(1);
   pageLimit = 4;
   totalPages = computed(() => {

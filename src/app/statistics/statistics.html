@@ -57,17 +57,17 @@
         <h2 class="header-text text-[1.65rem] font-medium">
           Top {{selectedOption() == 'exp' ? 'Spendings' : 'Earnings'}}
         </h2>
-        <div class="form-group relative grow">
-          <input type="text" name="" id="" class="form-control p-[0.8rem_3rem_0.8rem_0.8rem] border border-neutral-400 rounded-md text-[1.4rem] w-full" placeholder="Search..." (input)="searchTransactions($event)" #searchInput />
+        <div class="form-group relative flex grow">
+          <input type="text" name="" id="" [class]="searchInputHasValue ? 'p-[0.8rem]! border-r-0 rounded-tl-md rounded-bl-md' : 'rounded-md'" class="form-control w-full p-[0.8rem_3rem_0.8rem_0.8rem] border border-neutral-400 text-[1.4rem]" placeholder="Search..." (input)="searchTransactions($event)" #searchInput />
           @if(searchInputHasValue){
-           <button type="button" class="w-[1.5rem] h-[1.5rem] flex items-center justify-center absolute top-[50%] translate-y-[-50%] right-[0.5rem]" (click)="clearSearchInput()">
+           <button type="button" class="flex items-center justify-center flex-[0_0_3.5rem] h-[3.5rem] w-[3.5rem] border border-l-0 border-neutral-400 rounded-tr-md rounded-br-md" (click)="clearSearchInput()">
             <lucide-angular
               [img]="clearIcon"
-              class="w-full h-full flex items-center justify-center"
+              class="w-[1.8rem] h-[1.8rem] flex items-center justify-center"
             ></lucide-angular>
            </button> 
           }@else{
-            <span class="w-[1.5rem] h-[1.5rem] flex items-center justify-center absolute top-[50%] translate-y-[-50%] right-[0.5rem]">
+            <span class="w-[1.5rem] h-[1.5rem] flex items-center justify-center absolute top-[50%] translate-y-[-50%] right-[1.2rem]">
               <lucide-angular
                 [img]="searchIcon"
                 class="w-full h-full flex items-center justify-center"
