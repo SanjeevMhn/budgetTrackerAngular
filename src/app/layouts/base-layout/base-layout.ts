@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { TransactionStore } from '../../store/transaction-store';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { BackButtonClose } from '../../services/backButtonClose/back-button-close';
 
 @Component({
   selector: 'app-base-layout',
@@ -21,6 +22,8 @@ export class BaseLayout {
 
   stateTransactions = inject(TransactionStore);
   gDate = inject(GlobalDate);
+
+  backButtonClose = inject(BackButtonClose)
 
   @ViewChild("picker") datePicker!:MatDatepicker<Date>
 
