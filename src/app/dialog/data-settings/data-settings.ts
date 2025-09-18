@@ -62,22 +62,24 @@ export class DataSettings {
       const content = e.target?.result as string;
       try {
         const jsonData = JSON.parse(content);
-        const { transactions, budgets, user } = jsonData
+        const { transactions, budgets, user } = jsonData;
         this.userStore.setUserData({
           ...user,
         });
         if (transactions.transactions.length > 0) {
-          transactions.transactions.forEach((tran:Transaction) => {
-            this.transactionsStore.addTransaction(tran)
-          })
+          transactions.transactions.forEach((tran: Transaction) => {
+            this.transactionsStore.addTransaction(tran);
+          });
         }
-        if(budgets.budgets.length > 0){
+        if (budgets.budgets.length > 0) {
           budgets.budgets.forEach((budget: Budget) => {
-            this.budgetsStore.addBudget(budget)
-          })
+            this.budgetsStore.addBudget(budget);
+          });
         }
 
+        this.close()
         this.snackBar.open('Importing data successful');
+        this.router.navigate(['/']);
       } catch (err: any) {
         console.error(err);
         this.snackBar.open('Error while reading contents of file.');
@@ -88,24 +90,47 @@ export class DataSettings {
   }
 
   deleteReset() {
-    let ref = this.dialog.open(AlertDialog, {
+    let exportReq = this.dialog.open(AlertDialog, {
       panelClass: 'alert-dialog',
       data: {
-        title: 'Delete',
+        title: 'Export & Save',
         description:
-          'Are you sure you want to delete all user details and transactions records?',
+          'Save and export current data before deleting and resetting?',
+        actionBtnLabel: 'Export',
       },
     });
 
-    ref.afterClosed().subscribe((res) => {
+    exportReq.afterClosed().subscribe((res) => {
       if (res) {
-        this.transactionsStore.reset();
-        this.userStore.reset();
-        this.budgetsStore.reset();
-        this.router.navigate(['/']);
-
-        location.href = environment.apiUrl;
+        this.exportData();
+        this.clearData();
+      }else if (!res){
+        this.clearData()
       }
     });
+
+    // let ref = this.dialog.open(AlertDialog, {
+    //   panelClass: 'alert-dialog',
+    //   data: {
+    //     title: 'Delete',
+    //     description:
+    //       'Are you sure you want to delete all user details and transactions records?',
+    //   },
+    // });
+
+    // ref.afterClosed().subscribe((res) => {
+    //   if (res) {
+    //     this.clearData()
+    //   }
+    // });
+  }
+
+  clearData() {
+    this.transactionsStore.reset();
+    this.userStore.reset();
+    this.budgetsStore.reset();
+    this.router.navigate(['/']);
+
+    location.href = environment.apiUrl;
   }
 }
