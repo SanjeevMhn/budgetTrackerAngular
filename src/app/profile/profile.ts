@@ -105,10 +105,11 @@ export class Profile {
           Remove Current Image
         </li>
         }
-        <li
-          class="item text-[1.8rem] p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem]"
-        >
-          <label for="img">
+        <li class="item">
+          <label
+            for="img"
+            class="w-full p-[2rem] hover:bg-neutral-300 cursor-pointer rounded-[1.2rem] flex text-[1.8rem]"
+          >
             @if(userStore.getUserDetail().img() !== ''){ Change Current Image
             }@else { Add Image }</label
           >
