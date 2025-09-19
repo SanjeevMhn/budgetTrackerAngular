@@ -31,6 +31,10 @@ export class DataSettings {
   }
 
   exportData() {
+    this.userStore.setUserData({
+      password: null,
+      password_skipped: true
+    })
     let budgets = localStorage.getItem('budgets');
     let transactions = localStorage.getItem('transactions');
     let user = localStorage.getItem('user');
@@ -63,8 +67,13 @@ export class DataSettings {
       try {
         const jsonData = JSON.parse(content);
         const { transactions, budgets, user } = jsonData;
+        const { name, password, password_skipped, img } = this.userStore.getUserDetail()
         this.userStore.setUserData({
           ...user,
+          name: name(),
+          password: password(),
+          password_skipped: password_skipped(),
+          img: img(),
         });
         if (transactions.transactions.length > 0) {
           transactions.transactions.forEach((tran: Transaction) => {
