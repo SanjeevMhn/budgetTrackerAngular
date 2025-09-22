@@ -1,6 +1,6 @@
 <section class="wallet-container h-full">
   <div
-    class="wrapper pt-[3.5rem] flex flex-col gap-y-[5.5rem] isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[20rem] after:absolute after:rounded-b-[4rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
+    class="wrapper pt-[3.5rem] flex flex-col gap-y-[3.5rem] isolate pt-[1.5rem] flex flex-col gap-[2rem] relative after:content-[''] after:w-full after:h-[20rem] after:absolute after:rounded-b-[4rem] after:bg-linear-to-br after:from-[#429690] after:to-[#2A7C76] after:z-[-1]"
   >
     <div class="top-section flex items-center justify-between text-white">
       <!-- <button
@@ -51,12 +51,12 @@
           </label> -->
         </div>
       </div>
-      <h2 class="user-name text-[2.5rem] font-medium">
+      <h2 class="user-name text-[2.5rem] font-medium text-center line-clamp-2 overflow-hidden text-ellipses">
         {{userStore.getUserDetail().name()}}
       </h2>
     </section>
     <ul
-      class="user-options-list flex flex-col w-full bg-white rounded-[3rem] shadow-lg overflow-hidden"
+      class="user-options-list flex flex-col w-full bg-white rounded-[3rem] shadow-lg overflow-hidden mb-[2.5rem]"
     >
       <li
         class="item p-[2.5rem] text-[1.7rem] hover:bg-neutral-200 cursor-pointer"
