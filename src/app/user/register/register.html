@@ -16,7 +16,7 @@
         class="w-[75%] h-[75%] text-white flex items-center justify-center"
       ></lucide-icon>
     </div>
-    <form (submit)="onUserNameSubmit()" [formGroup]="userNameForm" class="form">
+    <form (submit)="onUserNameSubmit()" [formGroup]="userNameForm" class="form" autocomplete="off">
       <div class="form-group">
         <!-- <label for="name" class="form-label text-white!">Name</label> -->
         <input
@@ -49,7 +49,7 @@
       </div>
     </form>
     } @if(userRegisterState() == 'img'){
-    <form (submit)="onUserImgSubmit()" [formGroup]="userNameForm" class="form">
+    <form (submit)="onUserImgSubmit()" [formGroup]="userNameForm" class="form" autocomplete="off">
       <div class="form-group relative">
         <label
           for="img"
@@ -114,6 +114,7 @@
       (submit)="onPasswordSubmit()"
       [formGroup]="userPasswordForm"
       class="form"
+      autocomplete="off"
     >
       <div class="form-group">
         <label for="password" class="form-label text-white!">Password</label>

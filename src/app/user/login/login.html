@@ -16,7 +16,7 @@
     </div>
 
     <p class="text-[2rem] font-normal text-white text-center">Login</p>
-    <form (submit)="onUserLogin()" [formGroup]="userLoginForm" class="form">
+    <form (submit)="onUserLogin()" [formGroup]="userLoginForm" class="form" autocomplete="off">
       <div class="form-group">
         <label for="password" class="form-label text-white!">Password</label>
         <!-- @for(input of [0,1,2,3,4,5]; track input){ -->

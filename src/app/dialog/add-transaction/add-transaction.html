@@ -29,6 +29,7 @@
       class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl mb-[8rem]"
       [formGroup]="transactionForm"
       (submit)="onTransactionSubmit()"
+      autocomplete="off"
     >
       @if(formError() !== null){
       <p class="err-text text-[1.5rem] pb-[1.5rem] leading-[1.5]">

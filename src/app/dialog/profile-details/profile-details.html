@@ -17,6 +17,7 @@
         class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
         [formGroup]="userForm"
         (submit)="handleNameForm()"
+        autocomplete="off"
       >
         <h2 class="text-[2rem]">Update Name</h2>
         <div class="form-group">
@@ -48,6 +49,7 @@
         class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
         [formGroup]="userForm"
         (submit)="handlePasswordForm()"
+        autocomplete="off"
       >
         <h2 class="text-[2rem]">Change Passcode</h2>
         <div class="form-group relative">
@@ -98,6 +100,7 @@
         class="form p-[3rem_2rem] bg-white rounded-[2rem] shadow-xl"
         [formGroup]="userForm"
         (submit)="handlePasswordForm()"
+        autocomplete="off"
       >
         <h2 class="text-[2rem]">Add Password</h2>
         <div class="form-group relative">
