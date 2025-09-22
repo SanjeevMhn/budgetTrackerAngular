@@ -63,7 +63,7 @@ Chart.register(
 })
 export class Statistics {
   searchIcon = Search;
-  clearIcon = X
+  clearIcon = X;
 
   stateTransactions = inject(TransactionStore);
   selectedOption = signal<'exp' | 'inc'>('exp');
@@ -72,25 +72,24 @@ export class Statistics {
   chartRef!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
 
-  @ViewChild('searchInput', {static: false})
-  searchInputRef!: ElementRef<HTMLInputElement>
+  @ViewChild('searchInput', { static: false })
+  searchInputRef!: ElementRef<HTMLInputElement>;
 
   searchSubject = new Subject<string>();
   searchTerm = this.searchSubject.pipe(
-    debounceTime(500),
+    debounceTime(800),
     distinctUntilChanged(),
     map((term: string) => term)
   );
 
-
   searchSignal = toSignal(this.searchTerm);
 
-  constructor(){
+  constructor() {
     effect(() => {
-      if(this.searchSignal()){
-        this.searchInputRef.nativeElement.blur()
+      if (this.searchSignal()) {
+        this.searchInputRef.nativeElement.blur();
       }
-    })
+    });
   }
 
   tabList = signal([
@@ -128,6 +127,13 @@ export class Statistics {
       this.searchSignal()
       ? this.stateTransactions
           .getAllTransaction()
+          .filter(
+            (transaction) =>
+              transaction.type ==
+              (this.activeDurationAndType().type == 'inc'
+                ? 'income'
+                : 'expense')
+          )
           .filter((transaction) =>
             transaction.name
               .toLowerCase()
@@ -179,14 +185,16 @@ export class Statistics {
     this.searchSubject.next(event.target.value);
   }
 
-  get searchInputHasValue():boolean{
-    return this.searchInputRef ? this.searchInputRef.nativeElement.value.length > 0 : false
+  get searchInputHasValue(): boolean {
+    return this.searchInputRef
+      ? this.searchInputRef.nativeElement.value.length > 0
+      : false;
   }
 
-  clearSearchInput(){
-    if(this.searchInputRef){
-      this.searchInputRef.nativeElement.value = ''
-      this.searchSubject.next('')
+  clearSearchInput() {
+    if (this.searchInputRef) {
+      this.searchInputRef.nativeElement.value = '';
+      this.searchSubject.next('');
     }
   }
 
