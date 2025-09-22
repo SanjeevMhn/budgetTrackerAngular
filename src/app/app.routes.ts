@@ -9,6 +9,7 @@ import { authGuard } from './auth-guard';
 import { Login } from './user/login/login';
 import { loginGuard } from './login-guard';
 import { registerGuard } from './register-guard';
+import { ForgotPassword } from './user/forgot-password/forgot-password';
 
 export const routes: Routes = [
   {
@@ -24,5 +25,6 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   { path: 'register', component: Register, canActivate: [registerGuard] },
-  { path: 'login', component: Login, canActivate: [loginGuard] }
+  { path: 'login', component: Login, canActivate: [loginGuard] },
+  { path: 'forgot-password', component: ForgotPassword, canActivate:[loginGuard]}
 ];

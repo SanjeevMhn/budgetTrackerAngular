@@ -7,10 +7,11 @@ import {
 } from '@angular/forms';
 import { Eye, EyeClosed, Lock, LucideAngularModule } from 'lucide-angular';
 import { Auth } from '../../services/auth/auth';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [LucideAngularModule, ReactiveFormsModule],
+  imports: [LucideAngularModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
