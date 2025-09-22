@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+  Eye,
+  EyeClosed,
   LockKeyhole,
   LucideAngularModule,
   Trash,
@@ -14,7 +16,7 @@ import {
 } from 'lucide-angular';
 import { UserStore } from '../../store/user-store';
 //@ts-ignore
-import Compress from 'compress.js'
+import Compress from 'compress.js';
 
 @Component({
   selector: 'app-register',
@@ -95,6 +97,18 @@ export class Register {
     return this.userPasswordForm.get('password');
   }
 
+  passwordState = signal<'password' | 'text'>('password');
+
+  eyeIcon = Eye;
+  eyeClosedIcon = EyeClosed;
+
+  togglePassword(event: any) {
+    event.stopPropagation();
+    this.passwordState.set(
+      this.passwordState() == 'password' ? 'text' : 'password'
+    );
+  }
+
   onPasswordSubmit() {
     if (this.userPasswordForm.invalid) {
       this.userPasswordForm.markAllAsTouched();
@@ -121,14 +135,14 @@ export class Register {
 
   async onImgUpload(event: any) {
     let file = event.target.files[0] as Blob;
-    const compress = new Compress()
+    const compress = new Compress();
 
-    const imgFile = await compress.compress(file,{
+    const imgFile = await compress.compress(file, {
       quality: 0.95,
       crop: true,
       maxWidth: 320,
-      maxHeight: 320
-    })
+      maxHeight: 320,
+    });
     const reader = new FileReader();
     reader.onload = () => {
       let res = reader.result as string;

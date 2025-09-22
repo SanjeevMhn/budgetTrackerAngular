@@ -16,7 +16,12 @@
         class="w-[75%] h-[75%] text-white flex items-center justify-center"
       ></lucide-icon>
     </div>
-    <form (submit)="onUserNameSubmit()" [formGroup]="userNameForm" class="form" autocomplete="off">
+    <form
+      (submit)="onUserNameSubmit()"
+      [formGroup]="userNameForm"
+      class="form"
+      autocomplete="off"
+    >
       <div class="form-group">
         <!-- <label for="name" class="form-label text-white!">Name</label> -->
         <input
@@ -49,7 +54,12 @@
       </div>
     </form>
     } @if(userRegisterState() == 'img'){
-    <form (submit)="onUserImgSubmit()" [formGroup]="userNameForm" class="form" autocomplete="off">
+    <form
+      (submit)="onUserImgSubmit()"
+      [formGroup]="userNameForm"
+      class="form"
+      autocomplete="off"
+    >
       <div class="form-group relative">
         <label
           for="img"
@@ -119,14 +129,28 @@
       <div class="form-group">
         <label for="password" class="form-label text-white!">Password</label>
         <!-- @for(input of [0,1,2,3,4,5]; track input){ -->
-        <input
-          type="password"
-          name=""
-          id=""
-          class="form-control bg-white w-full"
-          placeholder="6 digit passcode"
-          formControlName="password"
-        />
+        <div class="flex items-center">
+          <input
+            [type]="passwordState()"
+            name=""
+            id=""
+            class="form-control bg-white w-full rounded-tr-[0]! rounded-br-[0]!"
+            placeholder="6 digit passcode"
+            formControlName="password"
+            inputmode="numeric"
+          />
+          <button
+            type="button"
+            class="w-[4.1rem] h-[4.1rem] flex-[0_0_4.1rem] flex items-center justify-center cursor-pointer border border-[#a1a1a1] rounded-tr-xl rounded-br-xl bg-[#e9c46a]"
+            (click)="togglePassword($event)"
+          >
+            <lucide-angular
+              [img]="passwordState() == 'password' ? eyeClosedIcon : eyeIcon"
+              class="w-[80%] h-[80%] flex items-center justify-center"
+            ></lucide-angular>
+          </button>
+        </div>
+
         @if(password?.invalid && (password?.touched || password?.dirty)){
         @if(password?.hasError('minlength')){
         <span class="err-text text-[1.4rem]"

@@ -1,35 +1,57 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Lock, LucideAngularModule } from 'lucide-angular';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Eye, EyeClosed, Lock, LucideAngularModule } from 'lucide-angular';
 import { Auth } from '../../services/auth/auth';
 
 @Component({
   selector: 'app-login',
   imports: [LucideAngularModule, ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
 })
 export class Login {
-  lockIcon = Lock
-  authSerice = inject(Auth)
+  lockIcon = Lock;
+  authSerice = inject(Auth);
   userLoginForm = new FormGroup({
-    password: new FormControl('',[Validators.required, Validators.minLength(6), Validators.pattern(/^[0-9]+$/)]) 
-  })
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.pattern(/^[0-9]+$/),
+    ]),
+  });
 
-  loginErrorMessage = signal<string | null>(null)
+  loginErrorMessage = signal<string | null>(null);
 
-  get password(){
-    return this.userLoginForm.get('password')
+  get password() {
+    return this.userLoginForm.get('password');
   }
 
-  onUserLogin(){
-    if(this.userLoginForm.invalid){
-      this.userLoginForm.markAllAsTouched()
-      return 
+  passwordState = signal<'password' | 'text'>('password');
+  eyeIcon = Eye
+  eyeClosedIcon = EyeClosed
+
+  togglePassword(event: any) {
+    event.stopPropagation();
+    this.passwordState.set(
+      this.passwordState() == 'password' ? 'text' : 'password'
+    );
+  }
+
+  onUserLogin() {
+    if (this.userLoginForm.invalid) {
+      this.userLoginForm.markAllAsTouched();
+      return;
     }
-    let message = this.authSerice.authenticateUser(Number(this.password?.value))
-    if(message){
-      this.loginErrorMessage.set(message)
+    let message = this.authSerice.authenticateUser(
+      Number(this.password?.value)
+    );
+    if (message) {
+      this.loginErrorMessage.set(message);
     }
   }
 }
