@@ -92,8 +92,10 @@ export const TransactionStore = signalStore(
       return transactions().filter(
         (tran) =>
           tran.type == 'income' &&
-          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
-          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date).getFullYear() ==
+            new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() ==
+            new Date(currentDate()).getMonth() &&
           new Date(tran.date) >= date
       );
     }),
@@ -104,8 +106,10 @@ export const TransactionStore = signalStore(
       return transactions().filter(
         (tran) =>
           tran.type == 'income' &&
-          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
-          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date).getFullYear() ==
+            new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() ==
+            new Date(currentDate()).getMonth() &&
           new Date(tran.date) >= date
       );
     }),
@@ -116,8 +120,10 @@ export const TransactionStore = signalStore(
       return transactions().filter(
         (tran) =>
           tran.type == 'income' &&
-          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
-          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date).getFullYear() ==
+            new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() ==
+            new Date(currentDate()).getMonth() &&
           new Date(tran.date) >= date
       );
     }),
@@ -129,8 +135,10 @@ export const TransactionStore = signalStore(
       return transactions().filter(
         (tran) =>
           tran.type == 'expense' &&
-          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
-          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date).getFullYear() ==
+            new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() ==
+            new Date(currentDate()).getMonth() &&
           new Date(tran.date) >= date
       );
     }),
@@ -141,8 +149,10 @@ export const TransactionStore = signalStore(
       return transactions().filter(
         (tran) =>
           tran.type == 'expense' &&
-          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
-          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date).getFullYear() ==
+            new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() ==
+            new Date(currentDate()).getMonth() &&
           new Date(tran.date) >= date
       );
     }),
@@ -153,8 +163,10 @@ export const TransactionStore = signalStore(
       return transactions().filter(
         (tran) =>
           tran.type == 'expense' &&
-          new Date(tran.date).getFullYear() == new Date(currentDate()).getFullYear() &&
-          new Date(tran.date).getMonth() == new Date(currentDate()).getMonth() &&
+          new Date(tran.date).getFullYear() ==
+            new Date(currentDate()).getFullYear() &&
+          new Date(tran.date).getMonth() ==
+            new Date(currentDate()).getMonth() &&
           new Date(tran.date) >= date
       );
     }),
@@ -184,10 +196,20 @@ export const TransactionStore = signalStore(
       patchState(store, (state) => ({
         transactions: state.transactions.map((t) => {
           if (t.id == transaction.id) {
-            return {
-              ...t,
-              ...transaction,
-            };
+            if (transaction.hasOwnProperty('budget_id')) {
+              return {
+                ...t,
+                ...transaction,
+              };
+            } else {
+              let updatedTransaction = {
+                ...t,
+                ...transaction,
+              };
+
+              let { budget_id, ...newTransaction } = updatedTransaction;
+              return newTransaction;
+            }
           }
           return t;
         }),
@@ -200,11 +222,11 @@ export const TransactionStore = signalStore(
       }));
     },
 
-    reset(){
+    reset() {
       patchState(store, (state) => ({
         transactions: [],
-      }))
-    }
+      }));
+    },
   })),
   withStorageSync({
     key: 'transactions',

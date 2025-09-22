@@ -46,11 +46,11 @@ export class BudgetDetails{
   getTotalPercentageUsed(
     spent: number | string,
     limit: number | string
-  ): string {
+  ): number {
     if (spent && limit) {
-      return ((Number(spent) / Number(limit)) * 100).toFixed(0);
+      return Number(((Number(spent) / Number(limit)) * 100).toFixed(0));
     }
-    return '0';
+    return 0;
   }
 
   getRemaining(spent: number | string, limit: number | string) {

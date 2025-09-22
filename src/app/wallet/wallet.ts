@@ -75,6 +75,7 @@ export class Wallet {
     ref.afterClosed().subscribe((res) => {
       if (res) {
         this.budgets.deleteBudget(id);
+        this.budgetCheck.budgetDelete(id.toString())
       }
     });
   }

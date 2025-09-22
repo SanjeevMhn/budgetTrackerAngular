@@ -120,6 +120,23 @@ export class BudgetCheck {
     }
   }
 
+  budgetDelete(budget_id: string) {
+    let transactions = this.transactionStore
+      .getAllTransaction()
+      .filter((transaction) => transaction.budget_id === budget_id);
+    if (transactions.length > 0) {
+      transactions = transactions.map((transaction) => {
+        let { budget_id, ...newTransaction } = transaction;
+        return newTransaction;
+      });
+
+      transactions.forEach((transaction) => {
+        this.transactionStore.updateTransaction(transaction);
+      });
+
+    }
+  }
+
   checkIfBudgetExpired(id: number | string): boolean | undefined {
     return this.budgetStore.getBudgets().find((budget) => budget.id == id)
       ?.limitReached;

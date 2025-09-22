@@ -212,7 +212,6 @@ export class Statistics {
         ) {
           lines += (lines.length > 0 ? ' ' : '') + word;
         } else {
-          debugger;
           lines += '\n' + word;
         }
       } else {
